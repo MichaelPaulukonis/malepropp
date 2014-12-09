@@ -1,0 +1,213 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <title>
+      MalePropp Tale Generator
+    </title>
+
+    <link href="propp.css" rel="stylesheet"></link>
+
+  </head>
+
+  <body>
+
+    <form name="myform" onsubmit="return false;" action="" >
+      <center>
+        <div>
+        <table col="3">
+          <tbody><tr>
+	    <td colspan="3">
+
+	      <h2>proppian fairy tale generator</h2>
+	      <p>select your functions:</p>
+            </td>
+
+	    <td rowspan="3" align="right" valign="left">
+              <!-- leaving these in for future replacement -->
+	      <a href="javascript:gui.popup2('instruction')">instructions</a><br />
+	      <a href="https://web.archive.org/web/20061112014356/http://www.brown.edu/Courses/FR0133/Fairytale_Generator/func.html">functions</a><br />
+	      <a href="javascript:gui.popup2(how,win)">how</a><br />
+	      <br />
+	      preset:
+              <p><select name='presets' id='presets'>
+              </select>
+              </p>
+
+              <ul>
+                <li><a href="#" id='selectall' accesskey="a" >Select All</a></li>
+              </ul>
+
+              <br />
+              <ul>
+                <li>Theme:</li>
+                <li><input name='theme' type='radio' value='test' checked='checked'>test</input></li>
+                <li><input name='theme' type='radio' value='office'>office</input></li>
+                <li><input name='theme' type='radio' value='original'>original</input></li>
+                <!-- <input name='theme' type='radio' value=''>random</input> -->
+              </ul>
+
+	      <br />
+	      <ul>
+		<li>links:</li>
+                <li><a href="./function.generator.htm">function generator</a></li>
+		<li><a href="https://web.archive.org/web/20061112014356/http://www.brown.edu/Courses/FR0133/Fairytale_Generator/gen.html">original</a></li>
+		<li><a href="https://github.com/MichaelPaulukonis/NaNoGenMo2014/tree/master/propp.gen">my rework repo</a></li>
+                <li><a href="https://github.com/dariusk/NaNoGenMo-2014/issues/6">disscussion</a></li>
+	      </ul>
+
+            </td>
+
+          </tr>
+          <tr>
+	    <td>
+	      <ul class='sphere' id='introduction'>
+		<li><input name="func0" type="checkbox" /><a href="javascript:gui.popup('func0')">introduction</a></li>
+		<li><input name="func1" type="checkbox" /><a href="javascript:gui.popup('func1')">absention</a></li>
+		<li><input name="func2" type="checkbox" /><a href="javascript:gui.popup('func2')">interdiction</a></li>
+		<li><input name="func3" type="checkbox" /><a href="javascript:gui.popup('func3')">violation</a></li>
+		<li><input name="func4" type="checkbox" /><a href="javascript:gui.popup('func4')">reconnaissance</a></li>
+		<li><input name="func5" type="checkbox" /><a href="javascript:gui.popup('func5')">delivery</a></li>
+		<li><input name="func6" type="checkbox" /><a href="javascript:gui.popup('func6')">trickery</a></li>
+		<li><input name="func7" type="checkbox" /><a href="javascript:gui.popup('func7')">complicity</a></li>
+	      </ul>
+	      <ul class='sphere' id='storybody'>
+		<li><input name="func8" type="checkbox" checked='checked' /><a href="javascript:gui.popup('func8')">villainy</a></li>
+                <li>
+                  <select name='func8subfunc' id='func8subfunc'>
+                    <option value='random'>Random</option>
+                  </select>
+                </li>
+		<li><input name="func8a" type="checkbox" /><a href="javascript:gui.popup('func8a')">lack</a></li>
+		<li><input name="func9" type="checkbox" /><a href="javascript:gui.popup('func9')">mediation</a></li>
+		<li><input name="func10" type="checkbox" /><a href="javascript:gui.popup('func10')">beginning counteraction</a></li>
+		<li><input name="func11" type="checkbox" /><a href="javascript:gui.popup('func11')">departure</a></li>
+	      </ul>
+	      <ul class='sphere' id='donorsequence'>
+		<li><input name="func12" type="checkbox" /><a href="javascript:gui.popup('func12')">first function of the donor</a></li>
+		<li><input name="func13" type="checkbox" /><a href="javascript:gui.popup('func13')">hero's reaction</a></li>
+		<li><input name="func14" type="checkbox" /><a href="javascript:gui.popup('func14')">receipt of a magical agent</a></li>
+		<li><input name="func15" type="checkbox" /><a href="javascript:gui.popup('func15')">guidance</a></li>
+	      </ul>
+	    </td>
+	    <td>
+	      <ul class='sphere' id='donorsequence'>
+		<li><input name="func16" type="checkbox" /><a href="javascript:gui.popup('func16')">struggle</a></li>
+		<li><input name="func17" type="checkbox" /><a href="javascript:gui.popup('func17')">branding</a></li>
+		<li><input name="func18" type="checkbox" /><a href="javascript:gui.popup('func18')">victory</a></li>
+		<li><input name="func19" type="checkbox" /><a href="javascript:gui.popup('func19')">liquidation</a></li>
+	      </ul>
+	      <ul class='sphere' id='herosreturn'>
+		<li><input name="func20" type="checkbox" /><a href="javascript:gui.popup('func20')">return</a></li>
+		<li><input name="func21" type="checkbox" /><a href="javascript:gui.popup('func21')">pursuit</a></li>
+		<li><input name="func22" type="checkbox" /><a href="javascript:gui.popup('func22')">rescue</a></li>
+		<li><input name="func23" type="checkbox" /><a href="javascript:gui.popup('func23')">unrecognized arrival</a></li>
+		<li><input name="func24" type="checkbox" /><a href="javascript:gui.popup('func24')">unfounded claims</a></li>
+		<li><input name="func25" type="checkbox" /><a href="javascript:gui.popup('func25')">difficult task</a></li>
+		<li><input name="func26" type="checkbox" /><a href="javascript:gui.popup('func26')">solution</a></li>
+		<li><input name="func27" type="checkbox" /><a href="javascript:gui.popup('func27')">recognition</a></li>
+		<li><input name="func28" type="checkbox" /><a href="javascript:gui.popup('func28')">exposure</a></li>
+		<li><input name="func29" type="checkbox" /><a href="javascript:gui.popup('func29')">transfiguration</a></li>
+		<li><input name="func30" type="checkbox" /><a href="javascript:gui.popup('func30')">punishment</a></li>
+		<li><input name="func31" type="checkbox" /><a href="javascript:gui.popup('func31')">wedding</a></li>
+	      </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <ul id='settings'>
+                <li>
+                  Hero:
+		  <input name='herogender' id='herogenderfemale' type='radio' value='female' checked='checked' />
+                  <label for='herogenderfemale'>female</label>
+                  <input name='herogender' id='herogendermale' type='radio' value='male' />
+                  <label for='herogendermale'>male</label>
+                  <input name='herogender' id='herogenderneuter' type='radio' value='neuter' />
+                  <label for='herogenderneuter'>neuter</label>
+                  <input name='herogender' id='herogenderrandom' type='radio' value='' />
+                  <label for='herogenderrandom'>random</label>
+		</li>
+                <li>
+                  Villain:
+		  <input name='villaingender' id='villaingenderfemale' type='radio' value='female' checked='checked' />
+                  <label for='villaingenderfemale'>female</label>
+                  <input name='villaingender' id='villaingendermale' type='radio' value='male' />
+                  <label for='villaingendermale'>male</label>
+                  <input name='villaingender' id='villaingenderneuter' type='radio' value='neuter' />
+                  <label for='villaingenderneuter'>neuter</label>
+                  <input name='villaingender' id='villaingenderrandom' type='radio' value='' />
+                  <label for='villaingenderrandom'>random</label>
+		</li>
+                <li>
+                  Others:
+		  <input name='peoplegender' id='peoplegenderfemale' type='radio' value='female' checked='checked' />
+                  <label for='peoplegenderfemale'>female</label>
+                  <input name='peoplegender' id='peoplegendermale' type='radio' value='male' />
+                  <label for='peoplegendermale'>male</label>
+                  <input name='peoplegender' id='peoplegenderneuter' type='radio' value='neuter' />
+                  <label for='peoplegenderneuter'>neuter</label>
+                  <input name='peoplegender' id='peoplegenderrandom' type='radio' value='' />
+                  <label for='peoplegenderrandom'>random</label>
+		</li>
+              </ul>
+              <p>
+                Verb tense:
+                <input name='tense' id='tensepast' type='radio' value='past' checked='checked' />
+                <label for='tensepast'>past</label>
+                <input name='tense' id='tensepresent' type='radio' value='present' />
+                <label for='tensepresent'>present</label>
+              </p>
+              <p>
+                <input name="bossfight" id='bossfight' type="checkbox" />
+                <label for='bossfight'>Boss Fight</label>
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+	    <td colspan="2">
+	      <br />
+	      <input value="generate" onclick="javascript:guiGet();" type="submit" accesskey="g" />
+	      <input value="clear" type="reset" />
+	      <br />
+	      <br />
+	      <textarea id="output" cols="35" rows="20" name="fairytale"> </textarea>
+            </td>
+	    <td>
+	    </td>
+	  </tr>
+        </tbody>
+      </table>
+    </div>
+    </center>
+  </form>
+
+
+  <!-- well, that was installed in the wrong location -->
+  <script type="text/javascript" src="./node_modules/underscore/underscore.js"></script>
+  <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- TODO: this should be local -->
+  <script type="text/javascript" src="https://rawgit.com/spencermountain/nlp_compromise/master/client_side/nlp.min.js"> </script>
+  <script type="text/javascript" src="sugar.min.js"></script>
+  <script type="text/javascript" src="tokenizer.web.js"></script>
+
+  <script type="text/javascript" src="default.templates.js"></script>
+  <script type="text/javascript" src="templates.js"></script>
+  <script type="text/javascript" src="words.js"></script>
+  <script type="text/javascript" src="wordbank.test.js"></script>
+
+  <script type="text/javascript" src="templates.business.js"></script>
+  <script type="text/javascript" src="business.wordbank.js"></script>
+
+  <script type="text/javascript" src="gui.js"></script>
+  <script type="text/javascript" src="propp.js"></script>
+
+  <script type="text/javascript">
+    // remove when running in browser
+    // one of the npm modules won't work in the browser if it remains
+    // TODO: document which one!
+    delete(window.module);
+  </script>
+
+</body>
+</html>

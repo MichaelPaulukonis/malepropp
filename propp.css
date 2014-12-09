@@ -1,0 +1,43 @@
+a {
+    text-decoration: none
+    link: #0077DD;
+};
+
+body {
+    background-attachment: fixed
+    margin-top:0 !important;
+    padding-top:0 !important;
+    min-width:800px !important;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul.sphere {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#introduction {
+    background-color: lightblue;
+}
+
+#storybody {
+    background-color: azure;
+}
+
+#donorsequence {
+    background-color: cadetblue;
+}
+
+#herosreturn {
+    background-color: chartreuse;
+}
+
+#output {
+    /* float: right; */
+    width: 100%;
+}
