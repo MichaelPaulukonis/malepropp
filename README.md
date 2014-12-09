@@ -1,4 +1,5 @@
-[Discussion of this work](https://github.com/dariusk/NaNoGenMo-2014/issues/6).
+Try it out at http://michaelpaulukonis.github.io/malepropp/
+
 
 ## What's going on in here?
 I'm playing with some _Proppian_ story/skeleton generators. My end goal is to have a generator than I can call `n` times, until 50,000 words have been created. Each output should be distinctly different enough to have a passing resemblance to interesting. One of the steps there will be a templating system (underscore, probably), and word-replacement in the templates (WordNik, probably).
@@ -217,7 +218,16 @@ I have some notes at [WordSalad.Generators](http://www.xradiograph.com/WordSalad
 * [Story Generators: Models and Approaches for the Generation of Literary Artefacts](http://web.fdi.ucm.es/profesor/fpeinado/publications/2005-loenneker-story.pdf)
 
 
+## NaNoGenMo2014 discussion
+
+[Discussion of this work](https://github.com/dariusk/NaNoGenMo-2014/issues/6).
+
+
+
 ## Functions
+
+TODO: link to something about this, instead
+
 After the initial situation is depicted, the tale takes the following sequence of 31 functions:
 
 - ABSENTATION: A member of a family leaves the security of the home environment. This may be the hero or some other member of the family that the hero will later need to rescue. This division of the cohesive family injects initial tension into the storyline. The hero may also be introduced here, often being shown as an ordinary person.
