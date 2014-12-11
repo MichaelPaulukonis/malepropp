@@ -439,6 +439,21 @@ var nTemplates = function(story, world, storyGen) {
         // shall be a sin to admit thee; into a church if thou dost run, the
         // church must be consecrated anew.
 
+        // NOTE: also contains deception, and ending-thing
+        // When they had eaten and drank, and were very merry, the old king said
+        // he would tell them a tale. So he began, and told all the story of the
+        // princess, as if it was one that he had once heard; and he asked the
+        // true waiting-maid what she thought ought to be done to anyone who
+        // would behave thus. "Nothing better," said this false bride, "than that
+        // she should be thrown into a cask stuck round with sharp nails, and
+        // that two white horses should be put to it, and should drag it from
+        // street to street till she was dead." "Thou art she!" said the old
+        // king; "and as thou has judged thyself, so shall it be done to thee."
+        // And the young king was then married to his true wife, and they reigned
+        // over the kingdom in peace and happiness all their lives; and the good
+        // fairy came to see them, and restored the faithful Falada to life
+        // again.
+
         // TODO: some of these ending should not have a dispersal. or not a violent one.
         // how to BEST separate....
         var end = [
@@ -982,23 +997,55 @@ var nTemplates = function(story, world, storyGen) {
 
         case 'casting into body of water':
 
-            // There was once an old woman who had a daughter; and her daughter went
-            // down to the pond one day to bathe with the other girls. They all
-            // stripped off their shifts, and went into the water. Then there came a
-            // snake out of the water, and glided on to the daughte's shift. After a
-            // time the girls all came out, and began to put on their shifts, and the
-            // old woman's daughter wanted to put on hers, but there was the snake
-            // lying on it. She tried to drive him away, but there he stuck and would
-            // not move. Then the snake said:
+
+            // her bonnet and clogs, and went out to take a walk by herself in a
+            // wood; and when she came to a cool spring of water, that rose in the
+            // midst of it, she sat herself down to rest a while. Now she had a
+            // golden ball in her hand, which was her favourite plaything; and she
+            // was always tossing it up into the air, and catching it again as it
+            // fell. After a time she threw it up so high that she missed catching it
+            // as it fell; and the ball bounded away, and rolled along upon the
+            // ground, till at last it fell down into the spring. The princess looked
+            // into the spring after her ball, but it was very deep, so deep that she
+            // could not see the bottom of it. Then she began to bewail her loss, and
+            // said, "Alas! if I could only get my ball again, I would give all my
+            // fine clothes and jewels, and everything that I have in the world."
+            //
+            // Whilst she was speaking, a frog put its head out of the water, and
+            // said, "Princess, why do you weep so bitterly?" "Alas!" said she, "what
+            // can you do for me, you nasty frog? My golden ball has fallen into the
+            // spring." The frog said, "I want not your pearls, and jewels, and fine
+            // clothes; but if you will love me, and let me live with you and eat
+            // from off your golden plate, and sleep upon your bed, I will bring you
+            // your ball again." "What nonsense," thought the princess, "this silly
+            // frog is talking! He can never even get out of the spring to visit me,
+            // though he may be able to get my ball for me, and therefore I will tell
+            // him he shall have what he asks." So she said to the frog, "Well, if
+            // you will bring me my ball, I will do all you ask." Then the frog put
+            // his head down, and dived deep under the water; and after a little
+            // while he came up again, with the ball in his mouth, and threw it on
+            // the edge of the spring. As soon as the young princess saw her ball,
+            // she ran to pick it up; and she was so overjoyed to have it in her hand
+            // again, that she never thought of the frog, but ran home with it as
+            // fast as she could. The frog called after her, "Stay, princess, and
+            // take me with you as you said," But she did not stop to hear a word.
 
             // "To the blue sea," answered the raven. (there's more there, there)
             // if hero has not been introduced, time to do it!
 
-            // alt: villain puts hero in boiling water/hero puts villain in boiling water
-            // END OF STORY/SEQUENCE
-            // He collects the children, but as they are "all ever so dirty" [Pg 24] he puts them into boiling water by way of cleansing them, and so washes them to death.[16]
+            // alt: villain puts hero in boiling water/hero puts
+            // villain in boiling water END OF STORY/SEQUENCE He
+            // collects the children, but as they are "all ever so
+            // dirty" he puts them into boiling water by way
+            // of cleansing them, and so washes them to death.[16]
 
-            // She spoke, and splashed the holy water over him; in a [Pg 31] moment he turned into mere dust and ashes, which blew to the winds. Afterwards she sprinkled her husband and her boy with the water of life: straightway they revived. And from that time forward they knew neither sorrow nor separation, but they all lived together long and happily.
+            // She spoke, and splashed the holy water over him; in a
+            // moment he turned into mere dust and ashes,
+            // which blew to the winds. Afterwards she sprinkled her
+            // husband and her boy with the water of life: straightway
+            // they revived. And from that time forward they knew
+            // neither sorrow nor separation, but they all lived
+            // together long and happily.
 
             // In another story a king is out hunting and becomes thirsty. Seeing
             // a spring near at hand, he bends down and is just going to lap up
@@ -1026,6 +1073,15 @@ var nTemplates = function(story, world, storyGen) {
             // my tail and hold fast." Then he pulled him out of the river, and said
             // to him, as he got upon the bank, "Your
 
+            // One day, as they were riding along by a brook, the princess began to
+            // feel very thirsty: and she said to her maid, "Pray get down, and fetch
+            // me some water in my golden cup out of yonder brook, for I want to
+            // drink." "Nay," said the maid, "if you are thirsty, get off yourself,
+            // and stoop down by the water and drink; I shall not be your
+            // waiting-maid any longer." Then she was so thirsty that she got down,
+            // and knelt over the little brook, and drank; for she was frightened,
+            // and dared not bring out her golden cup; and she wept and said, "Alas!
+            // what will become of me?"
 
             var water = god.select("a small stream", "a local lake", "the murky pond", "the well");
             god.hero.location = water;
@@ -1972,6 +2028,20 @@ var nTemplates = function(story, world, storyGen) {
         // never seen again. But the seigneur and his lady entered upon a
         // prosperous course of life, and if they haven't {{died}}, they're living
         // still.
+
+        // and now I have nothing to wish for but that you should go with me into
+        // my father's kingdom, where I will marry you, and love you as long as
+        // you live." The young princess, you may be sure, was not long in saying
+        // "Yes" to all this; and as they spoke a gay coach drove up, with eight
+        // beautiful horses, decked with plumes of feathers and a golden harness;
+        // and behind the coach rode the prince's servant, faithful Heinrich, who
+        // had bewailed the misfortunes of his dear master during his enchantment
+        // so long and so bitterly, that his heart had well-nigh burst. They then
+        // took leave of the king, and got into the coach with eight horses, and
+        // all set out, full of joy and merriment, for the prince's kingdom,
+        // which they reached safely; and there they lived happily a great many
+// years.
+
 
         t.push('After that <%= pronoun(hero) %> lived long and happily, survived to a great age, and then died peacefully.');
 
