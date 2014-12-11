@@ -755,9 +755,12 @@ var storyGen = function(settings) {
             } else if (func.exec) {
                 // special exec method
                 f = func.exec(helper, params);
-            } else {
+            } else if(func.templates) {
                 // old-style array-of-templates-with-no-other-logic
+
                 f = func.templates[random(func.templates.length)];
+            } else {
+                return '';
             }
 
             var prior = f;
@@ -888,8 +891,6 @@ var storyGen = function(settings) {
 
             var tale = [];
 
-            // the world is the things that have been created. no?
-            // possibly not. since creation is called alla time again...
             this.universe = god(this.settings, theme.bank, theme);
             global = this.universe;
 
@@ -903,8 +904,6 @@ var storyGen = function(settings) {
                 // console.log(settings.funcs[i]);
                 var s2 = this.sentence(story[f], this.universe, subFunc);
                 if (s2) { tale.push(s2); }
-
-                if (s2.indexOf('NaN') >=0 ) {console.log(f); }
 
                 if (this.universe.hero.health === world.healthLevel.dead) { break; }
                 if (settings.bossfight && this.universe.villain.health == 'dead' && restartVillainy >= 0) {
