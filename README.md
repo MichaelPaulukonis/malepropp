@@ -2,11 +2,7 @@ Try it out at http://michaelpaulukonis.github.io/malepropp/
 
 
 ## What's going on in here?
-I'm playing with some _Proppian_ story/skeleton generators. My end goal is to have a generator than I can call `n` times, until 50,000 words have been created. Each output should be distinctly different enough to have a passing resemblance to interesting. One of the steps there will be a templating system (underscore, probably), and word-replacement in the templates (WordNik, probably).
-
-Last year, I spent a bunch of time refactoring/building a template system -- and while it was a good exercise, I never used it for anything much, and it isn't nearly as flexible as `underscore`.
-
-As of today, 2014.10.22, I don't fully understand Propp's theories; while I doubt I will completely by the end of November, I hope to improve my knowledge, and get a better understanding of what I want to do by gradually reworking some other code that's pointing me in some directions.
+I'm playing with some _Proppian_ story/skeleton generators. My end goal is to have a generator than I can call `n` times, until 50,000 words have been created. Each output should be distinctly different enough to have a passing resemblance to interesting. One of the steps there will be a templating system (underscore, probably), and word-replacement in the templates (maybe).
 
 I suspect that, after technical issues, the hardest work will be in creating the templates.
 
@@ -14,7 +10,9 @@ That may seem wrong-headed, but I am am not fully engaging the entire narrative-
 
 I am interested in short-cuts, in making it _seem_ better than it is.
 
-However, I am not interested in futher "gimmicks." The major gimmick, here, is the templating system masquerading as something intelligent to make a story.  TODO: add links to/extracts from discussions on NaNoGenMo gimmicks and usefulness. For example, I could generate the novel solely though BOSSMODE (kill the villain; repeat), or through NESTED-TALES (character tells a story that has a character that tells a story that....), or NESTED-BOSSMODE (both of them). But there are plenty (several) extnat strategies that rely on nesting/recursion. I want to try something different. Assuming I have the time.
+However, I am not interested in futher "gimmicks." The major gimmick, here, is the templating system masquerading as something intelligent to make a story.
+
+However, not just templates with no interlinking, as in previous versions. Chekov's Gun and all that.
 
 Klein notes that "[t]he most complex problems in automatic Propp and Levi-Strauss concern logical qunatifications of functions. That is, the coherent selection of compatible characters, objects and functions" (Klein 1974, p23).
 
@@ -32,12 +30,16 @@ These are NOT in order; but are lightly clustered....
 
 - [x] get node.js headless mode working ("novel builder")
 - [x] title-maker templates
-  - [ ] store list of villains encountered to possibly aid with title
+  - [x] store list of villains encountered to possibly aid with title
+  - [ ] each villain in title has a unique defeat word (instead of one word followed by ```list(villains)```)
 - [x] novel-builder loop-through with word-count check
 - [x] novel-builder writes to a file
-- [ ] rules + randomizer - for embedded tales, headless running, &c
+- [x] presets - for embedded tales, headless running, &c; also available in UI
+ - [ ] preset randomizer
+ - [ ] UI should clear checkboxes when preset is selected
+- [ ] rules to validate selections based on Propp (or other needs)
 - [ ] journeys [partial]
-- [ ] battle [partial]
+- [ ] battle [partial - more templates added]
 - [x] pass in word.js dependency to wordbank.test.js
 - [ ] more descriptors for characters - old|young|child, man|woman|person (villains and advisor/helpers can also be "things" like bear, dragon, cloud of flies) [villains as things partially implemented]
 - [ ] fix locations - including visited locations
@@ -53,7 +55,7 @@ These are NOT in order; but are lightly clustered....
 - [ ] extra possibility: if hero dies, another family-member becomes the hero
 - [ ] novel-builder framing device? (Count N visiting a mansion and reading volumes in the library)
 - [ ] generate() stores all templates so that we could re-process them, like to switch tense, or something
-- [ ] web page "publicly" accessible
+- [x] web page "publicly" accessible - see http://michaelpaulukonis.github.io/malepropp/
  - [ ] web page has informational links active (and refs previous progenitors)
 
 
