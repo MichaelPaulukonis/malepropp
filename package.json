@@ -9,9 +9,11 @@
     "nlp_compromise": "~0.2.2",
     "sentence-tokenizer": "0.0.7"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "vows": "~0.7.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/test-malepropp.js"
   },
   "repository": {
     "type": "git",

@@ -460,6 +460,7 @@ var nTemplates = function(story, world, storyGen) {
             '{{AS}}{{PN}} {{was}} <%= punished() %> by {{HN}}.',
             '{{AS}}{{HN}} <%= punished() %> {{PN}}.',
             // okay. so there's been no mention of a horse. SO IT GOES.
+            // ALSO: DEAD
             '{{HN}}\'s horse smote {{PN}} full swing with its hoof, and cracked {{POSS}} '
                 + 'skull, and {{HN}} made an end of {{PROO}} with a club.',
             'Such behavior could not be tolerated: {{HN}} fell upon {{PN}}, bound {{PROO}} with ropes.',
@@ -638,6 +639,42 @@ var nTemplates = function(story, world, storyGen) {
     // this is now just a proof-of-concept of executing larger functions to deal with templates
     story['func2'].exec = function(god) {
 
+
+// They spent some time together, and then the Princess took it into her
+// head to go a warring. So she handed over all the housekeeping affairs
+// to Prince Ivan, and gave him these instructions:
+
+// "Go about everywhere, keep watch over everything, only do not venture
+// to look into that closet there."
+
+// He couldn\'t help doing so. The moment Marya Morevna had gone he rushed
+// to the closet, pulled open the door, and looked in -there hung Koshchei
+// the Deathless, fettered by twelve chains. Then Koshchei entreated
+// Prince Ivan, saying, -
+
+// "Have pity upon me and give me to drink! Ten years long have I been
+// here in torment, neither eating or drinking; my throat is utterly
+// dried up."
+
+// The Prince gave him a bucketful of water; he drank it up and asked for
+// more, saying:
+
+// "A single bucket of water will not quench my thirst; give me more!"
+
+// The Prince gave him a second bucketful. Koshchei drank it up and asked
+// for a third, and when he had swallowed the [Pg 100] third bucketful,
+// he regained his former strength, gave his chains a shake, and broke
+// all twelve at once.
+
+// "Thanks, Prince Ivan!" cried Koshchei the deathless, "now you will
+// sooner see your own ears than Marya Morevna!" and out of the window he
+// flew in the shape of a terrible whirlwind. And he came up with the
+// fair Princess Marya Morevna as she was going her way, laid hold of
+// her, and carried her off home with him. But Prince Ivan wept full
+// sore, and he arrayed himself and set out a wandering, saying to
+// himself: "Whatever happens, I will go and look for Marya Morevna!"
+
+
         var loc;
         var person;
         var action;
@@ -671,7 +708,19 @@ var nTemplates = function(story, world, storyGen) {
 
         text.push(god.converse(advisor, hero), blankLine);
 
+        // TODO: move this into a function, so we can call elsewhere
+        // like in func3
+        // func2 always implies func2
+        // but func3 does not imply func2
+
+        //  function 2: an interdiction is addressed to protagonist(s) = interdiction - (gamma)
+        // 1 - interdiction issued
+        // 2 - inverted form of interdiction issued as order or suggestion
+
         hero.interdiction = interdiction;
+
+        // action and speak are identical sentences
+        // movement is _slightly_ different
 
         switch (ptype) {
         case world.interdictionType.movement:
@@ -774,11 +823,18 @@ var nTemplates = function(story, world, storyGen) {
     // Reconnaissance: Villain seeks something
     story['func4'].exec = function(god) {
 
+        //  function 4: antagonist(s) makes attempt at reconnaissance = reconnaissance - (epsilon)
+        // 1 - reconnaissance by antagonist(s) to obtain information about victim(s) / protagonist(s)
+        // 2 - inverted form of reconnaissance by victim(s) / protagonist(s) to obtain information about antagonist(s)
+        // 3 - reconnaissance by other person(s)
+
         var t = [];
 
         if (!god.villain.introduced) { t.push(story.introduceVillain(god)); }
 
         // WHOAH!!!! where'd the reonnaissance go ?!?!?!?
+        // oooooh, that's not inside of the 'villain introduction'
+        // hrm.
 
         return t.join('\n');
 
