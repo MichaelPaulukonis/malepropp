@@ -9,14 +9,124 @@ var storygen = require('../propp.js');
 var world = storygen().world; // hey, we're assuming this works w/o testing!
 
 
-vows.describe('Test the story generator').addBatch({
+vows.describe('Test the presets').addBatch({
 
     'presets exist': {
         topic: function() { return storygen.presets; },
         'presets exist': function(topic) {
             assert.isNotNull(topic);
         }
+    }
+
+}).run();
+
+vows.describe('Test world utilities').addBatch({
+
+   // TODO:
+
+}).run();
+
+// TODO: this relies on storygen.resetProppFunction
+// WHICH IS NOT TESTED PRIOR TO THIS FUNCTION OUCH
+var commonSettings = function() {
+
+        var setts = {
+            herogender: 'female',
+            villaingender: 'female',
+            peoplegender: 'female',
+            functions: storygen.resetProppFunctions(),
+            bossmode: false,
+            verbtense: 'past',
+            conclusion: false
+        };
+
+        var theme = {
+            bank: wordbank,
+            templates: templates
+        };
+
+    return { settings: setts, theme: theme };
+
+};
+
+vows.describe('storyGen functions standalone').addBatch({
+
+    // this is "one" test that actually runs 32 different tests
+    // more, really, I guess....
+    'all funcs': {
+        topic: function() {
+            var cs = commonSettings();
+            cs.settings.funcs = []; // BLANK
+            return cs;
+        },
+        'each function works solo (mostly)': function(topic) {
+
+            // NOTE: func3 requires func2
+            // but it currently does a console.log and returns a single-space
+            // so, it's not actually erroring yet....
+            var funcList = [
+                'func0', 'func1', 'func2', 'func3', 'func4',
+                'func5', 'func6', 'func7', 'func8', 'func8a',
+                'func9', 'func10', 'func11', 'func12', 'func13',
+                'func14', 'func15', 'func16', 'func17',
+                'func18', 'func19', 'func20', 'func21',
+                'func22', 'func23', 'func24', 'func25',
+                'func26', 'func27', 'func28', 'func29',
+                'func30', 'func31'
+            ];
+
+            // TODO: intro and outro is included by default
+            // there should be a way to turn it off
+            for (var i = 0; i < funcList.length; i++) {
+                var func = funcList[i];
+                topic.settings.funcs = [func];
+                var sg = new storygen(topic.settings);
+                var story = sg.generate(topic.settings, topic.theme);
+                assert.isNotNull(story.tale);
+                console.log(func + ' : ' + story.tale);
+            }
+
         }
+
+    }
+
+
+    // 'func0': {
+    //     topic: function() {
+    //         var cs = commonSettings();
+    //         cs.settings.funcs = ['func0'];
+    //         return cs;
+    //     },
+    //     'func0 story is generated': function(topic) {
+    //         var sg = new storygen(topic.settings);
+    //         var tale = sg.generate(topic.settings, topic.theme);
+    //         assert.isNotNull(tale);
+    //     }
+    // }
+    // 'func1': {
+    //     topic: function() {
+    //         var cs = commonSettings();
+    //         cs.settings.funcs = ['func1'];
+    //         return cs;
+    //     },
+    //     'func1 story is generated': function(topic) {
+    //         var sg = new storygen(topic.settings);
+    //         var tale = sg.generate(topic.settings, topic.theme);
+    //         assert.isNotNull(tale);
+    //     }
+    // },
+    // 'func2': {
+    //     topic: function() {
+    //         var cs = commonSettings();
+    //         cs.settings.funcs = ['func2'];
+    //         return cs;
+    //     },
+    //     'func2 story is generated': function(topic) {
+    //         var sg = new storygen(topic.settings);
+    //         var tale = sg.generate(topic.settings, topic.theme);
+    //         assert.isNotNull(tale);
+    //     }
+    // }
 
 }).run();
 

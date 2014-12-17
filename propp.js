@@ -918,7 +918,11 @@ var storyGen = function(settings) {
                     }
                 }
             }
-            tale.push(this.sentence(story.outro, this.universe));
+
+            // TODO: unless prohibited, include outro by default
+            if (settings.conclusion) {
+                tale.push(this.sentence(story.outro, this.universe));
+            }
 
             // TODO: get a new iterator
             // it will be an array that is BUILT
@@ -996,39 +1000,39 @@ storyGen.resetProppFunctions = function(onoff) {
 
     var propp = {
 
-        "func0": { active: onoff, templates: [] },
-        "func1": { active: onoff, templates: [] },
-        "func2": { active: onoff, templates: [] },
-        "func3": { active: onoff, templates: [] },
-        "func4": { active: onoff, templates: [] },
-        "func5": { active: onoff, templates: [] },
-        "func6": { active: onoff, templates: [] },
-        "func7": { active: onoff, templates: [] },
-        "func8": { active: onoff, templates: [] },
-        "func8a": { active: onoff, templates: [] },
-        "func9": { active: onoff, templates: [] },
-        "func10": { active: onoff, templates: [] },
-        "func11": { active: onoff, templates: [] },
-        "func12": { active: onoff, templates: [] },
-        "func13": { active: onoff, templates: [] },
-        "func14": { active: onoff, templates: [] },
-        "func15": { active: onoff, templates: [] },
-        "func16": { active: onoff, templates: [] },
-        "func17": { active: onoff, templates: [] },
-        "func18": { active: onoff, templates: [] },
-        "func19": { active: onoff, templates: [] },
-        "func20": { active: onoff, templates: [] },
-        "func21": { active: onoff, templates: [] },
-        "func22": { active: onoff, templates: [] },
-        "func23": { active: onoff, templates: [] },
-        "func24": { active: onoff, templates: [] },
-        "func25": { active: onoff, templates: [] },
-        "func26": { active: onoff, templates: [] },
-        "func27": { active: onoff, templates: [] },
-        "func28": { active: onoff, templates: [] },
-        "func29": { active: onoff, templates: [] },
-        "func30": { active: onoff, templates: [] },
-        "func31": { active: onoff, templates: [] }
+        'func0': { active: onoff, templates: [] },
+        'func1': { active: onoff, templates: [] },
+        'func2': { active: onoff, templates: [] },
+        'func3': { active: onoff, templates: [] },
+        'func4': { active: onoff, templates: [] },
+        'func5': { active: onoff, templates: [] },
+        'func6': { active: onoff, templates: [] },
+        'func7': { active: onoff, templates: [] },
+        'func8': { active: onoff, templates: [] },
+        'func8a': { active: onoff, templates: [] },
+        'func9': { active: onoff, templates: [] },
+        'func10': { active: onoff, templates: [] },
+        'func11': { active: onoff, templates: [] },
+        'func12': { active: onoff, templates: [] },
+        'func13': { active: onoff, templates: [] },
+        'func14': { active: onoff, templates: [] },
+        'func15': { active: onoff, templates: [] },
+        'func16': { active: onoff, templates: [] },
+        'func17': { active: onoff, templates: [] },
+        'func18': { active: onoff, templates: [] },
+        'func19': { active: onoff, templates: [] },
+        'func20': { active: onoff, templates: [] },
+        'func21': { active: onoff, templates: [] },
+        'func22': { active: onoff, templates: [] },
+        'func23': { active: onoff, templates: [] },
+        'func24': { active: onoff, templates: [] },
+        'func25': { active: onoff, templates: [] },
+        'func26': { active: onoff, templates: [] },
+        'func27': { active: onoff, templates: [] },
+        'func28': { active: onoff, templates: [] },
+        'func29': { active: onoff, templates: [] },
+        'func30': { active: onoff, templates: [] },
+        'func31': { active: onoff, templates: [] }
     };
 
     return propp;

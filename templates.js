@@ -833,7 +833,7 @@ var nTemplates = function(story, world, storyGen) {
         if (!god.villain.introduced) { t.push(story.introduceVillain(god)); }
 
         // WHOAH!!!! where'd the reonnaissance go ?!?!?!?
-        // oooooh, that's not inside of the 'villain introduction'
+        // oooooh, that's inside of the 'villain introduction'
         // hrm.
 
         return t.join('\n');

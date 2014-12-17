@@ -170,6 +170,8 @@ var guiGet = function() {
 
     var settings = getFunctionsFromGui();
 
+    settings.conclusion = true;
+
     var selectedTheme = $('input[name=theme][type=radio]:checked').val();
     settings.verbtense = $('input[name=tense][type=radio]:checked').val();
 
