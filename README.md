@@ -45,19 +45,20 @@ These are NOT in order; but are lightly clustered....
 - [ ] fix locations - including visited locations
 - [ ] villain can be a creature (bear, dragon, whatever, dark cloud, whatever) [partially implemented as description/title. nothing else impacted]
 - [ ] family - so hero can be child/sibling, parent, grand-parent, etc.
+- [ ] extra possibility: if hero dies, another family-member becomes the hero (prerequisite: family)
 - [ ] false hero
 - [ ] hero/villain can have aspect changed on startup (eg, good/bad swap)
 - [x] move/duplicate? (that is, refactor) punishments to apply as well in victory sequence
 - [ ] magicalitem template enhancement (currently static placeholder)
 - [ ] conversation enhancements
 - [ ] terse mode (simple intro, etc. for embedded tales, or otherwise) [partial implementation for hero intro]
-- [ ] theme selector, so that sub-tales can pick a different set of templates and wordbanks
-- [ ] extra possibility: if hero dies, another family-member becomes the hero
+- [ ] theme selector, so that sub-tales can pick a different set of templates and wordbanks (may be possible)
+- [ ] alternate theme available (as of 2014.12 the "business" world no longer works)
 - [ ] novel-builder framing device? (Count N visiting a mansion and reading volumes in the library)
 - [ ] generate() stores all templates so that we could re-process them, like to switch tense, or something
 - [x] web page "publicly" accessible - see http://michaelpaulukonis.github.io/malepropp/
  - [ ] web page has informational links active (and refs previous progenitors)
-
+- [ ] unit tests - not that YOU may care about these, but it sure helps with testing (IN PROGRESS)
 
 ## Directions, and potential side-resources
 * [NaNoGenMo 2014 resource "issue"](https://github.com/dariusk/NaNoGenMo-2014/issues/1)
@@ -66,6 +67,24 @@ These are NOT in order; but are lightly clustered....
 * WordNik
 * [corpora](https://github.com/dariusk/corpora/) (for locations, items, things like that)
 
+
+* [Thompson's Motif-index of fold-literature](http://www.ualberta.ca/~urban/Projects/English/Motif_Index.htm)
+
+* [alyphen's generator](https://github.com/dariusk/NaNoGenMo-2014/issues/73) has some interesting lists (all from Corpora, I believe). The sentences are purely random (based on a hard-coded gammar?) but read well. There's no connectivity, but the method of construction has some pointers.
+    * particularly look at [nanogenmo.py](https://github.com/alyphen/nanogenmo/blob/master/nanogenmo/nanogenmo.p)
+
+* [non-linear narrative](http://en.wikipedia.org/wiki/Nonlinear_narrative)
+
+* [nlp_compromise](https://github.com/spencermountain/nlp_compromise)
+
+* [Node Sentence Tokenizer](https://github.com/parmentf/node-sentence-tokenizer) for reprocessing text with nlp_compromise. yaaay!
+
+* [random weighted choice](https://github.com/parmentf/random-weighted-choice) for when I want some templates more often than others, but not ALL the time....
+
+* [conversational remembrance and foreshadowing](https://github.com/catseye/NaNoGenLab/tree/master/selfref-timeline) from Chris Pressey.
+
+
+### online fary tales
 * [list of online fairy tales](https://github.com/bscofield/fairy-tale-remix/blob/master/data/fairy-tales.json) - from a remixer that never got remixed.
 * [Bros Grimm](https://github.com/baldmountain/GrimmsFairyTales/blob/master/Grimms%20Fairy%20Tales%20-%20The%20Brothers%20Grimm.hatter/document.txt) on github (From Gutenberg)
 * [Indian Fairy Tales](https://github.com/GITenberg/Indian-Fairy-Tales_7128) on github, from Gutenberg.
@@ -76,20 +95,6 @@ These are NOT in order; but are lightly clustered....
  * [The Arabian Nights Entertainments](http://www.gutenberg.org/files/128/128-h/128-h.htm)
  * [The Arabian Nights: Their Best-known Tales](http://www.gutenberg.org/files/20916/20916-h/20916-h.htm) - illos by Maxfield Parrish!
  * [The Book of the Thousand Nights and a Night, Volume 3](http://www.gutenberg.org/cache/epub/3437/pg3437.html) - Richard Burton verson
-
-* [Thompson's Motif-index of fold-literature](http://www.ualberta.ca/~urban/Projects/English/Motif_Index.htm)
-
-* [alyphen's generator](https://github.com/dariusk/NaNoGenMo-2014/issues/73) has some interesting lists (all from Corpora, I believe). The sentences are purely random (based on a hard-coded gammar?) but read well. There's no connectivity, but the method of construction has some pointers.
-  * particularly look at [nanogenmo.py](https://github.com/alyphen/nanogenmo/blob/master/nanogenmo/nanogenmo.py)
-
-* [non-linear narrative](http://en.wikipedia.org/wiki/Nonlinear_narrative)
-
-* [nlp_compromise](https://github.com/spencermountain/nlp_compromise)
-
-* [Node Sentence Tokenizer](https://github.com/parmentf/node-sentence-tokenizer) for reprocessing text with nlp_compromise. yaaay!
-
-* [random weighted choice](https://github.com/parmentf/random-weighted-choice) for when I want some templates more often than others, but not ALL the time....
-
 
 ### Semantic Networks
 from reading about the MESSy system used by Klein.
