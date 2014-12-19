@@ -754,7 +754,7 @@ var storyGen = function(settings) {
                 f = func(helper);
             } else if (func.exec) {
                 // special exec method
-                f = func.exec(helper, params);
+                f = func.exec.apply(null, [].concat(helper, params));
             } else if(func.templates) {
                 // old-style array-of-templates-with-no-other-logic
 
@@ -896,13 +896,17 @@ var storyGen = function(settings) {
 
             for (var i = 0; i < settings.funcs.length; i++) {
                 var f = settings.funcs[i];
-                var subFunc = null;
+                var params = null;
                 if (typeof f === 'object') {
-                    subFunc = f[1];
+                    // capture ALL OTHER POSSIBLE PARAMS
+                    params = f.slice(1);
                     f = f[0];
                 }
                 // console.log(settings.funcs[i]);
-                var s2 = this.sentence(story[f], this.universe, subFunc);
+                // subFunc could be multiple params
+                // we need to flatten everything and use apply... maybe?
+                // var s2 = this.sentence.apply(null, [].concat(story[f], this.universe, subFunc));
+                var s2 = this.sentence(story[f], this.universe, params);
                 if (s2) { tale.push(s2); }
 
                 if (this.universe.hero.health === world.healthLevel.dead) { break; }
@@ -1073,7 +1077,7 @@ storyGen.presets = {
         bossfight: false
     },
     shortWaterStory: {
-        functions: [['func8', 'casting into body of water'], 'func18'],
+        functions: [['func8', 'casting into body of water', true], 'func18'],
         bossfight: true
         }
 };

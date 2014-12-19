@@ -893,7 +893,7 @@ var nTemplates = function(story, world, storyGen) {
     // 8A - Villainy: The need is identified (Villainy)
     // function 8 (and/or 8a) is always present in tale
     // antagonist(s) causes harm or injury to victim(s)/member of protagonist's family = villainy - A
-    story['func8'].exec = function(god, subFunc) {
+    story['func8'].exec = function(god, subFunc, skipIntros) {
 
         // this needs to be picked AHEAD OF TIME
         // since some of these require other creations earlier
@@ -906,7 +906,7 @@ var nTemplates = function(story, world, storyGen) {
         var t = []; // common use in sub-funcs
         var skipVillain = false;
 
-        if (!god.hero.introduced) { template.push(story.introduceHero(god, tersely)); }
+        if (!god.hero.introduced && !skipIntros) { template.push(story.introduceHero(god, tersely)); }
 
         // subFunc = 'causes sudden disappearance'; // for testing
         // subFunc = 'commits murder';
@@ -1312,7 +1312,7 @@ var nTemplates = function(story, world, storyGen) {
 
         };
 
-        if (!skipVillain) {
+        if (!skipVillain && !skipIntros) {
             if (!god.villain.introduced) { template.unshift(story.introduceVillain(god)); }
         }
 
