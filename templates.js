@@ -6,34 +6,6 @@ var nTemplates = function(story, world, storyGen) {
 
     story = story || [];
 
-    // sub-functions
-    // hunh. template only, I would think.....
-    var func8 = {
-        '1'   : 'kidnapping of person',
-        '2'   : 'seizure of magical agent or helper',
-        '2b'  : 'forcible seizure of magical helper',
-        '3'   : 'pillaging or ruining of crops',
-        '4'   : 'theft of daylight',
-        '5'   : 'plundering in other forms',
-        '6'   : 'bodily injury, maiming, mutilation',
-        '7'   : 'causes sudden disappearance',
-        '7b'  : 'bride is forgotten',
-        '8'   : 'demand for delivery or enticement, abduction',
-        '9'   : 'expulsion',
-        '10'  : 'casting into body of water',
-        '11'  : 'casting of a spell, transformation',
-        '12'  : 'false substitution',
-        '13'  : 'issues order to kill [requires proof]',
-        '14'  : 'commits murder',
-        '15'  : 'imprisonment, detention',
-        '16'  : 'threat of forced matrimony',
-        '16b' : 'threat of forced matrimony between relatives',
-        '17'  : 'threat of cannibalism',
-        '17b' : 'threat of cannibalism among relatives',
-        '18'  : 'tormenting at night (visitation, vampirism)',
-        '19'  : 'declaration of war'
-    };
-
     story.title = function(god) {
 
         // TODO: so, the pre-created villain might have nothing to do with the story
@@ -901,7 +873,7 @@ var nTemplates = function(story, world, storyGen) {
         // the bride should have been introduced earlier....
 
         // if not picked ahead of time, pick a sub-function at random
-        subFunc = subFunc || god.randomProperty(func8);
+        subFunc = subFunc || god.randomProperty(storyGen.villainyTypes);
         var template = []; // text returned to story
         var t = []; // common use in sub-funcs
         var skipVillain = false;
@@ -1786,32 +1758,7 @@ var nTemplates = function(story, world, storyGen) {
 
         var t = [];
 
-        // TODO: whatever subfunc was used in villainy s/b stored, and "restored" to order, here
-        var func8 = {
-            '1'   : 'kidnapping of person',
-            '2'   : 'seizure of magical agent or helper',
-            '2b'  : 'forcible seizure of magical helper',
-            '3'   : 'pillaging or ruining of crops',
-            '4'   : 'theft of daylight',
-            '5'   : 'plundering in other forms',
-            '6'   : 'bodily injury, maiming, mutilation',
-            '7'   : 'causes sudden disappearance',
-            '7b'  : 'bride is forgotten',
-            '8'   : 'demand for delivery or enticement, abduction',
-            '9'   : 'expulsion',
-            '10'  : 'casting into body of water',
-            '11'  : 'casting of a spell, transformation',
-            '12'  : 'false substitution',
-            '13'  : 'issues order to kill [requires proof]',
-            '14'  : 'commits murder',
-            '15'  : 'imprisonment, detention',
-            '16'  : 'threat of forced matrimony',
-            '16b' : 'threat of forced matrimony between relatives',
-            '17'  : 'threat of cannibalism',
-            '17b' : 'threat of cannibalism among relatives',
-            '18'  : 'tormenting at night (visitation, vampirism)',
-            '19'  : 'declaration of war'
-        };
+        // // TODO: whatever subfunc was used in villainy s/b stored, and "restored" to order, here
 
         if (!god.cache.lack) { story.createLack(god); }
         var lt = god.cache.lack.lack;
