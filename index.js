@@ -28,8 +28,7 @@ var oneStory = function() {
             // funcs: ['func0', 'func2', 'func3', 'func8', 'func30', 'func31'],
             // funcs: ['func0', 'func2', 'func3', ['func8', 'commits murder'], 'func30', 'func31'],
             // funcs: [['func8', 'casting into body of water'], 'func30'],
-            // bossmode: true,
-            bossmode: presets.bossmode,
+            bossfight: presets.bossfight,
             verbtense: 'past'
         };
 
