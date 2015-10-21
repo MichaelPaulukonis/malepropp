@@ -376,6 +376,11 @@ var nTemplates = function(story, world, storyGen) {
 
     };
 
+    // TODO: the {{VN}} tags, etc.
+    // are replaced in propp.js
+    // on the assumption that the punishment is meted out to the VILLAIN
+    // but the person passed in could be the villain, anti-hero (or conceivably other)
+    // I suppose the person providing the punishment should be made explicit for niceness.
     story.punish = function(god, person) {
 
         var descr = god.pick(person.description);
@@ -437,18 +442,29 @@ var nTemplates = function(story, world, storyGen) {
                 + 'skull, and {{HN}} made an end of {{PROO}} with a club.',
             'Such behavior could not be tolerated: {{HN}} fell upon {{PN}}, bound {{PROO}} with ropes.',
             '{{VN}} was struck down by the hand of {{HN}}.',
-            'Seeing that {{VN}} was perfectly enfeebled, {{HN}} snatched from {{PROO}} {{POSS}} '
-                + 'keen faulchion, and with a single blow struck off {{POSS}} head. Behind {{HPRNO}} '
-                + 'voices began to cry: "Strike again! strike again! or {{VPRO}} will come to life!" '
-                + '"No," replied {{HN}}, "a hero\'s hand does not strike twice, but '
-                + 'finishes its work with a single blow."',
-            // '{{HN}} greeted {{PN}}, and caught hold of {{POSS}} right little finger. '
-            //     + '{{PN}} tried to shake {{HPN}} off, flying first '
-            //     + 'about the house and then out of it, but all in vain. At last {{PN}} '
-            //     + 'after soaring on high, struck the ground, and fell to pieces, becoming '
-            //     + 'a fine yellow sand.',
+            '{{HN}} greeted {{PN}}, and caught hold of {{POSS}} right little finger. '
+                + '{{PN}} tried to shake {{HPN}} off, flying first '
+                + 'about the house and then out of it, but all in vain. At last {{PN}} '
+                + 'after soaring on high, struck the ground, and fell to pieces, becoming '
+                + 'a fine yellow sand.',
             '{{AS}}{{HN}} cut the feet off from {{PN}} and placed {{PROO}} on a stump by the roadside.'
         ];
+
+        // awkward use of magical item
+        // TODO: this code is in more than one place....
+        var mi;
+        if (god.hero.possessions && god.hero.possessions.length > 0) {
+            mi = god.hero.possessions[god.hero.possessions.length-1];
+            var mit = ('Seeing that {{VN}} was perfectly enfeebled, {{HN}} snatched up {{HPRNO}} '
+                + '{{MI}}, and with a single blow struck off {{PN}}\'s head. Behind {{HPRNO}} '
+                + 'voices began to cry: "Strike again! strike again! or {{VPRO}} will come to life!" '
+                + '"No," replied {{HN}}, "a hero\'s hand does not strike twice, but '
+                + 'finishes its work with a single blow."').replace(/{{MI}}/mg, mi);
+            end.push(mit);
+        }
+
+        var endsel = god.pick(end);
+        if (endsel === mit) { god.hero.magicalitemused = true; }
 
         var dispersal = [
             (god.coinflip() ? 'Thanks to {{HN}}, ' : '') + '{{PN}} was completely burnt to cinders.',
@@ -465,7 +481,7 @@ var nTemplates = function(story, world, storyGen) {
         god.villain.health = 'dead';
 
         var t = [];
-        t.push(god.capitalize(god.pick(end)));
+        t.push(god.capitalize(endsel));
         t.push(god.capitalize(god.pick(dispersal)));
 
         if (god.coinflip()) {
