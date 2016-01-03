@@ -381,6 +381,10 @@ var nTemplates = function(story, world, storyGen) {
     // on the assumption that the punishment is meted out to the VILLAIN
     // but the person passed in could be the villain, anti-hero (or conceivably other)
     // I suppose the person providing the punishment should be made explicit for niceness.
+    // there's an interesting need to get the functions together, and them build up the template according to some rules
+    // for instance, make sure we introduce henchmen earlier in the story if they are going to be used
+    // or if we don't use magical items, don't introduce them (or vice-versa)
+    // both of these are vice-versa scenarios, I guess...
     story.punish = function(god, person) {
 
         var descr = god.pick(person.description);
@@ -442,6 +446,9 @@ var nTemplates = function(story, world, storyGen) {
                 + 'skull, and {{HN}} made an end of {{PROO}} with a club.',
             'Such behavior could not be tolerated: {{HN}} fell upon {{PN}}, bound {{PROO}} with ropes.',
             '{{VN}} was struck down by the hand of {{HN}}.',
+            // TODO: introduces a HOUSE
+            // but who knows WHERE we are, right now....
+            // also references a specific body part, which may not exist....
             '{{HN}} greeted {{PN}}, and caught hold of {{POSS}} right little finger. '
                 + '{{PN}} tried to shake {{HPN}} off, flying first '
                 + 'about the house and then out of it, but all in vain. At last {{PN}} '
@@ -896,7 +903,8 @@ var nTemplates = function(story, world, storyGen) {
 
         if (!god.hero.introduced && !skipIntros) { template.push(story.introduceHero(god, tersely)); }
 
-        // subFunc = 'causes sudden disappearance'; // for testing
+        // for testing
+        // subFunc = 'causes sudden disappearance';
         // subFunc = 'commits murder';
         // subFunc = 'casting into body of water';
         // subFunc =  'theft of daylight';
