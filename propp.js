@@ -18,7 +18,7 @@
 var global;
 
 var _ = _ || require('underscore');
-var nlp = nlp || require('nlp_compromise');
+var nlp = nlp_compromise || require('nlp_compromise');
 var Tokenizer = Tokenizer || require('sentence-tokenizer');
 
 // http://blog.elliotjameschong.com/2012/10/10/underscore-js-deepclone-and-deepextend-mix-ins/

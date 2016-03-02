@@ -1637,7 +1637,9 @@ var nTemplates = function(story, world, storyGen) {
                 + 'walls were wrapped in flames! But {{HPRON}} held {{HPOSS}} ground and went on '
                 + 'reading, never once looking behind {{VPRON}}. Just before daybreak '
                 + '{{VN}} rushed to {{VPOSS}} coffin - then the fire seemed to go out '
-                + 'immediately, and all the deviltry vanished!'
+                + 'immediately, and all the deviltry vanished!',
+            '{{VN}} threw himself at {{HN}}\'s feet and begged for mercy. But {{VPRON}} received {{VPOSS}} '
+            + 'punishment, for {{VPRON}} was tied to the tails of four wild horses and torn to pieces.'
 
         ];
 
@@ -1987,7 +1989,8 @@ var nTemplates = function(story, world, storyGen) {
         // TODO: person = falsefriend or villain (or henchperson?)
 
         // TODO: in many cases, w/o a battle, the villain lives on, and an un-introduced falsehero is punished.
-        // WTF ?!?!?
+        // WTF ?!?!? This shouldn't happen if not introduced
+        // the world-model needs to be built better. multi-pass?
         var person = (god.villain.health === world.healthLevel.living ? god.villain : god.falsehero);
 
         return story.punish(god, person);
@@ -2008,6 +2011,8 @@ var nTemplates = function(story, world, storyGen) {
             'wo - protagonist(s) given monetary reward or other forms of material gain'
         ];
 
+        // close, if wedding:  It was a magnificent wedding. I myself was there, and drank of the mead and wine; but they only touched my beard, they did not enter my mouth.
+
         // marriage/ascension are arrays in the wordbank
         var templates = [
             '<%= hero.name %> <%= select(marriage, ascension) %>. It {{was}} a good life.',
@@ -2019,12 +2024,6 @@ var nTemplates = function(story, world, storyGen) {
             // if ALL verb ar infinitive and appear as {{verb}}, then we do a global pull, conjugate, replace prior to template parsing. or after. whatever.
             '<%= select(marriage, ascension) %>, <%= hero.name %> {{retired}} to ' + god.select("a life of farming", "write <%= possessive(hero) %> memoirs", "live in peace", "pine for days of adventure")  + '.'
         ];
-
-        // yeah, so THIS doesn't work. DANG
-        // had parking tickets forgiven, Morgan retired to pine for days of adventure.
-
-        // this version needs to be in the infinitive....
-        // Dated for a few years, but decided to remain single, Kaitlyn retired to write her memoirs.
 
         var lod = story.latd(god.hero, god);
 
