@@ -267,6 +267,7 @@ var storyGen = function(settings) {
                      getCharacter: getCharacter,
                      object: pronounobject(gndr),
                      pronoun: pronoun(gndr),
+                     reflexivePronoun: reflexivePronoun(gndr),
                      possessive: possessive(gndr)
                    };
         };
@@ -485,6 +486,14 @@ var storyGen = function(settings) {
             if (gndr && gndr.gender) { gndr = gndr.gender; }
             return (gndr === world.gender.male ? 'he' : (gndr === world.gender.female ? 'she' : 'it'));
         };
+
+        // none of these deal with plurals
+        var reflexivePronoun = function(gndr) {
+            // if character is passed in, reduce it to the target gender
+            if (gndr && gndr.gender) { gndr = gndr.gender; }
+            return (gndr === world.gender.male ? 'himself' : (gndr === world.gender.female ? 'herself' : 'itself'));
+        };
+
 
 
         // calculate the speaking tone
@@ -723,6 +732,7 @@ var storyGen = function(settings) {
             pronounobject: pronounobject,
             pronoun: pronoun,
             // ooop. what's the difference?!!!
+            reflexivePronoun: reflexivePronoun,
             pick: pick,
             select: select,
             coinflip: coinflip,

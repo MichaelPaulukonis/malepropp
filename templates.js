@@ -1615,6 +1615,8 @@ var nTemplates = function(story, world, storyGen) {
         var ho = god.hero.object;
         var hpron = god.hero.pronoun;
         var hposs = god.hero.possessive;
+        var hrp = god.hero.reflexivePronoun;
+        var vrp = god.hero.reflexivePronoun;
 
         var templates = [
             // skip a further victory if body is destroyed
@@ -1635,7 +1637,7 @@ var nTemplates = function(story, world, storyGen) {
                 + 'Then {{VPRON}} conjured up horrors, this time worse than before. It '
                 + 'seemed to {{HO}} as if a fire had broken out in the church; all the '
                 + 'walls were wrapped in flames! But {{HPRON}} held {{HPOSS}} ground and went on '
-                + 'reading, never once looking behind {{VPRON}}. Just before daybreak '
+                + 'reading, never once looking behind {{HRP}}. Just before daybreak '
                 + '{{VN}} rushed to {{VPOSS}} coffin - then the fire seemed to go out '
                 + 'immediately, and all the deviltry vanished!',
             '{{VN}} threw himself at {{HN}}\'s feet and begged for mercy. But {{VPRON}} received {{VPOSS}} '
@@ -1663,10 +1665,10 @@ var nTemplates = function(story, world, storyGen) {
                     + 'and at last beat {{VN}} to death.',
                 'Presently the midnight hour sounded. The earth began to shake, and '
                     + 'the {{VF}} came rushing up, and burst right through the fence into '
-                    + 'the park, so huge was it. {{HN}} pulled himself together, leapt '
-                    + 'to his feet, crossed himself, and went straight at the {{VF}}. It '
-                    + 'fled back, and {{HN}} ran after it. But he soon saw that {{HPRON}} '
-                    + 'couldn\'t catch it on foot, so he hastened to the stable, laid {{HPOSS}} '
+                    + 'the park, so huge was it. {{HN}} pulled {{HRP}} together, leapt '
+                    + 'to {{HPOSS}} feet, crossed {{HRP}}, and went straight at the {{VF}}. It '
+                    + 'fled back, and {{HN}} ran after it. But {{HPRON}} soon saw that {{HPRON}} '
+                    + 'couldn\'t catch it on foot, so {{HPRON}} hastened to the stable, laid {{HPOSS}} '
                     + 'hands on the best horse there, and set off in pursuit. '
                     + 'Presently {{HPRON}} came up with the {{VF}}, and they began a fight. They '
                     + 'fought and fought; {{HN}} gave the {{VF}} three wounds. At last '
@@ -1695,8 +1697,10 @@ var nTemplates = function(story, world, storyGen) {
         if (sel === mit) { god.hero.magicalitemused = true; }
         t.push(sel);
 
-        return t.join('\n').replace(/{{MI}}/mg, mi).replace(/{{VF}}/mg, villForm).replace(/{{VO}}/mg, vo).replace(/{{VPOSS}}/mg, vposs).replace(/{{VPRON}}/mg, vpron)
-            .replace(/{{HO}}/mg, ho).replace(/{{HPRON}}/mg, hpron).replace(/{{HPOSS}}/mg, hposs);
+        return t.join('\n').replace(/{{MI}}/mg, mi).replace(/{{VF}}/mg, villForm).replace(/{{VO}}/mg, vo)
+            .replace(/{{VPOSS}}/mg, vposs).replace(/{{VPRON}}/mg, vpron)
+            .replace(/{{HO}}/mg, ho).replace(/{{HPRON}}/mg, hpron).replace(/{{HPOSS}}/mg, hposs)
+            .replace(/{{HRP}}/mg, hrp);
     };
 
     // Branding: hero is branded
