@@ -43,7 +43,7 @@ var nTemplates = function(story, world, storyGen) {
             );
             if (villForm) {
                 templates.push('{{VN}} the {{VF}}');
-            };
+            }
         }
 
         if (god.hero.magicalitemused) {
@@ -79,8 +79,8 @@ var nTemplates = function(story, world, storyGen) {
 
     story.introduceHero = function(god, terse) {
 
-        var near = god.select("in", "near", "close to", "not far from", "just on the verge of", "within a days walk of");
-        var nationType = god.select("country", "province", "kingdom", "nation", "city-state") ;
+        var near = god.select('in', 'near', 'close to', 'not far from', 'just on the verge of', 'within a days walk of');
+        var nationType = god.select('country', 'province', 'kingdom', 'nation', 'city-state') ;
         var res = '<%= hero.home.residence %>';
         var vicin = '<%= hero.home.vicinity %>';
         var hn = '<%= coinflip() ? hero.name : hero.nickname %>';
@@ -125,7 +125,7 @@ var nTemplates = function(story, world, storyGen) {
             for (var i = 0; i < god.hero.acquaintances.length; i++) {
                 god.getCharacter(god.hero.acquaintances).introduced = true;
             }
-            for (var i = 0; i < god.hero.family.length; i++) {
+            for (i = 0; i < god.hero.family.length; i++) {
                 god.getCharacter(god.hero.family).introduced = true;
             }
         }
@@ -499,7 +499,7 @@ var nTemplates = function(story, world, storyGen) {
                 '{{BA}}{{PN}} ' + (god.coinflip() ? '<%= select("{{disappear}}", "{{vanish}}") %>, and ' : '' ) +'{{was}} never seen again.'
             ];
             t.push(god.pick(tmpl2));
-        };
+        }
 
         return t.join(' ').replace(/{{PN}}/mg, function() { return eitherName(person); }).replace(/{{AS}}/mg, as)
             .replace(/{{BA}}/mg, ba).replace(/{{POSS}}/mg, poss).replace(/{{PROO}}/mg, proo)
@@ -1135,7 +1135,7 @@ var nTemplates = function(story, world, storyGen) {
             // and dared not bring out her golden cup; and she wept and said, "Alas!
             // what will become of me?"
 
-            var water = god.select("a small stream", "a local lake", "the murky pond", "the well");
+            var water = god.select('a small stream', 'a local lake', 'the murky pond', 'the well');
             god.hero.location = water;
             var poss = god.hero.possessive;
             var villForm = god.villain.form;
@@ -1199,7 +1199,7 @@ var nTemplates = function(story, world, storyGen) {
                 ];
                 if (!skipDeath) { template.push(god.pick(drowns)); }
                 template.push(story.deathResponse(god, god.hero));
-            };
+            }
 
             break;
 
@@ -1306,7 +1306,7 @@ var nTemplates = function(story, world, storyGen) {
             template.push('{{VN}} declared war on {{HN}}.');
             break;
 
-        };
+        }
 
         if (!skipVillain && !skipIntros) {
             if (!god.villain.introduced) { template.unshift(story.introduceVillain(god)); }
@@ -1469,7 +1469,8 @@ var nTemplates = function(story, world, storyGen) {
         t.push('"What does it look like?" replied {{AN}}. "It\'s a special, magical {{IT}}. Perhaps you can use it in your struggle with {{VN}}."');
         if (god.coinflip()) {
             t.push('"Thanks!" said a <%= select("grateful", "thankful") %> {{HN}}'
-                   + (god.coinflip() ? god.select(' gratefully', ' thankfully') : '') + '.'); }
+                   + (god.coinflip() ? god.select(' gratefully', ' thankfully') : '') + '.');
+        }
 
         god.advisor.introduced = true;
 
@@ -1719,9 +1720,9 @@ var nTemplates = function(story, world, storyGen) {
             '{{VN}}\'s head popped off, and {{was}} scavenged by {{HN}}.'
         ];
 
-        var proppFunction17 = ["function 17: protagonist(s) branded = branding (J)",
-                               "J1 - application of mark to body of protagonist(s) (wound, brand)",
-                               "J2 - transference of token (ring, towel, etc.)"];
+        var proppFunction17 = ['function 17: protagonist(s) branded = branding (J)',
+                               'J1 - application of mark to body of protagonist(s) (wound, brand)',
+                               'J2 - transference of token (ring, towel, etc.)'];
 
         text.push(god.pick(templates));
 
@@ -1733,13 +1734,13 @@ var nTemplates = function(story, world, storyGen) {
     story['func18'].exec = function(god) {
 
 
-        var proppFunction18 = ["function 18: antagonist(s) defeated = victory (I)",
-                               "I1 - antagonist(s) defeated in open battle, or *I1 - antagonist(s) defeated by one protagonist(s) while the other(s) hide",
-                               "I2 - antagonist(s) defeated in contest",
-                               "I3 - antagonist(s) defeated at game of chance",
-                               "I4 - antagonist(s) defeated in weighing with scales",
-                               "I5 - protagonist(s) kills antagonist(s) without preliminary fight",
-                               "I6 - direct expulsion of antagonist(s)"];
+        var proppFunction18 = ['function 18: antagonist(s) defeated = victory (I)',
+                               'I1 - antagonist(s) defeated in open battle, or *I1 - antagonist(s) defeated by one protagonist(s) while the other(s) hide',
+                               'I2 - antagonist(s) defeated in contest',
+                               'I3 - antagonist(s) defeated at game of chance',
+                               'I4 - antagonist(s) defeated in weighing with scales',
+                               'I5 - protagonist(s) kills antagonist(s) without preliminary fight',
+                               'I6 - direct expulsion of antagonist(s)'];
 
         var t = [];
 
@@ -2026,7 +2027,7 @@ var nTemplates = function(story, world, storyGen) {
             // TODO: verb tense DOES NOT WORK here
             // this is the... what tense? past would work.
             // if ALL verb ar infinitive and appear as {{verb}}, then we do a global pull, conjugate, replace prior to template parsing. or after. whatever.
-            '<%= select(marriage, ascension) %>, <%= hero.name %> {{retired}} to ' + god.select("a life of farming", "write <%= possessive(hero) %> memoirs", "live in peace", "pine for days of adventure")  + '.'
+            '<%= select(marriage, ascension) %>, <%= hero.name %> {{retired}} to ' + god.select('a life of farming', 'write <%= possessive(hero) %> memoirs', 'live in peace', 'pine for days of adventure')  + '.'
         ];
 
         var lod = story.latd(god.hero, god);
@@ -2040,7 +2041,7 @@ var nTemplates = function(story, world, storyGen) {
             // passed needs to be in the infinitive, here. need to pass this as something extra.
             var sent = 'Years {{passed}}, but <%= hero.name %> still {{mourns}} the stinging loss of ' + god.list(lod.dead) + '.';
             t.push(sent);
-        };
+        }
 
         // TODO: enumerate some posessions, perhaps. and places visited.
         // ALTHOUGH NONE OF THIS IS VERY FAIRY-TALELY
@@ -2136,5 +2137,5 @@ var nTemplates = function(story, world, storyGen) {
 
 
 
-module = module || {};
+var module = module || {};
 module.exports = nTemplates;

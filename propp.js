@@ -13,9 +13,7 @@
 //  https://web.archive.org/web/20061112014356/http://www.brown.edu/Courses/FR0133/Fairytale_Generator
 //
 
-"use strict";
-
-var global;
+'use strict';
 
 var _ = _ || require('underscore');
 var nlp_compromise = nlp_compromise || require('nlp_compromise');
@@ -191,7 +189,7 @@ var storyGen = function(settings) {
         // how about regex on start of each line w/in the string????
         if (!str) return null;
         return str.replace(/^[a-z]/mg, function(m) { return m.toUpperCase(); });
-        return str.slice(0,1).toUpperCase() + str.slice(1);
+        // return str.slice(0,1).toUpperCase() + str.slice(1);
     };
 
 
@@ -204,7 +202,7 @@ var storyGen = function(settings) {
 
         for (var i = 0; i < adjCount; i++) {
             adjs.push(capitalize(pick(bank.itembank.adjectives)));
-        };
+        }
 
         var thing = capitalize(pick(bank.itembank.nouns));
 
@@ -579,7 +577,7 @@ var storyGen = function(settings) {
             // so far.
             if (t === 'bad') {
                 if (coinflip()) { c.push(world.blankLine, '"Don\'t go bragging like that!" says {{P2N}}'); }
-                            }
+            }
             var tmpl = c.join('\n').replace(/{{P1N}}/mg, p1n).replace(/{{P2N}}/mg, p2n)
                     .replace(/{{SAY}}/mg, says).replace(/{{RPLY}}/mg, reply)
                     .replace(/{{GG}}/mg, function() { return pick(bank.greetings[t]); });
@@ -903,7 +901,6 @@ var storyGen = function(settings) {
             var tale = [];
 
             this.universe = god(this.settings, theme.bank, theme);
-            global = this.universe;
 
             for (var i = 0; i < settings.funcs.length; i++) {
                 var f = settings.funcs[i];
@@ -956,9 +953,6 @@ var storyGen = function(settings) {
                 title: title,
                 tale: tale.join('\n\n')
             };
-
-            return tale.join('\n\n');
-
 
         } catch(ex) {
             // the last 3 items are non-standard.....
@@ -1120,11 +1114,8 @@ storyGen.presets = {
     shortWaterStory: {
         functions: [['func8', 'casting into body of water', true], 'func18'],
         bossfight: true
-        }
+    }
 };
 
-
-
-
-module = module || {};
+var module = module || {};
 module.exports = storyGen;
