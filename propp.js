@@ -18,7 +18,7 @@
 var global;
 
 var _ = _ || require('underscore');
-var nlp = nlp || require('nlp_compromise');
+var nlp = nlp_compromise || require('nlp_compromise');
 var Tokenizer = Tokenizer || require('sentence-tokenizer');
 
 // http://blog.elliotjameschong.com/2012/10/10/underscore-js-deepclone-and-deepextend-mix-ins/
@@ -754,7 +754,7 @@ var storyGen = function(settings) {
                 f = func(helper);
             } else if (func.exec) {
                 // special exec method
-                f = func.exec(helper, params);
+                f = func.exec.apply(null, [].concat(helper, params));
             } else if(func.templates) {
                 // old-style array-of-templates-with-no-other-logic
 
@@ -896,13 +896,17 @@ var storyGen = function(settings) {
 
             for (var i = 0; i < settings.funcs.length; i++) {
                 var f = settings.funcs[i];
-                var subFunc = null;
+                var params = null;
                 if (typeof f === 'object') {
-                    subFunc = f[1];
+                    // capture ALL OTHER POSSIBLE PARAMS
+                    params = f.slice(1);
                     f = f[0];
                 }
                 // console.log(settings.funcs[i]);
-                var s2 = this.sentence(story[f], this.universe, subFunc);
+                // subFunc could be multiple params
+                // we need to flatten everything and use apply... maybe?
+                // var s2 = this.sentence.apply(null, [].concat(story[f], this.universe, subFunc));
+                var s2 = this.sentence(story[f], this.universe, params);
                 if (s2) { tale.push(s2); }
 
                 if (this.universe.hero.health === world.healthLevel.dead) { break; }
@@ -918,7 +922,11 @@ var storyGen = function(settings) {
                     }
                 }
             }
-            tale.push(this.sentence(story.outro, this.universe));
+
+            // TODO: unless prohibited, include outro by default
+            if (settings.conclusion) {
+                tale.push(this.sentence(story.outro, this.universe));
+            }
 
             // TODO: get a new iterator
             // it will be an array that is BUILT
@@ -987,6 +995,36 @@ var storyGen = function(settings) {
 
 };
 
+// TODO: does there need to be an exposed function list?
+// for interrogation/testing
+// or does "reset proppfunctions" count?
+// it's not the right name.....
+storyGen.villainyTypes = {
+    '1'   : 'kidnapping of person',
+    '2'   : 'seizure of magical agent or helper',
+    '2b'  : 'forcible seizure of magical helper',
+    '3'   : 'pillaging or ruining of crops',
+    '4'   : 'theft of daylight',
+    '5'   : 'plundering in other forms',
+    '6'   : 'bodily injury, maiming, mutilation',
+    '7'   : 'causes sudden disappearance',
+    '7b'  : 'bride is forgotten',
+    '8'   : 'demand for delivery or enticement, abduction',
+    '9'   : 'expulsion',
+    '10'  : 'casting into body of water',
+    '11'  : 'casting of a spell, transformation',
+    '12'  : 'false substitution',
+    '13'  : 'issues order to kill [requires proof]',
+    '14'  : 'commits murder',
+    '15'  : 'imprisonment, detention',
+    '16'  : 'threat of forced matrimony',
+    '16b' : 'threat of forced matrimony between relatives',
+    '17'  : 'threat of cannibalism',
+    '17b' : 'threat of cannibalism among relatives',
+    '18'  : 'tormenting at night (visitation, vampirism)',
+    '19'  : 'declaration of war'
+};
+
 // should this be reduced back down to a 0..31 array?
 storyGen.resetProppFunctions = function(onoff) {
 
@@ -996,39 +1034,39 @@ storyGen.resetProppFunctions = function(onoff) {
 
     var propp = {
 
-        "func0": { active: onoff, templates: [] },
-        "func1": { active: onoff, templates: [] },
-        "func2": { active: onoff, templates: [] },
-        "func3": { active: onoff, templates: [] },
-        "func4": { active: onoff, templates: [] },
-        "func5": { active: onoff, templates: [] },
-        "func6": { active: onoff, templates: [] },
-        "func7": { active: onoff, templates: [] },
-        "func8": { active: onoff, templates: [] },
-        "func8a": { active: onoff, templates: [] },
-        "func9": { active: onoff, templates: [] },
-        "func10": { active: onoff, templates: [] },
-        "func11": { active: onoff, templates: [] },
-        "func12": { active: onoff, templates: [] },
-        "func13": { active: onoff, templates: [] },
-        "func14": { active: onoff, templates: [] },
-        "func15": { active: onoff, templates: [] },
-        "func16": { active: onoff, templates: [] },
-        "func17": { active: onoff, templates: [] },
-        "func18": { active: onoff, templates: [] },
-        "func19": { active: onoff, templates: [] },
-        "func20": { active: onoff, templates: [] },
-        "func21": { active: onoff, templates: [] },
-        "func22": { active: onoff, templates: [] },
-        "func23": { active: onoff, templates: [] },
-        "func24": { active: onoff, templates: [] },
-        "func25": { active: onoff, templates: [] },
-        "func26": { active: onoff, templates: [] },
-        "func27": { active: onoff, templates: [] },
-        "func28": { active: onoff, templates: [] },
-        "func29": { active: onoff, templates: [] },
-        "func30": { active: onoff, templates: [] },
-        "func31": { active: onoff, templates: [] }
+        'func0': { active: onoff, templates: [] },
+        'func1': { active: onoff, templates: [] },
+        'func2': { active: onoff, templates: [] },
+        'func3': { active: onoff, templates: [] },
+        'func4': { active: onoff, templates: [] },
+        'func5': { active: onoff, templates: [] },
+        'func6': { active: onoff, templates: [] },
+        'func7': { active: onoff, templates: [] },
+        'func8': { active: onoff, templates: [] },
+        'func8a': { active: onoff, templates: [] },
+        'func9': { active: onoff, templates: [] },
+        'func10': { active: onoff, templates: [] },
+        'func11': { active: onoff, templates: [] },
+        'func12': { active: onoff, templates: [] },
+        'func13': { active: onoff, templates: [] },
+        'func14': { active: onoff, templates: [] },
+        'func15': { active: onoff, templates: [] },
+        'func16': { active: onoff, templates: [] },
+        'func17': { active: onoff, templates: [] },
+        'func18': { active: onoff, templates: [] },
+        'func19': { active: onoff, templates: [] },
+        'func20': { active: onoff, templates: [] },
+        'func21': { active: onoff, templates: [] },
+        'func22': { active: onoff, templates: [] },
+        'func23': { active: onoff, templates: [] },
+        'func24': { active: onoff, templates: [] },
+        'func25': { active: onoff, templates: [] },
+        'func26': { active: onoff, templates: [] },
+        'func27': { active: onoff, templates: [] },
+        'func28': { active: onoff, templates: [] },
+        'func29': { active: onoff, templates: [] },
+        'func30': { active: onoff, templates: [] },
+        'func31': { active: onoff, templates: [] }
     };
 
     return propp;
@@ -1069,7 +1107,7 @@ storyGen.presets = {
         bossfight: false
     },
     shortWaterStory: {
-        functions: [['func8', 'casting into body of water'], 'func18'],
+        functions: [['func8', 'casting into body of water', true], 'func18'],
         bossfight: true
         }
 };

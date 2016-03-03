@@ -6,34 +6,6 @@ var nTemplates = function(story, world, storyGen) {
 
     story = story || [];
 
-    // sub-functions
-    // hunh. template only, I would think.....
-    var func8 = {
-        '1'   : 'kidnapping of person',
-        '2'   : 'seizure of magical agent or helper',
-        '2b'  : 'forcible seizure of magical helper',
-        '3'   : 'pillaging or ruining of crops',
-        '4'   : 'theft of daylight',
-        '5'   : 'plundering in other forms',
-        '6'   : 'bodily injury, maiming, mutilation',
-        '7'   : 'causes sudden disappearance',
-        '7b'  : 'bride is forgotten',
-        '8'   : 'demand for delivery or enticement, abduction',
-        '9'   : 'expulsion',
-        '10'  : 'casting into body of water',
-        '11'  : 'casting of a spell, transformation',
-        '12'  : 'false substitution',
-        '13'  : 'issues order to kill [requires proof]',
-        '14'  : 'commits murder',
-        '15'  : 'imprisonment, detention',
-        '16'  : 'threat of forced matrimony',
-        '16b' : 'threat of forced matrimony between relatives',
-        '17'  : 'threat of cannibalism',
-        '17b' : 'threat of cannibalism among relatives',
-        '18'  : 'tormenting at night (visitation, vampirism)',
-        '19'  : 'declaration of war'
-    };
-
     story.title = function(god) {
 
         // TODO: so, the pre-created villain might have nothing to do with the story
@@ -404,6 +376,15 @@ var nTemplates = function(story, world, storyGen) {
 
     };
 
+    // TODO: the {{VN}} tags, etc.
+    // are replaced in propp.js
+    // on the assumption that the punishment is meted out to the VILLAIN
+    // but the person passed in could be the villain, anti-hero (or conceivably other)
+    // I suppose the person providing the punishment should be made explicit for niceness.
+    // there's an interesting need to get the functions together, and them build up the template according to some rules
+    // for instance, make sure we introduce henchmen earlier in the story if they are going to be used
+    // or if we don't use magical items, don't introduce them (or vice-versa)
+    // both of these are vice-versa scenarios, I guess...
     story.punish = function(god, person) {
 
         var descr = god.pick(person.description);
@@ -460,22 +441,37 @@ var nTemplates = function(story, world, storyGen) {
             '{{AS}}{{PN}} {{was}} <%= punished() %> by {{HN}}.',
             '{{AS}}{{HN}} <%= punished() %> {{PN}}.',
             // okay. so there's been no mention of a horse. SO IT GOES.
+            // ALSO: DEAD
             '{{HN}}\'s horse smote {{PN}} full swing with its hoof, and cracked {{POSS}} '
                 + 'skull, and {{HN}} made an end of {{PROO}} with a club.',
             'Such behavior could not be tolerated: {{HN}} fell upon {{PN}}, bound {{PROO}} with ropes.',
             '{{VN}} was struck down by the hand of {{HN}}.',
-            'Seeing that {{VN}} was perfectly enfeebled, {{HN}} snatched from {{PROO}} {{POSS}} '
-                + 'keen faulchion, and with a single blow struck off {{POSS}} head. Behind {{HPRNO}} '
-                + 'voices began to cry: "Strike again! strike again! or {{VPRO}} will come to life!" '
-                + '"No," replied {{HN}}, "a hero\'s hand does not strike twice, but '
-                + 'finishes its work with a single blow."',
-            // '{{HN}} greeted {{PN}}, and caught hold of {{POSS}} right little finger. '
-            //     + '{{PN}} tried to shake {{HPN}} off, flying first '
-            //     + 'about the house and then out of it, but all in vain. At last {{PN}} '
-            //     + 'after soaring on high, struck the ground, and fell to pieces, becoming '
-            //     + 'a fine yellow sand.',
+            // TODO: introduces a HOUSE
+            // but who knows WHERE we are, right now....
+            // also references a specific body part, which may not exist....
+            '{{HN}} greeted {{PN}}, and caught hold of {{POSS}} right little finger. '
+                + '{{PN}} tried to shake {{HPN}} off, flying first '
+                + 'about the house and then out of it, but all in vain. At last {{PN}} '
+                + 'after soaring on high, struck the ground, and fell to pieces, becoming '
+                + 'a fine yellow sand.',
             '{{AS}}{{HN}} cut the feet off from {{PN}} and placed {{PROO}} on a stump by the roadside.'
         ];
+
+        // awkward use of magical item
+        // TODO: this code is in more than one place....
+        var mi;
+        if (god.hero.possessions && god.hero.possessions.length > 0) {
+            mi = god.hero.possessions[god.hero.possessions.length-1];
+            var mit = ('Seeing that {{VN}} was perfectly enfeebled, {{HN}} snatched up {{HPRNO}} '
+                + '{{MI}}, and with a single blow struck off {{PN}}\'s head. Behind {{HPRNO}} '
+                + 'voices began to cry: "Strike again! strike again! or {{VPRO}} will come to life!" '
+                + '"No," replied {{HN}}, "a hero\'s hand does not strike twice, but '
+                + 'finishes its work with a single blow."').replace(/{{MI}}/mg, mi);
+            end.push(mit);
+        }
+
+        var endsel = god.pick(end);
+        if (endsel === mit) { god.hero.magicalitemused = true; }
 
         var dispersal = [
             (god.coinflip() ? 'Thanks to {{HN}}, ' : '') + '{{PN}} was completely burnt to cinders.',
@@ -492,7 +488,7 @@ var nTemplates = function(story, world, storyGen) {
         god.villain.health = 'dead';
 
         var t = [];
-        t.push(god.capitalize(god.pick(end)));
+        t.push(god.capitalize(endsel));
         t.push(god.capitalize(god.pick(dispersal)));
 
         if (god.coinflip()) {
@@ -638,6 +634,42 @@ var nTemplates = function(story, world, storyGen) {
     // this is now just a proof-of-concept of executing larger functions to deal with templates
     story['func2'].exec = function(god) {
 
+
+// They spent some time together, and then the Princess took it into her
+// head to go a warring. So she handed over all the housekeeping affairs
+// to Prince Ivan, and gave him these instructions:
+
+// "Go about everywhere, keep watch over everything, only do not venture
+// to look into that closet there."
+
+// He couldn\'t help doing so. The moment Marya Morevna had gone he rushed
+// to the closet, pulled open the door, and looked in -there hung Koshchei
+// the Deathless, fettered by twelve chains. Then Koshchei entreated
+// Prince Ivan, saying, -
+
+// "Have pity upon me and give me to drink! Ten years long have I been
+// here in torment, neither eating or drinking; my throat is utterly
+// dried up."
+
+// The Prince gave him a bucketful of water; he drank it up and asked for
+// more, saying:
+
+// "A single bucket of water will not quench my thirst; give me more!"
+
+// The Prince gave him a second bucketful. Koshchei drank it up and asked
+// for a third, and when he had swallowed the [Pg 100] third bucketful,
+// he regained his former strength, gave his chains a shake, and broke
+// all twelve at once.
+
+// "Thanks, Prince Ivan!" cried Koshchei the deathless, "now you will
+// sooner see your own ears than Marya Morevna!" and out of the window he
+// flew in the shape of a terrible whirlwind. And he came up with the
+// fair Princess Marya Morevna as she was going her way, laid hold of
+// her, and carried her off home with him. But Prince Ivan wept full
+// sore, and he arrayed himself and set out a wandering, saying to
+// himself: "Whatever happens, I will go and look for Marya Morevna!"
+
+
         var loc;
         var person;
         var action;
@@ -671,7 +703,19 @@ var nTemplates = function(story, world, storyGen) {
 
         text.push(god.converse(advisor, hero), blankLine);
 
+        // TODO: move this into a function, so we can call elsewhere
+        // like in func3
+        // func2 always implies func2
+        // but func3 does not imply func2
+
+        //  function 2: an interdiction is addressed to protagonist(s) = interdiction - (gamma)
+        // 1 - interdiction issued
+        // 2 - inverted form of interdiction issued as order or suggestion
+
         hero.interdiction = interdiction;
+
+        // action and speak are identical sentences
+        // movement is _slightly_ different
 
         switch (ptype) {
         case world.interdictionType.movement:
@@ -774,11 +818,18 @@ var nTemplates = function(story, world, storyGen) {
     // Reconnaissance: Villain seeks something
     story['func4'].exec = function(god) {
 
+        //  function 4: antagonist(s) makes attempt at reconnaissance = reconnaissance - (epsilon)
+        // 1 - reconnaissance by antagonist(s) to obtain information about victim(s) / protagonist(s)
+        // 2 - inverted form of reconnaissance by victim(s) / protagonist(s) to obtain information about antagonist(s)
+        // 3 - reconnaissance by other person(s)
+
         var t = [];
 
         if (!god.villain.introduced) { t.push(story.introduceVillain(god)); }
 
         // WHOAH!!!! where'd the reonnaissance go ?!?!?!?
+        // oooooh, that's inside of the 'villain introduction'
+        // hrm.
 
         return t.join('\n');
 
@@ -837,7 +888,7 @@ var nTemplates = function(story, world, storyGen) {
     // 8A - Villainy: The need is identified (Villainy)
     // function 8 (and/or 8a) is always present in tale
     // antagonist(s) causes harm or injury to victim(s)/member of protagonist's family = villainy - A
-    story['func8'].exec = function(god, subFunc) {
+    story['func8'].exec = function(god, subFunc, skipIntros) {
 
         // this needs to be picked AHEAD OF TIME
         // since some of these require other creations earlier
@@ -845,14 +896,15 @@ var nTemplates = function(story, world, storyGen) {
         // the bride should have been introduced earlier....
 
         // if not picked ahead of time, pick a sub-function at random
-        subFunc = subFunc || god.randomProperty(func8);
+        subFunc = subFunc || god.randomProperty(storyGen.villainyTypes);
         var template = []; // text returned to story
         var t = []; // common use in sub-funcs
         var skipVillain = false;
 
-        if (!god.hero.introduced) { template.push(story.introduceHero(god, tersely)); }
+        if (!god.hero.introduced && !skipIntros) { template.push(story.introduceHero(god, tersely)); }
 
-        // subFunc = 'causes sudden disappearance'; // for testing
+        // for testing
+        // subFunc = 'causes sudden disappearance';
         // subFunc = 'commits murder';
         // subFunc = 'casting into body of water';
         // subFunc =  'theft of daylight';
@@ -1256,7 +1308,7 @@ var nTemplates = function(story, world, storyGen) {
 
         };
 
-        if (!skipVillain) {
+        if (!skipVillain && !skipIntros) {
             if (!god.villain.introduced) { template.unshift(story.introduceVillain(god)); }
         }
 
@@ -1585,7 +1637,9 @@ var nTemplates = function(story, world, storyGen) {
                 + 'walls were wrapped in flames! But {{HPRON}} held {{HPOSS}} ground and went on '
                 + 'reading, never once looking behind {{VPRON}}. Just before daybreak '
                 + '{{VN}} rushed to {{VPOSS}} coffin - then the fire seemed to go out '
-                + 'immediately, and all the deviltry vanished!'
+                + 'immediately, and all the deviltry vanished!',
+            '{{VN}} threw himself at {{HN}}\'s feet and begged for mercy. But {{VPRON}} received {{VPOSS}} '
+            + 'punishment, for {{VPRON}} was tied to the tails of four wild horses and torn to pieces.'
 
         ];
 
@@ -1730,32 +1784,7 @@ var nTemplates = function(story, world, storyGen) {
 
         var t = [];
 
-        // TODO: whatever subfunc was used in villainy s/b stored, and "restored" to order, here
-        var func8 = {
-            '1'   : 'kidnapping of person',
-            '2'   : 'seizure of magical agent or helper',
-            '2b'  : 'forcible seizure of magical helper',
-            '3'   : 'pillaging or ruining of crops',
-            '4'   : 'theft of daylight',
-            '5'   : 'plundering in other forms',
-            '6'   : 'bodily injury, maiming, mutilation',
-            '7'   : 'causes sudden disappearance',
-            '7b'  : 'bride is forgotten',
-            '8'   : 'demand for delivery or enticement, abduction',
-            '9'   : 'expulsion',
-            '10'  : 'casting into body of water',
-            '11'  : 'casting of a spell, transformation',
-            '12'  : 'false substitution',
-            '13'  : 'issues order to kill [requires proof]',
-            '14'  : 'commits murder',
-            '15'  : 'imprisonment, detention',
-            '16'  : 'threat of forced matrimony',
-            '16b' : 'threat of forced matrimony between relatives',
-            '17'  : 'threat of cannibalism',
-            '17b' : 'threat of cannibalism among relatives',
-            '18'  : 'tormenting at night (visitation, vampirism)',
-            '19'  : 'declaration of war'
-        };
+        // // TODO: whatever subfunc was used in villainy s/b stored, and "restored" to order, here
 
         if (!god.cache.lack) { story.createLack(god); }
         var lt = god.cache.lack.lack;
@@ -1960,7 +1989,8 @@ var nTemplates = function(story, world, storyGen) {
         // TODO: person = falsefriend or villain (or henchperson?)
 
         // TODO: in many cases, w/o a battle, the villain lives on, and an un-introduced falsehero is punished.
-        // WTF ?!?!?
+        // WTF ?!?!? This shouldn't happen if not introduced
+        // the world-model needs to be built better. multi-pass?
         var person = (god.villain.health === world.healthLevel.living ? god.villain : god.falsehero);
 
         return story.punish(god, person);
@@ -1981,6 +2011,8 @@ var nTemplates = function(story, world, storyGen) {
             'wo - protagonist(s) given monetary reward or other forms of material gain'
         ];
 
+        // close, if wedding:  It was a magnificent wedding. I myself was there, and drank of the mead and wine; but they only touched my beard, they did not enter my mouth.
+
         // marriage/ascension are arrays in the wordbank
         var templates = [
             '<%= hero.name %> <%= select(marriage, ascension) %>. It {{was}} a good life.',
@@ -1992,12 +2024,6 @@ var nTemplates = function(story, world, storyGen) {
             // if ALL verb ar infinitive and appear as {{verb}}, then we do a global pull, conjugate, replace prior to template parsing. or after. whatever.
             '<%= select(marriage, ascension) %>, <%= hero.name %> {{retired}} to ' + god.select("a life of farming", "write <%= possessive(hero) %> memoirs", "live in peace", "pine for days of adventure")  + '.'
         ];
-
-        // yeah, so THIS doesn't work. DANG
-        // had parking tickets forgiven, Morgan retired to pine for days of adventure.
-
-        // this version needs to be in the infinitive....
-        // Dated for a few years, but decided to remain single, Kaitlyn retired to write her memoirs.
 
         var lod = story.latd(god.hero, god);
 
