@@ -532,6 +532,10 @@ var storyGen = function(settings) {
         // should just be names, I suppose. more overhead, but serialization is kept. yes?
         // see also https://github.com/dariusk/corpora/blob/master/data/words/proverbs.json
         // dialogue
+        /**
+         * conversation between p1 and p2, minimally sentiment-aware
+         * if p2 is not defined, p1 talks alound in interjections.
+         **/
         var converse = function(p1, p2) {
             var c = [];
 
@@ -551,10 +555,10 @@ var storyGen = function(settings) {
             if (p1 && p2) {
                 p2n = coinflip() ? p2.name : p2.nickname;
 
-                // this should probably be handled by the calling code
+                // TODO: this should probably be handled by the calling code
                 // AS WHO KNOWS
                 // but for now.....
-                c.push('{{P1N}} {{bumped}} into {{P2N}}.');
+                // c.push('{{P1N}} {{bumped}} into {{P2N}}.');
 
                 // TODO: still pretty repetitive
                 // and the punctuation is funky
