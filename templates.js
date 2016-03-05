@@ -145,6 +145,44 @@ var nTemplates = function(story, world, storyGen) {
 
     };
 
+    story.interdiction = function(god) {
+
+        var ptype = god.randomProperty(world.interdictionType);
+        var advisor = god.advisor;
+        var hero = god.hero;
+
+        // hey. shouldn't the advisor be... NOT a property?
+        var interdiction = {
+            type: ptype,
+            location: '',
+            action: '',
+            person: '',
+            advisor: advisor
+        };
+
+        switch (ptype) {
+        case world.interdictionType.movement:
+            interdiction.place = god.location();
+            break;
+
+        case world.interdictionType.action:
+
+            interdiction.action = 'take the Lord\'s name in vain AGAIN';
+            break;
+
+        case world.interdictionType.speak:
+
+            // TODO: action should have a target
+            // that way, we can "travel" to target....
+            interdiction.action = 'talk to ' + god.villain.nickname;
+            break;
+        }
+
+
+        return interdiction;
+
+    };
+
     story.journey = function(god, p1, destination) {
 
         // walk, run, ramble, travel
@@ -544,6 +582,7 @@ var nTemplates = function(story, world, storyGen) {
     // since that only works on the first letter of the template-output (erroneously called 'sentence' in the code).
     // TODO: what about "lives alone." how would THAT be figured out???
     // aaaand: Milan are known to Natalie.
+    // TODO: why am I using "god" instead of "world" - there's a reason, wasn't there?
     story['func0'].exec = function(god, subFunc, terseness) {
 
         // do we need an "introduction" flag?
@@ -634,40 +673,39 @@ var nTemplates = function(story, world, storyGen) {
     // this is now just a proof-of-concept of executing larger functions to deal with templates
     story['func2'].exec = function(god) {
 
+        // They spent some time together, and then the Princess took it into her
+        // head to go a warring. So she handed over all the housekeeping affairs
+        // to Prince Ivan, and gave him these instructions:
 
-// They spent some time together, and then the Princess took it into her
-// head to go a warring. So she handed over all the housekeeping affairs
-// to Prince Ivan, and gave him these instructions:
+        // "Go about everywhere, keep watch over everything, only do not venture
+        // to look into that closet there."
 
-// "Go about everywhere, keep watch over everything, only do not venture
-// to look into that closet there."
+        // He couldn\'t help doing so. The moment Marya Morevna had gone he rushed
+        // to the closet, pulled open the door, and looked in -there hung Koshchei
+        // the Deathless, fettered by twelve chains. Then Koshchei entreated
+        // Prince Ivan, saying, -
 
-// He couldn\'t help doing so. The moment Marya Morevna had gone he rushed
-// to the closet, pulled open the door, and looked in -there hung Koshchei
-// the Deathless, fettered by twelve chains. Then Koshchei entreated
-// Prince Ivan, saying, -
+        // "Have pity upon me and give me to drink! Ten years long have I been
+        // here in torment, neither eating or drinking; my throat is utterly
+        // dried up."
 
-// "Have pity upon me and give me to drink! Ten years long have I been
-// here in torment, neither eating or drinking; my throat is utterly
-// dried up."
+        // The Prince gave him a bucketful of water; he drank it up and asked for
+        // more, saying:
 
-// The Prince gave him a bucketful of water; he drank it up and asked for
-// more, saying:
+        // "A single bucket of water will not quench my thirst; give me more!"
 
-// "A single bucket of water will not quench my thirst; give me more!"
+        // The Prince gave him a second bucketful. Koshchei drank it up and asked
+        // for a third, and when he had swallowed the [Pg 100] third bucketful,
+        // he regained his former strength, gave his chains a shake, and broke
+        // all twelve at once.
 
-// The Prince gave him a second bucketful. Koshchei drank it up and asked
-// for a third, and when he had swallowed the [Pg 100] third bucketful,
-// he regained his former strength, gave his chains a shake, and broke
-// all twelve at once.
-
-// "Thanks, Prince Ivan!" cried Koshchei the deathless, "now you will
-// sooner see your own ears than Marya Morevna!" and out of the window he
-// flew in the shape of a terrible whirlwind. And he came up with the
-// fair Princess Marya Morevna as she was going her way, laid hold of
-// her, and carried her off home with him. But Prince Ivan wept full
-// sore, and he arrayed himself and set out a wandering, saying to
-// himself: "Whatever happens, I will go and look for Marya Morevna!"
+        // "Thanks, Prince Ivan!" cried Koshchei the deathless, "now you will
+        // sooner see your own ears than Marya Morevna!" and out of the window he
+        // flew in the shape of a terrible whirlwind. And he came up with the
+        // fair Princess Marya Morevna as she was going her way, laid hold of
+        // her, and carried her off home with him. But Prince Ivan wept full
+        // sore, and he arrayed himself and set out a wandering, saying to
+        // himself: "Whatever happens, I will go and look for Marya Morevna!"
 
 
         var loc;
@@ -681,18 +719,8 @@ var nTemplates = function(story, world, storyGen) {
         //     speak: 'speakwith'
         // };
 
-        var ptype = god.randomProperty(world.interdictionType);
         var advisor = god.advisor;
         var hero = god.hero;
-
-        // hey. shouldn't the advisor be... NOT a property?
-        var interdiction = {
-            type: ptype,
-            location: '',
-            action: '',
-            person: '',
-            advisor: advisor
-        };
 
         var text = [];
 
@@ -703,50 +731,41 @@ var nTemplates = function(story, world, storyGen) {
 
         text.push(god.converse(advisor, hero), blankLine);
 
-        // TODO: move this into a function, so we can call elsewhere
-        // like in func3
-        // func2 always implies func2
-        // but func3 does not imply func2
-
         //  function 2: an interdiction is addressed to protagonist(s) = interdiction - (gamma)
         // 1 - interdiction issued
         // 2 - inverted form of interdiction issued as order or suggestion
 
-        hero.interdiction = interdiction;
+        hero.interdiction = story.interdiction(god);
 
         // action and speak are identical sentences
         // movement is _slightly_ different
 
-        switch (ptype) {
+
+        switch (hero.interdiction.type) {
         case world.interdictionType.movement:
-            interdiction.place = god.location();
 
             // TODO: more better coversation
             text.push('<%= advisor.name %> warned <%= hero.name %> to avoid <%= randomProperty(hero.interdiction.place) %>.');
-
             break;
 
         case world.interdictionType.action:
 
-            interdiction.action = 'take the Lord\'s name in vain AGAIN';
+            // interdiction.action = 'take the Lord\'s name in vain AGAIN';
             text.push('<%= advisor.name %> told <%= hero.name %> to not <%= hero.interdiction.action %>.');
-
             break;
 
         case world.interdictionType.speak:
 
             // TODO: action should have a target
             // that way, we can "travel" to target....
-            interdiction.action = 'talk to ' + god.villain.nickname;
             text.push('<%= hero.interdiction.advisor.name %> warns <%= hero.name %> to not <%= hero.interdiction.action %>.');
-
             break;
         }
 
         var mh = god.magicalhelper.name;
 
         // TODO: make the magicalhelper here. I guess
-        text.push(world.blankLine, interdiction.advisor.name + ' introduced {{MH}} to ' + hero.name);
+        text.push(world.blankLine, hero.interdiction.advisor.name + ' introduced {{MH}} to ' + hero.name);
         text.push(world.blankLine, god.converse(hero, god.magicalhelper));
 
         var tale = story.subtale(god.magicalhelper, god);
@@ -772,10 +791,15 @@ var nTemplates = function(story, world, storyGen) {
 
         // TODO: if interdiction is undefined, create it!
         // which means it needs to be in a function.....
+        if (!god.hero.interdiction) {
+            god.hero.interdiction = story.interdiction(god);
+        }
         var interdiction = god.hero.interdiction;
 
         if (!interdiction) {
-            console.log('INTERDICTION IS NOT DEFINED IN FUNC3; was func2 skipped???');
+            // this problem should now be solved
+            // leaving it here so far since there are no unit-tests yet.
+            console.log('INTERDICTION IS NOT DEFINED IN FUNC3; was func2 skipped??? YOU NEED TO EXTRACT THAT TO A METHOD');
             return ' ';
         }
 
@@ -1453,6 +1477,7 @@ var nTemplates = function(story, world, storyGen) {
         god.hero.possessions.push(item);
 
         if (!god.advisor.introduced) {
+            t.push('{{HN}} {{MET}} {{AN}}.');
             t.push(god.converse(god.advisor, god.hero));
         } else {
             t.push('{{HN}} {{MET}} {{AN}} again.');
@@ -1874,7 +1899,7 @@ var nTemplates = function(story, world, storyGen) {
     // Claim: False hero makes unfounded claims
     story['func24'].templates.push('<%= falsehero.name %> made unfounded claims.');
 
-    // Task: Difficult task proposed to the <%= hero.name %>
+    // Task: Difficult task proposed to the hero
     story['func25'].exec = function(god, subFunc) {
 
         // function 25: difficult task proposed to protagonist(s) = difficult task (M)

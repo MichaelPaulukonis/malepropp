@@ -134,18 +134,21 @@ var getFunctionsFromGui = function() {
     // this is awkward....
     // and how do we handle sub-funcs???
     for (index in funcs) {
-        if (index === 'func8') {
-            var subFunc = 'func8subfunc';
-            var sf = $('#' + subFunc).val();
-            var sfv;
-            if (sf.toLowerCase() !== 'random') {
-                sfv = sf;
-                f.push([index, sfv]);
+        if (window.document.myform[index].checked) {
+            if (index === 'func8') {
+                var subFunc = 'func8subfunc';
+                var sf = $('#' + subFunc).val();
+                var sfv;
+                if (sf.toLowerCase() !== 'random') {
+                    sfv = sf;
+                    f.push([index, sfv]);
+                } else {
+                    f.push(index);
+                }
             } else {
                 f.push(index);
             }
-        } else {
-            if (window.document.myform[index].checked) { f.push(index); }
+
         }
     }
 
@@ -169,6 +172,8 @@ var shoveToGui = function(tale) {
 var guiGet = function() {
 
     var settings = getFunctionsFromGui();
+
+    settings.conclusion = true;
 
     var selectedTheme = $('input[name=theme][type=radio]:checked').val();
     settings.verbtense = $('input[name=tense][type=radio]:checked').val();
