@@ -6,122 +6,86 @@ var wordbank = require('./wordbank.test.js')(words);
 var storygen = require('./propp.js');
 
 var world = storygen().world;
+var config = require('./config.js');
+
+var Tumblr = require('tumblrwks');
+var tumblr = new Tumblr(
+  {
+  consumerKey: config.consumerKey,
+  consumerSecret: config.consumerSecret,
+  accessToken: config.accessToken,
+  accessSecret: config.accessSecret
+  },
+  'fairytalesbot.tumblr.com'
+);
 
 var oneStory = function() {
 
-    try {
+  try {
 
-        var text = [];
+    var text = [];
 
-        // nope nope nope
+    // nope nope nope
 
-        var presets = world.util.randomProperty(storygen.presets);
-
-
-        var setts = {
-            herogender: 'random',
-            villaingender: 'random',
-            peoplegender: 'random',
-            functions: storygen.resetProppFunctions(),
-            // randomizer
-            funcs: presets.functions,
-            // funcs: ['func0', 'func2', 'func3', 'func8', 'func30', 'func31'],
-            // funcs: ['func0', 'func2', 'func3', ['func8', 'commits murder'], 'func30', 'func31'],
-            // funcs: [['func8', 'casting into body of water'], 'func30'],
-            // bossmode: true,
-            bossmode: presets.bossmode,
-            verbtense: 'past'
-        };
-
-        var theme = {
-            bank: wordbank,
-            templates: templates
-        };
+    var presets = world.util.randomProperty(storygen.presets);
 
 
-        var sg = new storygen(setts);
+    var setts = {
+      herogender: 'random',
+      villaingender: 'random',
+      peoplegender: 'random',
+      functions: storygen.resetProppFunctions(),
+      // randomizer
+      funcs: presets.functions,
+      // funcs: ['func0', 'func2', 'func3', 'func8', 'func30', 'func31'],
+      // funcs: ['func0', 'func2', 'func3', ['func8', 'commits murder'], 'func30', 'func31'],
+      // funcs: [['func8', 'casting into body of water'], 'func30'],
+      // bossmode: true,
+      bossmode: presets.bossmode,
+      verbtense: 'past'
+    };
 
-        // console.log(sg);
+    var theme = {
+      bank: wordbank,
+      templates: templates
+    };
 
-        var tale = sg.generate(setts, theme);
 
-        return tale;
+    var sg = new storygen(setts);
 
-    } catch(ex) {
-        // the last 3 items are non-standard.....
-        var msg = ex.name + ' : ' + ex.message;
-        if (ex.lineNumber && ex.columnNumber && ex.stack) {
-            msg += ' line: ' + ex.lineNumber + ' col: ' + ex.columnNumber + '\n'
-                + ex.stack;
-        }
-        console.log(msg);
+    var tale = sg.generate(setts, theme);
+
+    return tale;
+
+  } catch(ex) {
+    // the last 3 items are non-standard.....
+    var msg = ex.name + ' : ' + ex.message;
+    if (ex.lineNumber && ex.columnNumber && ex.stack) {
+      msg += ' line: ' + ex.lineNumber + ' col: ' + ex.columnNumber + '\n'
+        + ex.stack;
     }
+    console.log(msg);
+    return 'An error has occured';
+  }
 };
 
 
+var teller = function() {
 
-// http://stackoverflow.com/questions/18679576/counting-words-in-string
-var wordcount = function(s) {
+    var story = oneStory();
 
-    s = s.replace(/(^\s*)|(\s*$)/gi,"");//exclude  start and end white-space
-    s = s.replace(/[ ]{2,}/gi," ");//2 or more space to 1
-    s = s.replace(/\n /,"\n"); // exclude newline with a start spacing
-    return s.split(' ').length;
+    if (story && story.title && story.tale) {
 
-};
-
-
-var writeitout = function(text) {
-
-    var fs = require('fs');
-
-    var fn = 'wonder.tale.' + (Math.random() * 0x1000000000).toString(36) + '.txt';
-
-    fs.writeFile(fn, text);
-
-    console.log('\n\nWritten to ' + fn);
-
-};
-
-var novel = function() {
-
-
-    // console.log(oneStory());
-
-    var wc = 0;
-    var n = [];
-
-    while (wc < 50000) {
-
-        var tale = oneStory();
-
-        // console.log(tale);
-
-        // there's a bug that is killing tales.
-        // it's NOT BEING LOGGED BLARG
-        if (tale && tale.title && tale.tale) {
-
-            var formatted = tale.title.toUpperCase() + '\n\n' + tale.tale + '\n\n';
-
-            wc += wordcount(formatted);
-
-            n.push(formatted);
-
-        }
+      tumblr.post('/post',
+                  {type: 'text', title: story.title, body: story.tale},
+                  function(err, json){
+                    console.log(err, json);
+                  });
 
     }
 
-    writeitout(n.join('\n\n'));
-
-    console.log('DONE');
-
+  console.log('DONE');
 
 };
 
-// TODO: take in some param; if present, output a set n stories
-
-novel();
-
-// console.log(oneStory());
-// console.log(oneStory());
-// console.log(oneStory());
+teller();

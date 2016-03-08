@@ -1,2 +1,4 @@
 node_modules
 wonder.tale.*.txt
+config.js
+.env
