@@ -1751,7 +1751,7 @@ var nTemplates = function(story, world, storyGen) {
 
         text.push(god.pick(templates));
 
-        return text.join('\n\n');
+        return text.join('\n');
 
     };
 
@@ -1775,7 +1775,7 @@ var nTemplates = function(story, world, storyGen) {
         // I guess that should be part of the punishment/defeat
         // optionally, LEVELS?
         // or maybe not...... punishments in these stories are often beyond the pale.....
-        t.push(blankLine, story.punish(god, god.villain));
+        t.push(story.punish(god, god.villain));
 
         god.cache.villains = god.cache.villains || [];
         god.cache.villains.push(god.villain);
