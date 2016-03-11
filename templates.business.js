@@ -197,7 +197,7 @@ var businessTemplates = function(propp) {
     propp['func29'].templates.push('<%= hero.name %> is given a new appearance.');
 
     // Punishment: Villain is punished
-    propp['func30'].templates.push('<%= villain.name %> is <%= punished() %> by <%= hero.name %>.');
+    propp['func30'].templates.push('<%= villain.name %> is <%= punished %> by <%= hero.name %>.');
 
     // Wedding: hero marries and ascends the throne
     propp['func31'].templates.push('<%= hero.name %> <%= select(marriage, ascension) %>. It\'s a good life.');

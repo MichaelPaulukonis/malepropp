@@ -10,10 +10,14 @@
     "sentence-tokenizer": "0.0.7"
   },
   "devDependencies": {
+    "chai": "3.5.0",
+    "mocha": "2.4.5",
     "vows": "~0.7.0"
   },
   "scripts": {
-    "test": "node tests/test-malepropp.js"
+    "test_orign": "node tests/test-malepropp.js",
+    "test": "mocha tests/",
+    "test_cleaner": "mocha tests/cleaner.tests.js"
   },
   "repository": {
     "type": "git",
