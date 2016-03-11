@@ -1,12 +1,12 @@
 {
-  "name": "malepropp",
+  "name": "maleproppbot",
   "version": "0.0.0",
-  "description": "Story Generator using Proppiann Narratemes",
+  "description": "Tumblr Story Generator using Proppiann Narratemes",
   "main": "index.js",
   "dependencies": {
     "jquery": "~2.1.1",
     "nlp_compromise": "~0.2.2",
-    "sentence-tokenizer": "0.0.7",
+    "sugar": "1.4.1",
     "tumblrwks": "0.3.0",
     "underscore": "~1.7.0"
   },

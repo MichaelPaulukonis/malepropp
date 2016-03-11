@@ -7,8 +7,8 @@ module.exports = {
     consumerKey:    process.env.CONSUMER_KEY,
     consumerSecret: process.env.CONSUMER_SECRET,
     accessToken:    process.env.ACCESS_TOKEN,
-    accessSecret:   process.env.ACCESS_SECRET
+    accessSecret:   process.env.ACCESS_SECRET,
 
-    // log:                  (process.env.LOG.toLowerCase() === 'true')
+    postLive:       (process.env.POST_LIVE.toLowerCase() === 'true')
 
 };

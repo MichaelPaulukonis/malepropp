@@ -1,20 +1,21 @@
 // var defaultTemplates = require('./default.templates.js');
+var sugar = require('sugar');
+var config = require('./config.js');
+var Tumblr = require('tumblrwks');
+
 var templates = require('./templates.js');
 var words = require('./words.js');
 // words is a requirement for wordbank.....
 var wordbank = require('./wordbank.test.js')(words);
 var storygen = require('./propp.js');
-
 var world = storygen().world;
-var config = require('./config.js');
 
-var Tumblr = require('tumblrwks');
 var tumblr = new Tumblr(
   {
-  consumerKey: config.consumerKey,
-  consumerSecret: config.consumerSecret,
-  accessToken: config.accessToken,
-  accessSecret: config.accessSecret
+    consumerKey:    config.consumerKey,
+    consumerSecret: config.consumerSecret,
+    accessToken:    config.accessToken,
+    accessSecret:   config.accessSecret
   },
   'fairytalesbot.tumblr.com'
 );
@@ -72,17 +73,21 @@ var oneStory = function() {
 
 var teller = function() {
 
-    var story = oneStory();
+  var story = oneStory();
 
-    if (story && story.title && story.tale) {
+  if (story && story.title && story.tale) {
 
+    if (config.postLive) {
       tumblr.post('/post',
                   {type: 'text', title: story.title, body: story.tale},
                   function(err, json){
                     console.log(err, json);
                   });
-
+    } else {
+      console.log(story);
     }
+
+  }
 
   console.log('DONE');
 

@@ -1,35 +1,25 @@
 /*jshint node:true, laxcomma:true */
 "use strict";
 
-// not actually used
-// var debug = debug|| require('debug')('tokenizer');
-
 // sugar is a dependency, and should be loaded in the browser prio to loading the tokenizer
 // var sugar = require('sugar');
 
-function Tokenizer(username, botname) {
+function Tokenizer() {
 
-  // // Maybe it is not useful
-  // if (!(this instanceof Tokenizer)) {
-  //   return new Tokenizer();
-  // }
+  if (!(this instanceof Tokenizer)) {
+    return new Tokenizer();
+  }
 
-  this.username = username || 'Guy';
   this.entry = null;
   this.sentences = null;
 
-  if (typeof botname == 'string') {
-    this.botname = botname;
-  }
-  else {
-    this.botname = 'ECTOR';
-  }
 }
 
 Tokenizer.prototype = {
   setEntry : function (entry) {
     this.entry = entry.compact();
     this.sentences = null;
+    return this;
   },
   // Split the entry into sentences.
   getSentences : function () {
@@ -40,19 +30,10 @@ Tokenizer.prototype = {
     });
 
     var self = this;
-    var botnameRegExp = new RegExp("\\W?" + self.botname.normalize() + "\\W?");
-    var usernameRegExp = new RegExp("\\W?" + self.username.normalize() + "\\W?");
     var lastSentence = words[0];
     self.sentences = [];
     words.reduce(function (prev, cur, index, array) {
-      var curNormalized = cur.normalize();
       var curReplaced = cur;
-      if (curNormalized.search(botnameRegExp) !== -1) {
-        curReplaced = cur.replace(self.botname,"{yourname}");
-      }
-      else if (curNormalized.search(usernameRegExp) !== -1) {
-        curReplaced = cur.replace(self.username,"{myname}");
-      }
 
       if (endingWords.indexOf(prev) != -1) {
         self.sentences.push(lastSentence.compact());
