@@ -526,8 +526,10 @@ var nTemplates = function(story, world, storyGen) {
         god.villain.health = 'dead';
 
         var t = [];
-        t.push(god.capitalize(endsel));
-        t.push(god.capitalize(god.pick(dispersal)));
+        // t.push(god.capitalize(endsel));
+        // t.push(god.capitalize(god.pick(dispersal)));
+        t.push(endsel);
+        t.push(god.pick(dispersal));
 
         if (god.coinflip()) {
             var tmpl2 = [
@@ -552,9 +554,11 @@ var nTemplates = function(story, world, storyGen) {
         // can't use a complete sentence. DANG. because: capitalization
         // 'This is the way the world begins.',
         var intros = [
-            'Once upon a time,', 'Once there was, and there wasn\'t,',
+            'Once upon a time,',
+            'Once there was, and there wasn\'t,',
             'I\'ve heard it said that once',
-            'A long time ago,', 'Some years before you were born,',
+            'A long time ago,',
+            'Some years before you were born,',
             'In the time when your parents\' parents were but small babies,',
             'Once upon a time,',
             (god.coinflip() ? 'We <%= coinflip() ? "like to " : "" %><%= coinflip() ? "say" : "think" %> '
@@ -1751,7 +1755,7 @@ var nTemplates = function(story, world, storyGen) {
 
         text.push(god.pick(templates));
 
-        return text.join('\n\n');
+        return text.join('\n');
 
     };
 
@@ -1775,7 +1779,7 @@ var nTemplates = function(story, world, storyGen) {
         // I guess that should be part of the punishment/defeat
         // optionally, LEVELS?
         // or maybe not...... punishments in these stories are often beyond the pale.....
-        t.push(blankLine, story.punish(god, god.villain));
+        t.push(story.punish(god, god.villain));
 
         god.cache.villains = god.cache.villains || [];
         god.cache.villains.push(god.villain);

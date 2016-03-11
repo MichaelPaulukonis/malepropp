@@ -9,9 +9,15 @@
     "nlp_compromise": "~0.2.2",
     "sentence-tokenizer": "0.0.7"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "3.5.0",
+    "mocha": "2.4.5",
+    "vows": "~0.7.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test_orign": "node tests/test-malepropp.js",
+    "test": "mocha tests/",
+    "test_cleaner": "mocha tests/cleaner.tests.js"
   },
   "repository": {
     "type": "git",

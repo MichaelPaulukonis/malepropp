@@ -19,6 +19,8 @@ var _ = _ || require('underscore');
 var nlp_compromise = nlp_compromise || require('nlp_compromise');
 var nlp = nlp_compromise;
 var Tokenizer = Tokenizer || require('sentence-tokenizer');
+var Cleaner = Cleaner || require('cleaner');
+var cleaner = new Cleaner(Tokenizer);
 
 // http://blog.elliotjameschong.com/2012/10/10/underscore-js-deepclone-and-deepextend-mix-ins/
 // in case it is not clear, deepClone clones everything that can JSON-ified
@@ -154,18 +156,6 @@ var storyGen = function(settings) {
         return num;
     };
 
-    // // http://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
-    // var randomProperty = function(obj) {
-    //     var result;
-    //     var count = 0;
-    //     for (var prop in obj)
-    //         if (prop != 'id') {
-    //             if (Math.random() < 1/++count)
-    //                 result = obj[prop];
-    //         }
-    //     return result;
-    // };
-
     var pick = function(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
     };
@@ -182,19 +172,15 @@ var storyGen = function(settings) {
         return (Math.random() < chance);
     };
 
-
-    // failing for
-    // This is the way the world begins. just on the verge of Oblivion in the province Prussia, there was a hovel where Angelic Lauren lived.
     var capitalize = function(str) {
         // how about regex on start of each line w/in the string????
         if (!str) return null;
-        return str.replace(/^[a-z]/mg, function(m) { return m.toUpperCase(); });
-        // return str.slice(0,1).toUpperCase() + str.slice(1);
+        return cleaner(str);
     };
-
 
     // ugh. capitalize is defined in propp.js
     // bank { adjective: [], verbs: [] }
+    // TODO: why "ig" instead of "itemGenerator" ?
     var ig = function(bank) {
 
         var adjCount = random(4) + 1;
