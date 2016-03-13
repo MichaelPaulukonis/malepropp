@@ -18,8 +18,8 @@
 var _ = _ || require('underscore');
 var nlp_compromise = nlp_compromise || require('nlp_compromise');
 var nlp = nlp_compromise;
-var Tokenizer = Tokenizer || require('sentence-tokenizer');
-var Cleaner = Cleaner || require('cleaner');
+var Tokenizer = Tokenizer || require('./tokenizer.web.js');
+var Cleaner = Cleaner || require('./cleaner');
 var cleaner = new Cleaner(Tokenizer);
 
 // http://blog.elliotjameschong.com/2012/10/10/underscore-js-deepclone-and-deepextend-mix-ins/
@@ -31,6 +31,7 @@ _.mixin({ deepClone: function (o) {
     } catch (ex) {
         console.log(ex.message);
         console.log(o);
+        return undefined;
     }
 }});
 
@@ -806,7 +807,7 @@ var storyGen = function(settings) {
                     }
                 }
 
-                // if there are paragraph breaks WE JUST LOST THEM
+                // if there are paragraph or sentence breaks WE JUST LOST THEM
                 f = tensed.join(' ');
 
             }
@@ -831,7 +832,7 @@ var storyGen = function(settings) {
             // exceptions
             f = f.replace(/wered/mg, 'were').replace(/weres/mg, 'are').replace(/strided/mg, 'strode').replace(/wased/mgi, 'WAS');
 
-            f = capitalize(f);
+            f = capitalize(f); // condenses everything to a single giant paragraph. BLARG! (becuase: cleaner/tokenizer)
 
         }
 

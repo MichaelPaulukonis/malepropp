@@ -24,6 +24,9 @@ var Cleaner = function(Tokenizer) {
 
         var cleanSentences = function(text) {
 
+            // using the Tokenizer collapses paragraphs down into one. BLARG. hrm...
+            // so... what if we parse it into lines, and THEN feed into tokenizer?
+            // a paragraph = 1 line (/n at end)
             st.setEntry(text);
             var sentences = st.getSentences();
 

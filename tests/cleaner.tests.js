@@ -5,7 +5,8 @@ var tester = function() {
   var mocha = require('mocha'),
       chai = require('chai'),
       expect = chai.expect,
-      Tokenizer = require('sentence-tokenizer'),
+      sugar = require('sugar'), // a requirement for tokenizer.web
+      Tokenizer = require('../tokenizer.web.js'),
       Cleaner = require('../cleaner.js'),
       cleaner = new Cleaner(Tokenizer);
 
