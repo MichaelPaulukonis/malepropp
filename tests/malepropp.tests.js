@@ -101,4 +101,27 @@ var tester = function() {
 
   });
 
+  describe('storygen utlities', function() {
+
+    var utils = storygen.world.util;
+
+    describe('capitalize', function() {
+
+      it('should capitalize the first letter in a single word', function() {
+        expect(utils.capitalize('word')).to.equal('Word');
+      });
+
+      it('should capitalize the first word in a sentence', function() {
+        expect(utils.capitalize('this is a sentence.')).to.equal('This is a sentence.');
+      });
+
+      it('should capitalize the first word in each sentence of multiple sentences.', function() {
+        expect(utils.capitalize('this is a sentence. so is this.')).to.equal('This is a sentence. So is this.');
+      });
+
+
+    });
+
+  });
+
 }();
