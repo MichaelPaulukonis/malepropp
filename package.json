@@ -15,9 +15,9 @@
     "vows": "~0.7.0"
   },
   "scripts": {
-    "test_orign": "node tests/test-malepropp.js",
     "test": "mocha tests/",
-    "test_cleaner": "mocha tests/cleaner.tests.js"
+    "test_cleaner": "mocha tests/cleaner.tests.js",
+    "test_propp":   "mocha tests/malepropp.tests.js"
   },
   "repository": {
     "type": "git",

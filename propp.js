@@ -18,6 +18,7 @@
 var _ = _ || require('underscore');
 var nlp_compromise = nlp_compromise || require('nlp_compromise');
 var nlp = nlp_compromise;
+var sugar = sugar || require('sugar');
 var Tokenizer = Tokenizer || require('./tokenizer.web.js');
 var Cleaner = Cleaner || require('./cleaner');
 var cleaner = new Cleaner(Tokenizer);
