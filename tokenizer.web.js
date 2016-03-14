@@ -15,6 +15,7 @@ function Tokenizer() {
 
 }
 
+// TODO: remove the sugar dependency
 Tokenizer.prototype = {
   setEntry : function (entry) {
     this.entry = entry.compact();

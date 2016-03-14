@@ -18,6 +18,11 @@
 var _ = _ || require('underscore');
 var nlp_compromise = nlp_compromise || require('nlp_compromise');
 var nlp = nlp_compromise;
+// include sugar for node; not if html - in-progress
+// var sugar = sugar || require('sugar');
+if (typeof [].first !== 'function') {
+  require('sugar');
+}
 var Tokenizer = Tokenizer || require('./tokenizer.web.js');
 var Cleaner = Cleaner || require('./cleaner');
 var cleaner = new Cleaner(Tokenizer);
@@ -148,6 +153,20 @@ world.util.randomProperty = function(obj) {
         return result;
     };
 
+// this capitalizes the first letter of a sentence, or the first word in each sentence
+// in each paragraph or paragraphs
+world.util.capitalize = function(str) {
+  if (!str) return null;
+
+  var lines = str.split('\n'),
+      clean = [];
+  for (var i = 0; i < lines.length; i++) {
+    clean.push(cleaner(lines[i]));
+  }
+
+  return clean.join('\n');
+};
+
 
 var storyGen = function(settings) {
 
@@ -173,11 +192,14 @@ var storyGen = function(settings) {
         return (Math.random() < chance);
     };
 
-    var capitalize = function(str) {
-        // how about regex on start of each line w/in the string????
-        if (!str) return null;
-        return cleaner(str);
-    };
+    // this capitalizes the first letter of a sentence, or the first word in each sentence in a paragraph.
+    // it presumes all passed-in-lines to be a paragraph, and will collapse all line-breaks
+    // to create one paragraph
+    // var capitalize = function(str) {
+    //     if (!str) return null;
+    //     return cleaner(str);
+    // };
+    var capitalize = world.util.capitalize;
 
     // ugh. capitalize is defined in propp.js
     // bank { adjective: [], verbs: [] }
@@ -990,6 +1012,8 @@ var storyGen = function(settings) {
 
 
 };
+
+storyGen.world = world;
 
 // TODO: does there need to be an exposed function list?
 // for interrogation/testing
