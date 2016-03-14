@@ -119,6 +119,11 @@ var tester = function() {
         expect(utils.capitalize('this is a sentence. so is this.')).to.equal('This is a sentence. So is this.');
       });
 
+      it('should leave line-breaks (paragraphs) intact', function() {
+        var sentIn = 'this is.\n\ntwo paragraphs.';
+        var sentOut = 'This is.\n\nTwo paragraphs.';
+        expect(utils.capitalize(sentIn)).to.equal(sentOut);
+      });
 
     });
 

@@ -158,7 +158,15 @@ world.util.randomProperty = function(obj) {
     // to create one paragraph
 world.util.capitalize = function(str) {
   if (!str) return null;
-  return cleaner(str);
+
+  var lines = str.split('\n'),
+      clean = [];
+  for (var i = 0; i < lines.length; i++) {
+    clean.push(cleaner(lines[i]));
+  }
+
+  return clean.join('\n');
+  // return cleaner(str);
 };
 
 
