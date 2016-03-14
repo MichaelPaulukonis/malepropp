@@ -153,9 +153,8 @@ world.util.randomProperty = function(obj) {
         return result;
     };
 
-    // this capitalizes the first letter of a sentence, or the first word in each sentence in a paragraph.
-    // it presumes all passed-in-lines to be a paragraph, and will collapse all line-breaks
-    // to create one paragraph
+// this capitalizes the first letter of a sentence, or the first word in each sentence
+// in each paragraph or paragraphs
 world.util.capitalize = function(str) {
   if (!str) return null;
 
@@ -166,7 +165,6 @@ world.util.capitalize = function(str) {
   }
 
   return clean.join('\n');
-  // return cleaner(str);
 };
 
 
