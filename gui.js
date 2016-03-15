@@ -182,7 +182,7 @@ var guiGet = function() {
     switch(selectedTheme) {
     case 'office':
         theme = {
-            bank: businessbank,
+            bank: businessbank(words),
             templates: businessTemplates
         };
         break;
