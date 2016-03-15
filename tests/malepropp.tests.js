@@ -5,14 +5,17 @@ var tester = function() {
   var mocha = require('mocha'),
       chai = require('chai'),
       expect = chai.expect,
-      templates = require('../templates.js'),
+      defaultTemplates = require('../templates.js'),
+      businessTemplates = require('../templates.business.js'),
       wordbank = require('../wordbank.test.js')(require('../words.js')),
       storygen = require('../propp.js'),
       world = storygen().world; // hey, we're assuming this works w/o testing!
 
   // TODO: this relies on storygen.resetProppFunction
   // WHICH IS NOT TESTED PRIOR TO THIS FUNCTION OUCH
-  var commonSettings = function() {
+  var commonSettings = function(templates) {
+
+    templates = templates || defaultTemplates;
 
     var setts = {
       herogender: 'female',
@@ -41,7 +44,7 @@ var tester = function() {
 
   });
 
-  describe('storyGen functions standalone', function() {
+  describe('defaulttemplates storyGen functions standalone', function() {
 
     var cs = commonSettings();
     cs.settings.funcs = [];
@@ -74,6 +77,41 @@ var tester = function() {
     });
 
   });
+
+
+  describe('business storyGen functions standalone', function() {
+
+    var cs = commonSettings(businessTemplates);
+    cs.settings.funcs = [];
+
+    it('should have each function working solo', function() {
+
+      var funcList = [
+        'func0', 'func1', 'func2', 'func3', 'func4',
+        'func5', 'func6', 'func7', 'func8', 'func8a',
+        'func9', 'func10', 'func11', 'func12', 'func13',
+        'func14', 'func15', 'func16', 'func17',
+        'func18', 'func19', 'func20', 'func21',
+        'func22', 'func23', 'func24', 'func25',
+        'func26', 'func27', 'func28', 'func29',
+        'func30', 'func31'
+      ];
+
+      for (var i = 0; i < funcList.length; i++) {
+        var func = funcList[i];
+        cs.settings.funcs = [func];
+        var sg = new storygen(cs.settings);
+        var story = sg.generate(cs.settings, cs.theme);
+        expect(story.tale).to.not.be.null;
+        expect(story.tale).to.have.length.above(10);
+        expect(story.title).to.have.length.above(5); // some have come in at 10. Maybe less is possible.
+        console.log(func, ': ', story.tale);
+      }
+
+    });
+
+  });
+
 
   describe('storygen exposes villainy types', function() {
 

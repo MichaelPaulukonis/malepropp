@@ -2,6 +2,7 @@
 var vows = require('vows'),
     assert = require('assert');
 
+// TODO: well, want to change this up, don't we....
 var templates = require('../templates.js');
 var wordbank = require('../wordbank.test.js')(require('../words.js'));
 var storygen = require('../propp.js');
