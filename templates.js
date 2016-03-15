@@ -1352,6 +1352,7 @@ var nTemplates = function(story, world, storyGen) {
     // or.... figure out a better way to accomplish this...
     story['func8a'].exec = function(god, subFunc) {
 
+        // TODO: uh, doesn't this mean that we create it, twice?
         if (!god.cache.lack) { story.createLack(god); }
         var lack = story.createLack(god);
 
