@@ -20,6 +20,7 @@ var nlp_compromise = nlp_compromise || require('nlp_compromise');
 var nlp = nlp_compromise;
 // include sugar for node; not if html - in-progress
 // var sugar = sugar || require('sugar');
+// sugar is required for the Tokenizer (work on removing this dependency)
 if (typeof [].first !== 'function') {
   require('sugar');
 }
@@ -40,6 +41,7 @@ _.mixin({ deepClone: function (o) {
     }
 }});
 
+// exposed statically as storyGen.world, as well as with instances
 var world = {};
 
 // "enum", with numbers for comparison?

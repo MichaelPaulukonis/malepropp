@@ -44,70 +44,106 @@ var tester = function() {
 
   });
 
-  describe('defaulttemplates storyGen functions standalone', function() {
+  describe('defaultTemplates storyGen functions standalone', function() {
 
     var cs = commonSettings();
     cs.settings.funcs = [];
 
-    it('should have each function working solo', function() {
+    var funcList = [
+      'func0', 'func1', 'func2', 'func3', 'func4',
+      'func5', 'func6', 'func7', 'func8', 'func8a',
+      'func9', 'func10', 'func11', 'func12', 'func13',
+      'func14', 'func15', 'func16', 'func17',
+      'func18', 'func19', 'func20', 'func21',
+      'func22', 'func23', 'func24', 'func25',
+      'func26', 'func27', 'func28', 'func29',
+      'func30', 'func31'
+    ];
 
-      var funcList = [
-        'func0', 'func1', 'func2', 'func3', 'func4',
-        'func5', 'func6', 'func7', 'func8', 'func8a',
-        'func9', 'func10', 'func11', 'func12', 'func13',
-        'func14', 'func15', 'func16', 'func17',
-        'func18', 'func19', 'func20', 'func21',
-        'func22', 'func23', 'func24', 'func25',
-        'func26', 'func27', 'func28', 'func29',
-        'func30', 'func31'
-      ];
-
-      // TODO: intro and outro is included by default
-      // there should be a way to turn it off
-      for (var i = 0; i < funcList.length; i++) {
-        var func = funcList[i];
+    funcList.forEach(function(func) {
+      it('correctly generates text for ' + func, function() {
         cs.settings.funcs = [func];
         var sg = new storygen(cs.settings);
         var story = sg.generate(cs.settings, cs.theme);
         expect(story.tale).to.not.be.null;
         expect(story.tale).to.have.length.above(10);
         expect(story.title).to.have.length.above(5); // some have come in at 10. Maybe less is possible.
-      }
+        // console.log(func, ': ', story.tale);
+      });
+    });
 
+
+    describe('defaultTemplates func8 subfuntions', function() {
+
+      it('exposes the subfunctions of func8', function() {
+        expect(world.func8subfuncs).to.not.be.null;
+        expect(typeof world.func8subfuncs).to.equal('object');
+      });
+
+      var subs = world.func8subfuncs;
+      for(var subfunc in subs) {
+        it('generates text for func8, subfunc: ' + subs[subfunc], function() {
+          cs.settings.funcs = ['func8', subs[subfunc]];
+          var sg = new storygen(cs.settings);
+          var story = sg.generate(cs.settings, cs.theme);
+          expect(story.tale).to.not.be.null;
+          expect(story.tale).to.have.length.above(10);
+          expect(story.title).to.have.length.above(5); // some have come in at 10. Maybe less is possible.
+        });
+      };
     });
 
   });
 
 
-  describe('business storyGen functions standalone', function() {
+
+
+
+  describe('businesstemplate storyGen functions standalone', function() {
 
     var cs = commonSettings(businessTemplates);
     cs.settings.funcs = [];
 
-    it('should have each function working solo', function() {
+    var funcList = [
+      'func0', 'func1', 'func2', 'func3', 'func4',
+      'func5', 'func6', 'func7', 'func8', 'func8a',
+      'func9', 'func10', 'func11', 'func12', 'func13',
+      'func14', 'func15', 'func16', 'func17',
+      'func18', 'func19', 'func20', 'func21',
+      'func22', 'func23', 'func24', 'func25',
+      'func26', 'func27', 'func28', 'func29',
+      'func30', 'func31'
+    ];
 
-      var funcList = [
-        'func0', 'func1', 'func2', 'func3', 'func4',
-        'func5', 'func6', 'func7', 'func8', 'func8a',
-        'func9', 'func10', 'func11', 'func12', 'func13',
-        'func14', 'func15', 'func16', 'func17',
-        'func18', 'func19', 'func20', 'func21',
-        'func22', 'func23', 'func24', 'func25',
-        'func26', 'func27', 'func28', 'func29',
-        'func30', 'func31'
-      ];
-
-      for (var i = 0; i < funcList.length; i++) {
-        var func = funcList[i];
+    funcList.forEach(function(func) {
+      it('correctly generates text for ' + func, function() {
         cs.settings.funcs = [func];
         var sg = new storygen(cs.settings);
         var story = sg.generate(cs.settings, cs.theme);
         expect(story.tale).to.not.be.null;
         expect(story.tale).to.have.length.above(10);
         expect(story.title).to.have.length.above(5); // some have come in at 10. Maybe less is possible.
-        console.log(func, ': ', story.tale);
-      }
+      });
+    });
 
+    describe('defaultTemplates func8 subfuntions', function() {
+
+      it('exposes the subfunctions of func8', function() {
+        expect(world.func8subfuncs).to.not.be.null;
+        expect(typeof world.func8subfuncs).to.equal('object');
+      });
+
+      var subs = world.func8subfuncs;
+      for(var subfunc in subs) {
+        it('generates text for func8, subfunc: ' + subs[subfunc], function() {
+          cs.settings.funcs = ['func8', subs[subfunc]];
+          var sg = new storygen(cs.settings);
+          var story = sg.generate(cs.settings, cs.theme);
+          expect(story.tale).to.not.be.null;
+          expect(story.tale).to.have.length.above(10);
+          expect(story.title).to.have.length.above(5); // some have come in at 10. Maybe less is possible.
+        });
+      };
     });
 
   });
