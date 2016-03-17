@@ -245,37 +245,67 @@ var businessTemplates = function(story, world, storyGen) {
   story['func8'].exec = function(god, subFunc, skipIntros) {
     var text = [];
 
+    // TODO: test all of these
+    // world.func8subfuncs = {
+    //     '1'   : 'kidnapping of person',
+    //     '2'   : 'seizure of magical agent or helper',
+    //     '2b'  : 'forcible seizure of magical helper',
+    //     '3'   : 'pillaging or ruining of crops',
+    //     '4'   : 'theft of daylight',
+    //     '5'   : 'plundering in other forms',
+    //     '6'   : 'bodily injury, maiming, mutilation',
+    //     '7'   : 'causes sudden disappearance',
+    //     '7b'  : 'bride is forgotten',
+    //     '8'   : 'demand for delivery or enticement, abduction',
+    //     '9'   : 'expulsion',
+    //     '10'  : 'casting into body of water',
+    //     '11'  : 'casting of a spell, transformation',
+    //     '12'  : 'false substitution',
+    //     '13'  : 'issues order to kill [requires proof]',
+    //     '14'  : 'commits murder',
+    //     '15'  : 'imprisonment, detention',
+    //     '16'  : 'threat of forced matrimony',
+    //     '16b' : 'threat of forced matrimony between relatives',
+    //     '17'  : 'threat of cannibalism',
+    //     '17b' : 'threat of cannibalism among relatives',
+    //     '18'  : 'tormenting at night (visitation, vampirism)',
+    //     '19'  : 'declaration of war'
+    // };
+
+
+    // TODO: see templates.js for another method of handling this
+    // TODO: test passing-in the subFunc
     var templates = [
-      '<%= villain.name %> kidnaps <%= pickselect(hero.family, hero.acquaintances).name %>.',
-      '<%= villain.name %> <%= select("forcibly seizes", "kidnaps", "makes off with") %> <%= magicalhelper.name %>.',
-      'The report is destroyed by <%= villain.name %>. All begin to feel the discomfort of chaos.',
-      'Suddenly, it becomes as night. <%= villain.name %> has shut off the power!',
-      '<%= villain.name %> engages in plundering in other forms.',
-      '<%= villain.name %> causes bodily injury, maiming, mutilation.',
-      '<%= villain.name %> causes a sudden disappearance.',
+       '<%= villain.name %> kidnaps <%= select(hero.family, hero.acquaintances).name %>.'
+      ,'<%= villain.name %> <%= select("forcibly seizes", "kidnaps", "makes off with") %> <%= magicalhelper.name %>.'
+      ,'The report is destroyed by <%= villain.name %>. All begin to feel the discomfort of chaos.',
+      ,'Suddenly, it becomes as night. <%= villain.name %> has shut off the power!',
+      ,'<%= villain.name %> engages in plundering in other forms.',
+      ,'<%= villain.name %> causes bodily injury, maiming, mutilation.',
+      ,'<%= villain.name %> causes a sudden disappearance.',
       // TODO: more code is needed for THIS one...
-      '<%= hero.name %>\'s intern is forgotten after <%= villain.name %> casts a spell.',
-      '<%= villain.name %> makes a demand for delivery or enticement, abduction.',
+      ,'<%= hero.name %>\'s intern is forgotten after <%= villain.name %> casts a spell.',
+      ,'<%= villain.name %> makes a demand for delivery or enticement, abduction.',
       // TODO: code needed
       // TODO: possessive
-      '<%= hero.name %> is driven from <%= hero.home.residence %>.',
-      '<%= villain.name %> throws <%= hero.name %> into <%= select("the toilet", "a drinking fountain", "the decorative fountain in the lobby") %>.',
-      'It is hard to describe the charged atmosphere once <%= villain.name %> has their policies enacted.',
+      ,'<%= hero.name %> is driven from <%= hero.home.residence %>.',
+      ,'<%= villain.name %> throws <%= hero.name %> into <%= select("the toilet", "a drinking fountain", "the decorative fountain in the lobby") %>.',
+      ,'It is hard to describe the charged atmosphere once <%= villain.name %> has their policies enacted.',
       // TODO: posession needs to be tracked
       // so item now "belongs" to villain (or hench-person)
-      'A false substitution is perpretrated by <%= villain.name %>.',
-      '<%= villain.name %> issues order to terminate [requires proof].',
-      '<%= villain.name %> practically commits murder.',
-      '<%= hero.name %> is called into an unexpected meeting.',
-      '<%= villain.name %> threatens to fire <%= pick(hero.family).name %>.',
-      '<%= villain.name %> <%= select("insinuates", "suggests", "muses") %> that <%= list(hero.family) %> could be forced to transfer to his/her division.',
-      'There is a threat of layoffs.',
-      'Thanks to the ravages <%= villain.name %>\'s disruptions have left on the firm, there is the threat of layoffs among <%= hero.name %>\'s work-group. <%= list(hero.family) %> eye each other nervously.',
+      ,'A false substitution is perpretrated by <%= villain.name %>.',
+      ,'<%= villain.name %> issues order to terminate [requires proof].',
+      ,'<%= villain.name %> practically commits murder.',
+      ,'<%= hero.name %> is called into an unexpected meeting.',
+      ,'<%= villain.name %> threatens to fire <%= pick(hero.family).name %>.',
+      ,'<%= villain.name %> <%= select("insinuates", "suggests", "muses") %> that <%= list(hero.family) %> could be forced to transfer to his/her division.',
+      ,'There is a threat of layoffs.',
+      ,'Thanks to the ravages <%= villain.name %>\'s disruptions have left on the firm, there is the threat of layoffs among <%= hero.name %>\'s work-group. <%= list(hero.family) %> eye each other nervously.',
       // //  (visitaion, vampirism)
       // // TODO: code, since this is picking a specific person
       // // actually, ALL OF THESE reqire code, since we need to know WHAT happens, here...
-      '<%= hero.name %> is tormented during meetings by <%= pick(villain.family).name %>.',
-      '<%= villain.name %> declares inter-office war on <%= hero.name %>.',
+      ,'<%= hero.name %> is tormented during meetings by <%= pick(villain.family).name %>.',
+      ,'<%= villain.name %> declares inter-office war on <%= hero.name %>.'
 
     ];
 
