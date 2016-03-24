@@ -421,7 +421,7 @@ var businessTemplates = function(story, world, storyGen) {
 
 
     var templates = [
-      '{{HN}} discovers that ' + god.cache.lack.person.name + ' ' + god.cache.lack.lack
+      '{{HN}} discovers that ' + name + ' ' + lack.lack
     ];
 
     text.push(god.pick(templates));

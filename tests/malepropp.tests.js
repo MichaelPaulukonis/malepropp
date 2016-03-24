@@ -69,7 +69,6 @@ var tester = function() {
     };
 
     var testTemplate = function(name, template) {
-      // TODO: re-work so we can pass in a specific template
       describe(name + ' storyGen functions standalone', function() {
 
         var cs = commonSettings(template);
@@ -81,8 +80,9 @@ var tester = function() {
             var sg = new storygen(cs.settings);
             var story = sg.generate(cs.settings, cs.theme);
             expect(story.tale).to.not.be.null;
-            expect(story.tale).to.have.length.above(10);
             expect(story.title).to.have.length.above(5); // some have come in at 10. Maybe less is possible.
+            expect(story.tale).to.have.length.above(10);
+            expect(story.tale.indexOf('undefined')).to.equal(-1);
             // console.log(func, ': ', story.tale);
           });
         });
