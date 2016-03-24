@@ -10,6 +10,10 @@ body {
     min-width:800px !important;
 }
 
+td {
+    vertical-align: text-top;
+}
+
 ul {
     list-style: none;
     padding: 0;

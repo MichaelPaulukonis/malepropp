@@ -170,17 +170,11 @@ var businessbank = function(words) {
     ]
   };
 
-
-
-  // var itemGenerator = function() {
-
-  //   return storyGen.itemGenerator(businessbank.itembank);
-
-  // };
-
-
   var fantasticForm = ['CEO', 'CFO', 'Regulator'];
-  var greetings = ['Hello.'];
+    var greetings = {
+        good: ['Hello,', 'Nice to meet you'],
+        bad: ['Oh.', 'Oh, hello,', 'Well, well, well.', 'I see you somehow managed to stay employed.']
+    };
   var magicalitems = ['World\s Best PowerPoint Presentation', 'Shiny Laser Pointer'];
 
     return {

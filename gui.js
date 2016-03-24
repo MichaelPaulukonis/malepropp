@@ -10,9 +10,17 @@ var gui = function() {
         window.open(url+".html", "win", "toolbar=0,location=0,directories=0,status=0,menubar=1,scrollbars=1,resizable=1,width=350,height=400");
     };
 
+    var setall = function(toggle) {
+        var funcs = $('input[type=checkbox]');
+        funcs.each(function(index, element) {
+            $(element).prop('checked', toggle);
+        });
+    };
+
     return {
         popup: popup,
-        popup2: popup2
+        popup2: popup2,
+        setall: setall
     };
 
 }();
@@ -72,9 +80,10 @@ var pushSettingsToGui = function(proppFunctions) {
 // if element is array, it is a function with a sub-Function
 // further parameters not yet handled
 // radio button options (globals) not yet handled
-var pushSettingsToGuiNew = function(funcs) {
+var pushSettingsToGuiNew = function(funcs, toggle) {
 
     // TODO: clear the settings
+    toggle = toggle || true;
 
     for (var index in funcs.functions) {
 
@@ -85,7 +94,7 @@ var pushSettingsToGuiNew = function(funcs) {
             func = func[0];
         }
 
-        window.document.myform[func].checked = true;
+        window.document.myform[func].checked = toggle;
 
         if (subFunc) {
             var id;
@@ -94,7 +103,6 @@ var pushSettingsToGuiNew = function(funcs) {
             case 'func8':
                 id = 'func8subfunc';
                 break;
-
             }
 
             if (id) {
@@ -106,7 +114,6 @@ var pushSettingsToGuiNew = function(funcs) {
     }
 
     window.document.myform.bossfight.checked = funcs.bossfight;
-
 
 };
 
@@ -210,11 +217,10 @@ var guiGet = function() {
 };
 
 $('#selectall').click(function() {
-    var funcs = $('input[type=checkbox]');
-    funcs.each(function(index, element) {
-        $(element).prop('checked', true);
-    });
+    gui.setall(true);
 });
+
+
 
 // TODO: use the preset when generating
 // no, when selected update the gui....
@@ -223,16 +229,21 @@ $(document).ready(function() {
 
     var inp = $('#presets');
     var ps = storyGen.presets;
+    inp.append($('<option />').val('unselected').text('-- Select a preset --'));
+    inp.append($('<option />').val('selectall').text('Select all'));
     $.each(ps, function(key) {
         inp.append($('<option />').val(key).text(key));
     });
 
     inp.change(function() {
         var preset = $(this).val();
-        if (preset !== 'manual') {
+        if (preset === 'unselected') {
+            gui.setall(false);
+        } else if (preset === 'selectall') {
+            gui.setall(true);
+        } else if (preset !== 'manual') {
             pushPreset(preset);
         }
-        // alert('selected!');
     });
 
     var s = $('#func8subfunc');

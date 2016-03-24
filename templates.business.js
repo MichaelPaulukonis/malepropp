@@ -53,10 +53,10 @@ var businessTemplates = function(story, world, storyGen) {
 
     // TODO: need to have verbs/object set apart, so we can resolve this....
     // TODO: need there to be a lack THING, then there can be additional things to say.
-    var lacks = ['{{needs}} a bride, a friend, or just somebody to talk to',
-                 '{{needs}} a helper or magical agent',
-                 ['{{needs}} a wondrous object or two',  'Possibly three. No more than that. Unless they {{were}} collectible'],
-                 ['{{needs}} a egg of death or love', 'Either would do'],
+    var lacks = ['{{needs}} an mentor, an intern, or just somebody to talk to',
+                 '{{needs}} a mentor or business case',
+                 ['{{needs}} a patent or two',  'Possibly three. No more than that. Unless they {{were}} collectible'],
+                 ['{{needs}} articles of incorporate of a declaration of bankruptcy', 'Either would do'],
                  ['{{needs}} money or means of existence', 'Times {{were}} tough'],
                  ['{{had}} lacks in other forms', 'Tsk tsk. Those lacks']
                 ];
@@ -93,7 +93,7 @@ var businessTemplates = function(story, world, storyGen) {
     var t = [];
 
     var templates = [
-      '<%= hero.name %> works in a <%= hero.home.residence %> near <%= hero.home.location %> in <%= hero.home.nation %>. <%= hero.name %> works with <%= list(hero.family) %>. S/he knows <%= list(hero.acquaintances) %> from work.'
+      '{{HN}} works in a <%= hero.home.residence %> near <%= hero.home.location %> in <%= hero.home.nation %>. {{HN}} works with <%= list(hero.family) %>. S/he knows <%= list(hero.acquaintances) %> from work.'
     ];
 
     t.push(god.pick(templates));
@@ -119,7 +119,7 @@ var businessTemplates = function(story, world, storyGen) {
 
     var templates = [
       '{{VICN}} doesn\'t come into work.',
-      '{{VICN}} is unexpectedly fired, leaving <%= hero.name %> devastated.'
+      '{{VICN}} is unexpectedly fired, leaving {{HN}} devastated.'
     ];
 
     god.cache.victim.health = world.healthLevel.dead;
@@ -139,13 +139,13 @@ var businessTemplates = function(story, world, storyGen) {
   };
 
   // Interdiction: hero is warned
-  // story['func2'].templates.push('<%= hero.name %> is warned.');
+  // story['func2'].templates.push('{{HN}} is warned.');
   // TODO: introduction of personage from interdiction
   // TODO: rework the d**n interdiction template-function
   // this is now just a proof-of-concept of executing larger functions to deal with templates
   story['func2'].exec = function(world) {
     // world is not actually used here (now)...
-    return '<%= hero.name %> is warned.';
+    return '{{HN}} is warned.';
 
   };
 
@@ -155,7 +155,7 @@ var businessTemplates = function(story, world, storyGen) {
     var text = [];
 
     var templates = [
-      '<%= list(villain.family, "nickname") %> are in league with <%= villain.name %>.'
+      '<%= list(villain.family, "nickname") %> are in league with {{VN}}.'
     ];
 
     text.push(god.pick(templates));
@@ -176,8 +176,8 @@ var businessTemplates = function(story, world, storyGen) {
     var text = [];
 
     var templates = [
-      '<%= villain.name %> pays a visit to <%= hero.home.location %>.',
-      '<%= hero.home.location %> plays host to <%= villain.name %>.'
+      '{{VN}} pays a visit to {{HH}}.',
+      '{{HH}} plays host to {{VN}}.'
     ];
 
     text.push(god.pick(templates));
@@ -193,9 +193,9 @@ var businessTemplates = function(story, world, storyGen) {
     var text = [];
 
     var templates = [
-      '<%= villain.name %> gains information.',
-      'After a chat with <%= pick(hero.family).name %>, <%= villain.name %> learns some interesting news.',
-      'While skulking about <%= hero.home.residence %>, <%= villain.name %> overhears some gossip about <%= hero.name %>.'
+      '{{VN}} gains information.',
+      'After a chat with <%= pick(hero.family).name %>, {{VN}} learns some interesting news.',
+      'While skulking about <%= hero.home.residence %>, {{VN}} overhears some gossip about {{HN}}.'
     ];
 
     text.push(god.pick(templates));
@@ -210,8 +210,11 @@ var businessTemplates = function(story, world, storyGen) {
 
     var text = [];
 
+    if (!god.cache.victim) { story.createVictim(god); }
+
     var templates = [
-      '<%= villain.name %> attempts to deceive victim.'
+      // TODO: hrm. how would this be done...
+      '{{VN}} attempts to deceive {{VICN}}.'
     ];
 
     text.push(god.pick(templates));
@@ -227,7 +230,7 @@ var businessTemplates = function(story, world, storyGen) {
     var text = [];
 
     var templates = [
-      '<%= hero.name %> unwittingly helps <%= villain.name %>.'
+      '{{HN}} unwittingly helps {{VN}}.'
     ];
 
     text.push(god.pick(templates));
@@ -272,42 +275,106 @@ var businessTemplates = function(story, world, storyGen) {
     //     '19'  : 'declaration of war'
     // };
 
+    var templates = [];
+    subFunc = subFunc || god.randomProperty(storyGen.villainyTypes);
 
-    // TODO: see templates.js for another method of handling this
-    // TODO: test passing-in the subFunc
-    var templates = [
-       '<%= villain.name %> kidnaps <%= select(hero.family, hero.acquaintances).name %>.'
-      ,'<%= villain.name %> <%= select("forcibly seizes", "kidnaps", "makes off with") %> <%= magicalhelper.name %>.'
-      ,'The report is destroyed by <%= villain.name %>. All begin to feel the discomfort of chaos.',
-      ,'Suddenly, it becomes as night. <%= villain.name %> has shut off the power!',
-      ,'<%= villain.name %> engages in plundering in other forms.',
-      ,'<%= villain.name %> causes bodily injury, maiming, mutilation.',
-      ,'<%= villain.name %> causes a sudden disappearance.',
-      // TODO: more code is needed for THIS one...
-      ,'<%= hero.name %>\'s intern is forgotten after <%= villain.name %> casts a spell.',
-      ,'<%= villain.name %> makes a demand for delivery or enticement, abduction.',
-      // TODO: code needed
-      // TODO: possessive
-      ,'<%= hero.name %> is driven from <%= hero.home.residence %>.',
-      ,'<%= villain.name %> throws <%= hero.name %> into <%= select("the toilet", "a drinking fountain", "the decorative fountain in the lobby") %>.',
-      ,'It is hard to describe the charged atmosphere once <%= villain.name %> has their policies enacted.',
-      // TODO: posession needs to be tracked
-      // so item now "belongs" to villain (or hench-person)
-      ,'A false substitution is perpretrated by <%= villain.name %>.',
-      ,'<%= villain.name %> issues order to terminate [requires proof].',
-      ,'<%= villain.name %> practically commits murder.',
-      ,'<%= hero.name %> is called into an unexpected meeting.',
-      ,'<%= villain.name %> threatens to fire <%= pick(hero.family).name %>.',
-      ,'<%= villain.name %> <%= select("insinuates", "suggests", "muses") %> that <%= list(hero.family) %> could be forced to transfer to his/her division.',
-      ,'There is a threat of layoffs.',
-      ,'Thanks to the ravages <%= villain.name %>\'s disruptions have left on the firm, there is the threat of layoffs among <%= hero.name %>\'s work-group. <%= list(hero.family) %> eye each other nervously.',
-      // //  (visitaion, vampirism)
-      // // TODO: code, since this is picking a specific person
-      // // actually, ALL OF THESE reqire code, since we need to know WHAT happens, here...
-      ,'<%= hero.name %> is tormented during meetings by <%= pick(villain.family).name %>.',
-      ,'<%= villain.name %> declares inter-office war on <%= hero.name %>.'
+    switch(subFunc) {
+    case 'kidnapping of person':
+      templates.push('{{VN}} kidnaps <%= select(hero.family, hero.acquaintances).name %>.');
+      break;
 
-    ];
+    case 'seizure of magical agent or helper':
+      templates.push('{{VN}} <%= select("forcibly seizes", "kidnaps", "makes off with") %> <%= magicalhelper.name %>.');
+      break;
+
+    case 'forcible seizure of magical helper':
+      templates.push('The report is destroyed by {{VN}}. All begin to feel the discomfort of chaos.');
+      break;
+
+    case 'pillaging or ruining of crops':
+      templates.push('{{VN}} has absconded with the office supplies!');
+      break;
+
+    case 'theft of daylight':
+      templates.push('Suddenly, it becomes as night. {{VN}} has shut off the power!');
+      break;
+
+    case 'plundering in other forms':
+      templates.push('{{VN}} engages in plundering in other forms.');
+      break;
+
+    case 'bodily injury, maiming, mutilation':
+      templates.push('{{VN}} causes bodily injury, maiming, mutilation.');
+      break;
+
+    case 'causes sudden disappearance':
+      templates.push('{{VN}} causes a sudden disappearance.');
+      break;
+
+    case 'bride is forgotten':
+      // TODO: casts a spell? that's not very professional
+      templates.push('{{HN}}\'s intern is forgotten after {{VN}} casts a spell.');
+      break;
+
+    case 'demand for delivery or enticement, abduction':
+      templates.push('{{VN}} makes a demand for delivery or enticement, abduction.');
+      break;
+
+    case 'expulsion':
+      templates.push('{{HN}} is driven from <%= hero.home.residence %>.');
+      break;
+
+    case 'casting into body of water':
+      templates.push('{{VN}} throws {{HN}} into <%= select("the toilet", "a drinking fountain", "the decorative fountain in the lobby") %>.');
+      break;
+
+    case 'casting of a spell, transformation':
+      templates.push('It is hard to describe the charged atmosphere once {{VN}} has their policies enacted.');
+      break;
+
+    case 'false substitution':
+      templates.push('A false substitution is perpretrated by {{VN}}.');
+      break;
+
+    case 'issues order to kill [requires proof]':
+      templates.push('{{VN}} issues order to terminate [requires proof].');
+      break;
+
+    case 'commits murder':
+      templates.push('{{VN}} practically commits murder.');
+      break;
+
+    case 'imprisonment, detention':
+      templates.push('{{HN}} is called into an unexpected meeting.');
+      break;
+
+    case 'threat of forced matrimony':
+      // TODO: this isn't matrimony. Hostile takeover? merger of divisions?
+      templates.push('{{VN}} threatens to fire <%= pick(hero.family).name %>.');
+      break;
+
+    case 'threat of forced matrimony between relatives':
+      templates.push('{{VN}} <%= select("insinuates", "suggests", "muses") %> that <%= list(hero.family) %> could be forced to transfer to his/her division.');
+      break;
+
+    case 'threat of cannibalism':
+      templates.push('There is a threat of layoffs.');
+      break;
+
+    case 'threat of cannibalism among relatives':
+      templates.push('Thanks to the ravages {{VN}}\'s disruptions have left on the firm, there is the threat of layoffs among {{HN}}\'s work-group. <%= list(hero.family) %> eye each other nervously.');
+      break;
+
+    case 'tormenting at night (visitation, vampirism)':
+      // insomnia, can't sleep
+      templates.push('{{HN}} is tormented during meetings by <%= pick(villain.family).name %>.');
+      break;
+
+    case 'declaration of war':
+      templates.push('{{VN}} declares inter-office war on {{HN}}.');
+      break;
+
+    }
 
     text.push(god.pick(templates));
 
@@ -354,7 +421,7 @@ var businessTemplates = function(story, world, storyGen) {
 
 
     var templates = [
-      '<%= hero.name %> discovers that ' + god.cache.lack.person.name + ' ' + god.cache.lack.lack
+      '{{HN}} discovers that ' + god.cache.lack.person.name + ' ' + god.cache.lack.lack
     ];
 
     text.push(god.pick(templates));
@@ -370,7 +437,7 @@ var businessTemplates = function(story, world, storyGen) {
     var text = [];
 
     var templates = [
-      '<%= hero.name %> chooses positive action.'
+      '{{HN}} chooses positive action.'
     ];
 
     text.push(god.pick(templates));
@@ -383,7 +450,7 @@ var businessTemplates = function(story, world, storyGen) {
   // TODO: journey() function
   // where is task created?
   // TODO: IT SHOULD BE IN HERE. maybe?
-  story['func11'].templates.push('<%= hero.name %> left <%= hero.location %> to <%= task %>.');
+  story['func11'].templates.push('{{HN}} left <%= hero.location %> to <%= task %>.');
 
   // 3rd Sphere: The Donor Sequence
   // Testing: hero is challenged to prove heroic qualities
@@ -405,7 +472,7 @@ var businessTemplates = function(story, world, storyGen) {
       'D9 - combat with hostile donor',
       'D10 - offer of magical agent as an exchange'];
 
-    return '<%= hero.name %> {{was}} challenged to prove busines qualifications.';
+    return '{{HN}} {{was}} challenged to prove business qualifications.';
 
   };
   // Reaction: hero responds to test
@@ -426,7 +493,7 @@ var businessTemplates = function(story, world, storyGen) {
       'E9 - protagonist(s) vanquishes hostile donor (or not)',
       'E10 - deception in an exchange, protagonist(s) employs magical agent on donor'];
 
-    return '<%= hero.name %> {{responded}} to this test.';
+    return '{{HN}} {{responded}} to this test.';
 
   };
 
@@ -456,37 +523,37 @@ var businessTemplates = function(story, world, storyGen) {
     var text = [];
 
 
-        item = item || god.createMagicalitem();
-        // but we never get rid of the previous item.....
-        god.hero.possessions.push(item);
+    item = item || god.createMagicalitem();
+    // but we never get rid of the previous item.....
+    god.hero.possessions.push(item);
 
-        if (!god.advisor.introduced) {
-            text.push('{{HN}} {{MET}} {{AN}}.');
-            text.push(god.converse(god.advisor, god.hero));
-        } else {
-            text.push('{{HN}} {{MET}} {{AN}} again.');
-        }
+    if (!god.advisor.introduced) {
+      text.push('{{HN}} {{MET}} {{AN}}.');
+      text.push(god.converse(god.advisor, god.hero));
+    } else {
+      text.push('{{HN}} {{MET}} {{AN}} again.');
+    }
 
-        var hn = '<%= select(hero.name, hero.nickname) %>';
-        var an = '<%= select(advisor.name, advisor.nickname) %>';
-        var met = '<%= select("met", "encountered", "came across", "found", "was found by", "bumped into") %>';
+    var hn = '<%= select(hero.name, hero.nickname) %>';
+    var an = '<%= select(advisor.name, advisor.nickname) %>';
+    var met = '<%= select("met", "encountered", "came across", "found", "was found by", "bumped into") %>';
 
-        // TODO: make this into conversation with a goal?
-        text.push('"Here," said {{AN}}, "you\'ll need this," and gave {{HN}} the {{IT}}.');
-        text.push('"What\'s this?" asked {{HN}}.');
-        // TODO: magical items will have propeties that can be enumerated, here....
-        text.push('"What does it look like?" replied {{AN}}. "It\'s a special, magical {{IT}}. Perhaps you can use it in your struggle with {{VN}}."');
-        if (god.coinflip()) {
-            text.push('"Thanks!" said a <%= select("grateful", "thankful") %> {{HN}}'
-                   + (god.coinflip() ? god.select(' gratefully', ' thankfully') : '') + '.');
-        }
+    // TODO: make this into conversation with a goal?
+    text.push('"Here," said {{AN}}, "you\'ll need this," and gave {{HN}} the {{IT}}.');
+    text.push('"What\'s this?" asked {{HN}}.');
+    // TODO: magical items will have propeties that can be enumerated, here....
+    text.push('"What does it look like?" replied {{AN}}. "It\'s a special, magical {{IT}}. Perhaps you can use it in your struggle with {{VN}}."');
+    if (god.coinflip()) {
+      text.push('"Thanks!" said a <%= select("grateful", "thankful") %> {{HN}}'
+                + (god.coinflip() ? god.select(' gratefully', ' thankfully') : '') + '.');
+    }
 
-        god.advisor.introduced = true;
+    god.advisor.introduced = true;
 
 
-        var para = text.join('\n\n').replace(/{{HN}}/g, hn).replace(/{{AN}}/g, an).replace(/{{IT}}/g, item).replace(/{{MET}}/g, met);
+    var para = text.join('\n\n').replace(/{{HN}}/g, hn).replace(/{{AN}}/g, an).replace(/{{IT}}/g, item).replace(/{{MET}}/g, met);
 
-        return para;
+    return para;
 
   };
 
@@ -505,7 +572,7 @@ var businessTemplates = function(story, world, storyGen) {
       'G6 - marked trail shows the way (blood, tracks, yarn, etc.)'
     ];
 
-    return '<%= hero.name %> reaches destination.';
+    return '{{HN}} reaches destination.';
 
   };
 
@@ -518,7 +585,7 @@ var businessTemplates = function(story, world, storyGen) {
     var text = [];
 
     var templates = [
-      '<%= hero.name %> and <%= villain.name %> do battle.'
+      '{{HN}} and {{VN}} do battle.'
     ];
 
     text.push(god.pick(templates));
@@ -540,11 +607,11 @@ var businessTemplates = function(story, world, storyGen) {
     var text = [];
 
     var templates = [
-      '<%= hero.name %> is changed by the encounter.',
-      '<%= hero.name %> is scarred internally.',
-      'This day would never be forgotten by <%= hero.name %>.',
-      '<%= hero.name %> receives a stylish scarf as a souvenir of the encounter!',
-      '<%= villain.name %>\'s head pops off, and is scavenged by <%= hero.name %>.'
+      '{{HN}} is changed by the encounter.',
+      '{{HN}} is scarred internally.',
+      'This day would never be forgotten by {{HN}}.',
+      '{{HN}} receives a stylish scarf as a souvenir of the encounter!',
+      '{{VN}}\'s head pops off, and is scavenged by {{HN}}.'
     ];
 
     text.push(god.pick(templates));
@@ -583,8 +650,8 @@ var businessTemplates = function(story, world, storyGen) {
 
 
     var templates = [
-      'Through deft use of {{IT}}, <%= villain.name %> is defeated.',
-      '<%= hero.name %> <%= select("deploys", "uses", "manipulates") %> {{IT}} to <%= select("defeat", "trounce", "vanquish", "annoy") %> <%= villain.name %>.'
+      'Through deft use of {{IT}}, {{VN}} is defeated.',
+      '{{HN}} <%= select("deploys", "uses", "manipulates") %> {{IT}} to <%= select("defeat", "trounce", "vanquish", "annoy") %> {{VN}}.'
     ];
 
     text.push(god.pick(templates));
@@ -671,7 +738,7 @@ var businessTemplates = function(story, world, storyGen) {
       'Pr7 - antagonist(s) attempts to gnaw thru tree with protagonist(s) up in it'
     ];
 
-    return '<%= hero.name %> {{was}} chased.';
+    return '{{HN}} {{was}} chased.';
 
   };
 
@@ -699,7 +766,7 @@ var businessTemplates = function(story, world, storyGen) {
   };
 
   // Arrival: hero arrives unrecognized
-  story['func23'].templates.push('<%= hero.name %> arrived in <%= hero.home.vicinity %> but {{was}} unrecognized.');
+  story['func23'].templates.push('{{HN}} arrived in <%= hero.home.vicinity %> but {{was}} unrecognized.');
 
   // Claim: False hero makes unfounded claims
   story['func24'].templates.push('<%= falsehero.name %> made unfounded claims.');
@@ -724,7 +791,7 @@ var businessTemplates = function(story, world, storyGen) {
       'M12 - other tasks'
     ];
 
-    return '<%= advisor.name %> charged <%= hero.name %> to <%= task %>.';
+    return '<%= advisor.name %> charged {{HN}} to <%= task %>.';
 
   };
 
@@ -750,8 +817,8 @@ var businessTemplates = function(story, world, storyGen) {
 
     var templates = [
       '<%= task %> {{was}} completed.',
-      '<%= task %> {{was}} completed by <%= hero.name %>.',
-      '<%= hero.name %> finishes off <%= task %>.'
+      '<%= task %> {{was}} completed by {{HN}}.',
+      '{{HN}} finishes off <%= task %>.'
     ];
 
     return god.pick(templates);
@@ -770,7 +837,7 @@ var businessTemplates = function(story, world, storyGen) {
       'Q4 - recognition of protagonist(s) by family member'
     ];
 
-    return '<%= hero.name %> {{was}} recognized.';
+    return '{{HN}} {{was}} recognized.';
 
   };
 
@@ -804,7 +871,7 @@ var businessTemplates = function(story, world, storyGen) {
       'T4 - humorous and rationalized forms, new appearance achieved by deception'
     ];
 
-    return '<%= hero.name %> {{was}} given a new appearance.';
+    return '{{HN}} {{was}} given a new appearance.';
 
   };
 
@@ -826,7 +893,7 @@ var businessTemplates = function(story, world, storyGen) {
     var text = [];
 
     var templates = [
-      '<%= villain.name %> is <%= punished() %> by <%= hero.name %>.'
+      '{{VN}} is <%= punished() %> by {{HN}}.'
     ];
 
     text.push(god.pick(templates));
@@ -853,10 +920,10 @@ var businessTemplates = function(story, world, storyGen) {
     var text = [];
 
     var templates = [
-      '<%= hero.name %> <%= select(marriage, ascension) %>. It\'s a good life.',
-      '<%= hero.name %> <%= marriage %> and <%= ascension %>.',
-      '<%= hero.name %> settles down and <%= select(marriage, ascension) %>.',
-      'Everything works out for <%= hero.name %>, who <%= select(marriage, ascension) %>.'
+      '{{HN}} <%= select(marriage, ascension) %>. It\'s a good life.',
+      '{{HN}} <%= marriage %> and <%= ascension %>.',
+      '{{HN}} settles down and <%= select(marriage, ascension) %>.',
+      'Everything works out for {{HN}}, who <%= select(marriage, ascension) %>.'
     ];
 
     text.push(god.pick(templates));
@@ -891,9 +958,9 @@ var businessTemplates = function(story, world, storyGen) {
     // I was there, too, and had liquor to drink; it didn't go into my mouth, but only ran down my beard
 
     var templates = [
-      'All of this took place long before you were born, so it\'s not surprising that you don\'t remember it. But it happened, and people speak of it still.',
-      'This may sound fantastic, but it all happened exactly as I have told you.',
-      'Whether you believe it or not, this is what happened, for what I tell you is true.'
+      'All of this took place long before your company was founded, so it\'s not surprising that you don\'t remember it. But it happened, and it is still taught in business school.',
+      'This may sound fantastic, but the laws were different in those days, and it all happened exactly as I have told you.',
+      'Whether you believe it or not, this is what happened, for what I tell you can be found in the document library.'
     ];
 
     var hero = god.hero;
@@ -907,7 +974,7 @@ var businessTemplates = function(story, world, storyGen) {
     if (narr || (god.coinflip(0.2) && ld.living.length > 0)) {
       var name = god.select('name', 'nickname');
       narr = (narr ? narr.name : god.getCharacter(god.pick(ld.living))[name]);
-      t.push((god.coinflip() ? 'This may sound fantastic, but ' : '') + 'in all the world there is nothing stranger than the truth, and it all happened exactly as I have told you, for I was there, as sure as my name is ' + narr + '.');
+      t.push((god.coinflip() ? 'This may sound fantastic, but ' : '') + 'in all the world there is nothing stranger than the truth, and it all happened exactly as I have told you, for I was there as an auditor, as sure as my name is ' + narr + '.');
     } else {
       t.push(god.pick(templates));
     }
