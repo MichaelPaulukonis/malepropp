@@ -20,6 +20,7 @@ var nlp_compromise = nlp_compromise || require('nlp_compromise');
 var nlp = nlp_compromise;
 // include sugar for node; not if html - in-progress
 // var sugar = sugar || require('sugar');
+// sugar is required for the Tokenizer (work on removing this dependency)
 if (typeof [].first !== 'function') {
   require('sugar');
 }
@@ -40,6 +41,7 @@ _.mixin({ deepClone: function (o) {
     }
 }});
 
+// exposed statically as storyGen.world, as well as with instances
 var world = {};
 
 // "enum", with numbers for comparison?
@@ -521,26 +523,31 @@ var storyGen = function(settings) {
             return t;
         };
 
-        // not really sure where this is going.
-        // see if they are friendly? talk about the location? posessions?
-        // pass in an intent?
-        // adjectives are completely random. SO IT GOES.
-        // TODO: get a better sense of "aspect"... forgot the correct term
-        // the relationship of speaker to speaker
-        // like, awe, fondness, sadness, dislike, hatred
-        // if nobody to speak to, use an interjection, or a comment on the current location
-        // if other person is dead, talk in memorium (how so, what to remember?)
-        // if all is well, could talk about locale, descriptions, homes, posessions
-        // would we want to _transfer_ a posession during conversation?
-        // that could be interesting....
-        // characters known to each other?
-        // if not, they should introduce
-        // one could know another
-        // so, each char has a "knows" list of characters.
-        // ugh. this will get recursive, and can't be serialized
-        // should just be names, I suppose. more overhead, but serialization is kept. yes?
-        // see also https://github.com/dariusk/corpora/blob/master/data/words/proverbs.json
-        // dialogue
+        /**
+         TODO: so, this uses so much language that is not template-specific.
+         it SHOULD be template-related
+         -----
+         not really sure where this is going.
+         see if they are friendly? talk about the location? posessions?
+         pass in an intent?
+         adjectives are completely random. SO IT GOES.
+         TODO: get a better sense of sentiment
+         the relationship of speaker to speaker
+         like, awe, fondness, sadness, dislike, hatred
+         if nobody to speak to, use an interjection, or a comment on the current location
+         if other person is dead, talk in memorium (how so, what to remember?)
+         if all is well, could talk about locale, descriptions, homes, posessions
+         would we want to _transfer_ a posession during conversation?
+         that could be interesting....
+         characters known to each other?
+         if not, they should introduce
+         one could know another
+         so, each char has a "knows" list of characters.
+         ugh. this will get recursive, and can't be serialized
+         should just be names, I suppose. more overhead, but serialization is kept. yes?
+         see also https://github.com/dariusk/corpora/blob/master/data/words/proverbs.json
+         dialogue
+         **/
         /**
          * conversation between p1 and p2, minimally sentiment-aware
          * if p2 is not defined, p1 talks alound in interjections.
@@ -557,6 +564,7 @@ var storyGen = function(settings) {
             var t = tone(p1, p2);
             var p1n = coinflip() ? p1.name : p1.nickname;
             var p2n = '';
+            // TODO: push into template vocabs
             var says = '{{<%= select("said", "remarked", "noted", "mused", "exclaimed", "ejected", "rumbled", "muttered") %>}}';
             var reply = '{{<%= select("replied", "responded", "retorted", "volleyed", "returned", "muttered") %>}}';
 
@@ -791,8 +799,12 @@ var storyGen = function(settings) {
             var vicn = '<%= coinflip() ? cache.victim.name : cache.victim.nickname %>';
             var villn = '<%= coinflip() ? villain.nickname : villain.name %>';
             var hn = '<%= coinflip() ? hero.nickname : hero.name %>';
+            var hh = '<%= hero.home.vicinity %>';
 
-            f = f.replace(/{{VICN}}/mg, vicn).replace(/{{HN}}/mg, hn).replace(/{{VN}}/mg, villn);
+            f = f.replace(/{{VICN}}/mg, vicn)
+                .replace(/{{HN}}/mg, hn)
+                .replace(/{{VN}}/mg, villn)
+                .replace(/{{HH}}/mg, hh);
             var template = f;
 
             var t = _.template(f);
