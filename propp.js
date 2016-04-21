@@ -531,7 +531,7 @@ var storyGen = function(settings) {
          see if they are friendly? talk about the location? posessions?
          pass in an intent?
          adjectives are completely random. SO IT GOES.
-         TODO: get a better sense of "aspect"... forgot the correct term
+         TODO: get a better sense of sentiment
          the relationship of speaker to speaker
          like, awe, fondness, sadness, dislike, hatred
          if nobody to speak to, use an interjection, or a comment on the current location
