@@ -1,108 +1,135 @@
 <html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
-    <title>
-      MalePropp Tale Generator
-    </title>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
-    <link href="propp.css" rel="stylesheet"></link>
+  <title>
+    MalePropp Tale Generator
+  </title>
 
-  </head>
+  <link href="propp.css" rel="stylesheet">
+  </link>
 
-  <body>
+</head>
 
-    <form name="myform" onsubmit="return false;" action="" >
-      <center>
-        <div>
-          <table col="3">
-            <tbody><tr>
-	      <td colspan="3">
+<body>
 
-	        <h2>proppian fairy tale generator</h2>
-	        <p>select your functions:</p>
+  <form name="myform" onsubmit="return false;" action="">
+    <center>
+      <div>
+        <table col="3">
+          <tbody>
+            <tr>
+              <td colspan="3">
+
+                <h2>proppian fairy tale generator</h2>
+                <p>select your functions:</p>
               </td>
 
             </tr>
             <tr>
-	      <td>
-	        <ul class='sphere' id='introduction'>
-		  <li title="not a Propp function"><input name="func0" type="checkbox" />introduction</li>
-		  <li title="1: Absentation: Someone goes missing"><input name="func1" type="checkbox" />absention</li>
-		  <li title="2: Interdiction: hero is warned"><input name="func2" type="checkbox" />interdiction</li>
-		  <li title="3: Violation of Interdiction"><input name="func3" type="checkbox" />violation</li>
-		  <li title="4: Reconnaissance: Villain seeks something"><input name="func4" type="checkbox" />reconnaissance</li>
-		  <li title="5: Delivery: The villain gains information"><input name="func5" type="checkbox" />delivery</li>
-		  <li title="6: Trickery: Villain attempts to deceive victim."><input name="func6" type="checkbox" />trickery</li>
-		  <li title="7: Complicity: Unwitting helping of the enemy"><input name="func7" type="checkbox" />complicity</li>
-	        </ul>
-	        <ul class='sphere' id='storybody' title="2nd Sphere: the Body of the Story">
-		  <li title="8: Villainy: The need is identified (Villainy)"><input name="func8" type="checkbox" checked='checked' />villainy</li>
+              <td>
+                <ul class='sphere' id='introduction'>
+                  <li title="not a Propp function"><input name="func0" type="checkbox" />introduction</li>
+                  <li title="1: Absentation: Someone goes missing"><input name="func1" type="checkbox" />absention</li>
+                  <li title="2: Interdiction: hero is warned"><input name="func2" type="checkbox" />interdiction</li>
+                  <li title="3: Violation of Interdiction"><input name="func3" type="checkbox" />violation</li>
+                  <li title="4: Reconnaissance: Villain seeks something"><input name="func4"
+                      type="checkbox" />reconnaissance</li>
+                  <li title="5: Delivery: The villain gains information"><input name="func5" type="checkbox" />delivery
+                  </li>
+                  <li title="6: Trickery: Villain attempts to deceive victim."><input name="func6"
+                      type="checkbox" />trickery</li>
+                  <li title="7: Complicity: Unwitting helping of the enemy"><input name="func7"
+                      type="checkbox" />complicity</li>
+                </ul>
+                <ul class='sphere' id='storybody' title="2nd Sphere: the Body of the Story">
+                  <li title="8: Villainy: The need is identified (Villainy)"><input name="func8" type="checkbox"
+                      checked='checked' />villainy</li>
                   <li>
                     <select name='func8subfunc' id='func8subfunc'>
                       <option value='random'>Random</option>
                     </select>
                   </li>
-		  <li title="8a: Lack: The need is identified (Lack)"><input name="func8a" type="checkbox" />lack</li>
-		  <li title="9: Mediation: hero discovers the lack"><input name="func9" type="checkbox" />mediation</li>
-		  <li title="10: Counteraction: hero chooses positive action"><input name="func10" type="checkbox" />beginning counteraction</li>
-		  <li title="11: Departure: hero leave on mission"><input name="func11" type="checkbox" />departure</li>
-	        </ul>
-	        <ul class='sphere' id='donorsequence'>
-		  <li title="12: Testing: hero is challenged to prove heroic qualities"><input name="func12" type="checkbox" />first function of the donor</li>
-		  <li title="13: Reaction: hero responds to test"><input name="func13" type="checkbox" />hero's reaction</li>
-		  <li title="14: Acquisition: hero gains magical item"><input name="func14" type="checkbox" />receipt of a magical agent</li>
-		  <li title="15: Guidance: hero reaches destination"><input name="func15" type="checkbox" />guidance</li>
-	        </ul>
-	      </td>
-	      <td>
-	        <ul class='sphere' id='donorsequence'>
-		  <li title="16: Struggle: hero and villain do battle"><input name="func16" type="checkbox" />struggle</li>
-		  <li title="17: Branding: hero is branded"><input name="func17" type="checkbox" />branding</li>
-		  <li title="18: Victory: Villain is defeated"><input name="func18" type="checkbox" />victory</li>
-		  <li title="19: Resolution: Initial misfortune or lack is resolved"><input name="func19" type="checkbox" />liquidation</li>
-	        </ul>
-	        <ul class='sphere' id='herosreturn'>
-		  <li title="20: Return: hero sets out for home"><input name="func20" type="checkbox" />return</li>
-		  <li title="21: Pursuit: hero is chased"><input name="func21" type="checkbox" />pursuit</li>
-		  <li title="22: Rescue: pursuit ends"><input name="func22" type="checkbox" />rescue</li>
-		  <li title="23: Arrival: hero arrives unrecognized"><input name="func23" type="checkbox" />unrecognized arrival</li>
-		  <li title="24: Claim: False hero makes unfounded claims"><input name="func24" type="checkbox" />unfounded claims</li>
-		  <li title="25: Task: Difficult task proposed to the hero"><input name="func25" type="checkbox" />difficult task</li>
-		  <li title="26: Solution: Task is resolved"><input name="func26" type="checkbox" />solution</li>
-		  <li title="27: Recognition: hero is recognised"><input name="func27" type="checkbox" />recognition</li>
-		  <li title="28: Exposure: False hero is exposed"><input name="func28" type="checkbox" />exposure</li>
-		  <li title="29: Transfiguration: hero is given a new appearance"><input name="func29" type="checkbox" />transfiguration</li>
-		  <li title="30: Punishment: Villain is punished"><input name="func30" type="checkbox" />punishment</li>
-		  <li title="31: Wedding: hero marries and ascends the throne"><input name="func31" type="checkbox" />wedding</li>
-	        </ul>
+                  <li title="8a: Lack: The need is identified (Lack)"><input name="func8a" type="checkbox" />lack</li>
+                  <li title="9: Mediation: hero discovers the lack"><input name="func9" type="checkbox" />mediation</li>
+                  <li title="10: Counteraction: hero chooses positive action"><input name="func10"
+                      type="checkbox" />beginning counteraction</li>
+                  <li title="11: Departure: hero leave on mission"><input name="func11" type="checkbox" />departure</li>
+                </ul>
+                <ul class='sphere' id='donorsequence'>
+                  <li title="12: Testing: hero is challenged to prove heroic qualities"><input name="func12"
+                      type="checkbox" />first function of the donor</li>
+                  <li title="13: Reaction: hero responds to test"><input name="func13" type="checkbox" />hero's reaction
+                  </li>
+                  <li title="14: Acquisition: hero gains magical item"><input name="func14" type="checkbox" />receipt of
+                    a magical agent</li>
+                  <li title="15: Guidance: hero reaches destination"><input name="func15" type="checkbox" />guidance
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <ul class='sphere' id='donorsequence'>
+                  <li title="16: Struggle: hero and villain do battle"><input name="func16" type="checkbox" />struggle
+                  </li>
+                  <li title="17: Branding: hero is branded"><input name="func17" type="checkbox" />branding</li>
+                  <li title="18: Victory: Villain is defeated"><input name="func18" type="checkbox" />victory</li>
+                  <li title="19: Resolution: Initial misfortune or lack is resolved"><input name="func19"
+                      type="checkbox" />liquidation</li>
+                </ul>
+                <ul class='sphere' id='herosreturn'>
+                  <li title="20: Return: hero sets out for home"><input name="func20" type="checkbox" />return</li>
+                  <li title="21: Pursuit: hero is chased"><input name="func21" type="checkbox" />pursuit</li>
+                  <li title="22: Rescue: pursuit ends"><input name="func22" type="checkbox" />rescue</li>
+                  <li title="23: Arrival: hero arrives unrecognized"><input name="func23" type="checkbox" />unrecognized
+                    arrival</li>
+                  <li title="24: Claim: False hero makes unfounded claims"><input name="func24"
+                      type="checkbox" />unfounded claims</li>
+                  <li title="25: Task: Difficult task proposed to the hero"><input name="func25"
+                      type="checkbox" />difficult task</li>
+                  <li title="26: Solution: Task is resolved"><input name="func26" type="checkbox" />solution</li>
+                  <li title="27: Recognition: hero is recognised"><input name="func27" type="checkbox" />recognition
+                  </li>
+                  <li title="28: Exposure: False hero is exposed"><input name="func28" type="checkbox" />exposure</li>
+                  <li title="29: Transfiguration: hero is given a new appearance"><input name="func29"
+                      type="checkbox" />transfiguration</li>
+                  <li title="30: Punishment: Villain is punished"><input name="func30" type="checkbox" />punishment</li>
+                  <li title="31: Wedding: hero marries and ascends the throne"><input name="func31"
+                      type="checkbox" />wedding</li>
+                </ul>
               </td>
               <td rowspan="3" align="right" valign="left">
                 <!-- leaving these in for future replacement -->
-	        <!-- <a href="javascript:gui.popup2('instruction')">instructions</a><br /> -->
-	        <!-- <a href="javascript:gui.popup2(how,win)">how</a><br /> -->
+                <!-- <a href="javascript:gui.popup2('instruction')">instructions</a><br /> -->
+                <!-- <a href="javascript:gui.popup2(how,win)">how</a><br /> -->
                 <p><select name='presets' id='presets'>
-                </select>
+                  </select>
                 </p>
 
                 <br />
                 <ul>
                   <li>Theme:</li>
-                  <li><input name='theme' type='radio' id='r1' value='test' checked='checked' /><label for='r1'>Vaguely Russian</label></li>
-                  <li><input name='theme' type='radio' id='r2' value='office' /><label for='r2'>Office Setting</label></li>
+                  <li><input name='theme' type='radio' id='r1' value='test' checked='checked' /><label for='r1'>Vaguely
+                      Russian</label></li>
+                  <li><input name='theme' type='radio' id='r2' value='office' /><label for='r2'>Office Setting</label>
+                  </li>
                   <li><input name='theme' type='radio' id='r3' value='original' /><label for='r3'>Brown</label></li>
                   <!-- <input name='theme' type='radio' value=''>random</input> -->
                 </ul>
 
-	        <br />
-	        <ul>
-		  <li>links:</li>
-                  <li><a href="./function.generator.htm">function generator</a></li>
-		  <li><a href="https://web.archive.org/web/20061112014356/http://www.brown.edu/Courses/FR0133/Fairytale_Generator/gen.html">original</a></li>
-		  <li><a href="https://github.com/MichaelPaulukonis/malepropp">repo</a></li>
-		  <li><a href="https://github.com/MichaelPaulukonis/NaNoGenMo2014/tree/master/propp.gen">original repo</a></li>
+                <br />
+                <ul>
+                  <li>links:</li>
+                  <!-- <li><a href="./function.generator.htm">function generator</a></li> -->
+                  <li><a
+                      href="https://web.archive.org/web/20061112014356/http://www.brown.edu/Courses/FR0133/Fairytale_Generator/gen.html">original</a>
+                  </li>
+                  <li><a href="http://fairytalesbot.tumblr.com/">Tumblrbot</a></li>
+                  <li><a href="https://github.com/MichaelPaulukonis/malepropp">source</a></li>
+                  <li><a href="https://github.com/MichaelPaulukonis/NaNoGenMo2014/tree/master/propp.gen">original
+                      repo</a></li>
                   <li><a href="https://github.com/dariusk/NaNoGenMo-2014/issues/6">disscussion</a></li>
-	        </ul>
+                </ul>
 
               </td>
 
@@ -112,7 +139,7 @@
                 <ul id='settings'>
                   <li>
                     Hero:
-		    <input name='herogender' id='herogenderfemale' type='radio' value='female' checked='checked' />
+                    <input name='herogender' id='herogenderfemale' type='radio' value='female' checked='checked' />
                     <label for='herogenderfemale'>female</label>
                     <input name='herogender' id='herogendermale' type='radio' value='male' />
                     <label for='herogendermale'>male</label>
@@ -120,10 +147,11 @@
                     <label for='herogenderneuter'>neuter</label>
                     <input name='herogender' id='herogenderrandom' type='radio' value='' />
                     <label for='herogenderrandom'>random</label>
-		  </li>
+                  </li>
                   <li>
                     Villain:
-		    <input name='villaingender' id='villaingenderfemale' type='radio' value='female' checked='checked' />
+                    <input name='villaingender' id='villaingenderfemale' type='radio' value='female'
+                      checked='checked' />
                     <label for='villaingenderfemale'>female</label>
                     <input name='villaingender' id='villaingendermale' type='radio' value='male' />
                     <label for='villaingendermale'>male</label>
@@ -131,10 +159,10 @@
                     <label for='villaingenderneuter'>neuter</label>
                     <input name='villaingender' id='villaingenderrandom' type='radio' value='' />
                     <label for='villaingenderrandom'>random</label>
-		  </li>
+                  </li>
                   <li>
                     Others:
-		    <input name='peoplegender' id='peoplegenderfemale' type='radio' value='female' checked='checked' />
+                    <input name='peoplegender' id='peoplegenderfemale' type='radio' value='female' checked='checked' />
                     <label for='peoplegenderfemale'>female</label>
                     <input name='peoplegender' id='peoplegendermale' type='radio' value='male' />
                     <label for='peoplegendermale'>male</label>
@@ -142,7 +170,7 @@
                     <label for='peoplegenderneuter'>neuter</label>
                     <input name='peoplegender' id='peoplegenderrandom' type='radio' value='' />
                     <label for='peoplegenderrandom'>random</label>
-		  </li>
+                  </li>
                 </ul>
                 <p>
                   Verb tense:
@@ -159,49 +187,51 @@
             </tr>
 
             <tr>
-	      <td colspan="2">
-	        <br />
-	        <input value="generate" onclick="javascript:guiGet();" type="submit" accesskey="g" title="shift-alt g" />
-	        <input value="clear" type="reset" title="shift-alt c" />
-	        <br />
-	        <br />
-	        <textarea id="output" cols="35" rows="20" name="fairytale"> </textarea>
+              <td colspan="2">
+                <br />
+                <input value="generate" onclick="javascript:guiGet();" type="submit" accesskey="g"
+                  title="shift-alt g" />
+                <input value="clear" type="reset" title="shift-alt c" />
+                <br />
+                <br />
+                <textarea id="output" cols="35" rows="20" name="fairytale"> </textarea>
               </td>
-	      <td>
-	      </td>
-	    </tr>
+              <td>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
     </center>
-</form>
+  </form>
 
 
-<script type="text/javascript" src="scripts/underscore.js"></script>
-<script type="text/javascript" src="scripts/jquery.min.js"></script>
-<!-- TODO: this should be local. ??? it slows down loading.... -->
-<script src="https://unpkg.com/nlp_compromise@4.1.2/builds/nlp_compromise.js"></script>
-<script type="text/javascript" src="sugar.min.js"></script>
-<script type="text/javascript" src="tokenizer.web.js"></script>
-<script type="text/javascript" src="cleaner.js"></script>
+  <script type="text/javascript" src="scripts/underscore.js"></script>
+  <script type="text/javascript" src="scripts/jquery.min.js"></script>
+  <!-- TODO: this should be local. ??? it slows down loading.... -->
+  <script src="https://unpkg.com/nlp_compromise@4.1.2/builds/nlp_compromise.js"></script>
+  <script type="text/javascript" src="sugar.min.js"></script>
+  <script type="text/javascript" src="tokenizer.web.js"></script>
+  <script type="text/javascript" src="cleaner.js"></script>
 
-<script type="text/javascript" src="default.templates.js"></script>
-<script type="text/javascript" src="templates.js"></script>
-<script type="text/javascript" src="words.js"></script>
-<script type="text/javascript" src="wordbank.test.js"></script>
+  <script type="text/javascript" src="default.templates.js"></script>
+  <script type="text/javascript" src="templates.js"></script>
+  <script type="text/javascript" src="words.js"></script>
+  <script type="text/javascript" src="wordbank.test.js"></script>
 
-<script type="text/javascript" src="templates.business.js"></script>
-<script type="text/javascript" src="business.wordbank.js"></script>
+  <script type="text/javascript" src="templates.business.js"></script>
+  <script type="text/javascript" src="business.wordbank.js"></script>
 
-<script type="text/javascript" src="gui.js"></script>
-<script type="text/javascript" src="propp.js"></script>
+  <script type="text/javascript" src="gui.js"></script>
+  <script type="text/javascript" src="propp.js"></script>
 
-<script type="text/javascript">
-  // remove when running in browser
-  // one of the npm modules won't work in the browser if it remains
-  // TODO: document which one!
-  delete(window.module);
-</script>
+  <script type="text/javascript">
+    // remove when running in browser
+    // one of the npm modules won't work in the browser if it remains
+    // TODO: document which one!
+    delete (window.module);
+  </script>
 
 </body>
+
 </html>
