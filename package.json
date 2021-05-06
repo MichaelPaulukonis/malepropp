@@ -11,7 +11,7 @@
     "jquery": "2.1.4",
     "nlp_compromise": "~0.2.2",
     "sentence-tokenizer": "0.0.7",
-    "underscore": "1.7.0"
+    "underscore": "1.12.1"
   },
   "devDependencies": {
     "chai": "3.5.0",
