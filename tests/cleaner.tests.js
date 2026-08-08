@@ -6,8 +6,8 @@ var tester = function() {
       chai = require('chai'),
       expect = chai.expect,
       sugar = require('sugar'), // a requirement for tokenizer.web
-      Tokenizer = require('../tokenizer.web.js'),
-      Cleaner = require('../cleaner.js'),
+      Tokenizer = require('../lib/tokenizer.web.js'),
+      Cleaner = require('../lib/cleaner.js'),
       cleaner = new Cleaner(Tokenizer);
 
   describe('cleaner tests', function() {

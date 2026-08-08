@@ -1,9 +1,9 @@
-// var defaultTemplates = require('./default.templates.js');
-var templates = require('./templates.js');
-var words = require('./words.js');
+// var defaultTemplates = require('./lib/default.templates.js');
+var templates = require('./lib/templates.js');
+var words = require('./lib/words.js');
 // words is a requirement for wordbank.....
-var wordbank = require('./wordbank.test.js')(words);
-var storygen = require('./propp.js');
+var wordbank = require('./lib/wordbank.test.js')(words);
+var storygen = require('./lib/propp.js');
 
 var world = storygen().world;
 

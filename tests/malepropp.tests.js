@@ -6,12 +6,12 @@ var tester = function() {
       chai = require('chai'),
       expect = chai.expect,
       // TODO: okay, make it an object or array
-      slavicTemplates = require('../templates.js'),
-      businessTemplates = require('../templates.business.js'),
-      brownTemplates = require('../default.templates.js'),
-      descriptiveTemplates = require('../templates.descriptive.js'),
-      wordbank = require('../wordbank.test.js')(require('../words.js')),
-      storygen = require('../propp.js'),
+      slavicTemplates = require('../lib/templates.js'),
+      businessTemplates = require('../lib/templates.business.js'),
+      brownTemplates = require('../lib/default.templates.js'),
+      descriptiveTemplates = require('../lib/templates.descriptive.js'),
+      wordbank = require('../lib/wordbank.test.js')(require('../lib/words.js')),
+      storygen = require('../lib/propp.js'),
       world = storygen().world; // hey, we're assuming this works w/o testing!
 
   // TODO: this relies on storygen.resetProppFunction
