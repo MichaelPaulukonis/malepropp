@@ -10,7 +10,6 @@
   "dependencies": {
     "jquery": "2.1.4",
     "nlp_compromise": "~0.2.2",
-    "sentence-tokenizer": "0.0.7",
     "underscore": "1.7.0"
   },
   "devDependencies": {
@@ -27,6 +26,5 @@
     "url": "https://github.com/MichaelPaulukonis/malepropp.git"
   },
   "license": "MIT",
-  "gitHead": "ac7779550e40822d743f8edf2c5ca642ca3ac7cc",
   "readmeFilename": "README.md"
 }
