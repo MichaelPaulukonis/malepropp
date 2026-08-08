@@ -1,5 +1,10 @@
 Try it out at http://michaelpaulukonis.github.io/malepropp/
 
+## Branches
+
+- `master` — engine + GUI source.
+- `gh-pages` — the deployed GUI (separate branch, not built from `master`'s root/`docs`).
+- `origin/tumblr` — a working Tumblr-posting bot lived here for ~7 years, posting to `fairytalesbot.tumblr.com` via the `tumblrwks` client (see commit `ee87a17 "working tumblr poster"`). Credentials were gitignored and are gone, but the posting code itself is intact. This branch also diverged from `master` on `cleaner.js`/`templates.business.js`/wordbank handling — diff before assuming `master` has the latest version of shared files.
 
 ## What's going on in here?
 I'm playing with some _Proppian_ story/skeleton generators. My end goal is to have a generator than I can call `n` times, until 50,000 words have been created. Each output should be distinctly different enough to have a passing resemblance to interesting. One of the steps there will be a templating system (underscore, probably), and word-replacement in the templates (maybe).
