@@ -76,9 +76,13 @@ var writeitout = function(text) {
 
     var fn = 'wonder.tale.' + (Math.random() * 0x1000000000).toString(36) + '.txt';
 
-    fs.writeFile(fn, text);
-
-    console.log('\n\nWritten to ' + fn);
+    fs.writeFile(fn, text, function(err) {
+        if (err) {
+            console.log('\n\nFailed to write ' + fn + ': ' + err.message);
+            return;
+        }
+        console.log('\n\nWritten to ' + fn);
+    });
 
 };
 
