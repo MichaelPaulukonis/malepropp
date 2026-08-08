@@ -172,7 +172,10 @@ var getFunctionsFromGui = function() {
 
 var shoveToGui = function(tale) {
 
-    window.document.myform.output.value = tale.title.toUpperCase() + '\n\n' + tale.tale;
+    // not every theme defines a title generator (eg. descriptive/skeleton
+    // theme) - tale.title can be undefined
+    var title = tale.title ? tale.title.toUpperCase() : '(untitled)';
+    window.document.myform.output.value = title + '\n\n' + tale.tale;
 
 };
 
@@ -198,6 +201,13 @@ var guiGet = function() {
         theme = {
             bank: defaultbank(words),
             templates: nTemplates
+        };
+        break;
+
+    case 'descriptive':
+        theme = {
+            bank: defaultbank(words),
+            templates: descriptiveTemplates
         };
         break;
 
