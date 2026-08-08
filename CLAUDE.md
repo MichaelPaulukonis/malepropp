@@ -37,7 +37,7 @@ Several `lib/*.js` files use a `var x = x || require('./y.js')` pattern (e.g. `p
 
 **`wordbank.test.js` is not a test file** despite the name — `index.js` requires it directly as a module: `require('./lib/wordbank.test.js')(words)`. Don't let the `.test.js` suffix fool you into thinking it's covered by/excluded from the test runner.
 
-**`lib/templates.descriptive.js` is currently dead code** — not in `index.html`'s script tags, not required by `index.js`, only exercised by its own block in `tests/malepropp.tests.js`. Pending decision on wiring it in (it holds raw Propp function descriptions — likely useful as-is for seeing how templates compose) vs. removing it.
+**`lib/templates.descriptive.js` is wired in as a 4th GUI theme** ("Descriptive (raw function skeleton)"), exporting `descriptiveTemplates` — not `nTemplates` (that name is `templates.js`'s, and colliding with it silently breaks the default "Vaguely Russian" theme, the same class of bug as the `words()` collision above). It has no title generator (`story.title`), unlike the other three themes — `gui.js`'s `shoveToGui()` has a defensive fallback for this. `func0` ("Initial situation") is still genuinely unfilled — the file's own comment flags it. `tests/malepropp.tests.js` deliberately still excludes it from the generic per-function theme harness (`// , 'descriptive': descriptiveTemplates`) — that harness assumes every theme defines `story.title`, which this one doesn't; enabling it is a bigger job than fixing the missing title alone.
 
 ### Branches
 
@@ -45,8 +45,16 @@ See [README.md](README.md#branches) for the canonical branch rundown (`master`/`
 
 ### Dependencies removed this cleanup pass
 
-Sugar (`sugar.min.js`, `require('sugar')`), `sentence-tokenizer` (npm dep, was declared but never actually required anywhere), `.travis.yml`, and `mocha@2.4.5`/`chai@3.5.0`/`vows` are all gone — don't reintroduce without checking why they were removed (see git log on `dev` for the specific commits and reasoning).
+Sugar (`sugar.min.js`, `require('sugar')`), `sentence-tokenizer` (npm dep, was declared but never actually required anywhere), `.travis.yml`, `.eslintrc` (non-functional — superseded by Biome), and `mocha@2.4.5`/`chai@3.5.0`/`vows` are all gone — don't reintroduce without checking why they were removed (see git log on `dev` for the specific commits and reasoning).
 
-### Known issues
+### Linting/formatting: Biome
 
-- `.eslintrc` exists but is non-functional — no `eslint` installed, nothing in `package.json` scripts runs it, and its `"linebreak-style": ["windows"]` rule would fail on every file in this Unix-authored repo if it ever did run. Pending decision: wire up a real linter/formatter (`standard`, to match the sibling `textgen-monorepo` apps, or `prettier`) or delete the stale config.
+`biome.json`, scoped to `**/*.js` only — excludes `scripts/` (vendored third-party `jquery.min.js`/`underscore.js`, not ours to reformat) and `index.html` (Biome's HTML/a11y linter is a separate, more opinionated concern; it flags the deliberate `accesskey="g"` the UI documents as a feature — out of scope).
+
+`linter.rules.complexity.useArrowFunction` is explicitly `"off"`. Its "safe" auto-fix converted `function Cleaner(...)` (used elsewhere as `new Cleaner(...)`) into an arrow function, which throws `TypeError: Cleaner is not a constructor` — the rule can't see call sites outside the function body, so it can't tell a constructor from a plain function expression. **Don't trust Biome's "safe" fix labels without running the test suite (and ideally the browser) afterward** — this codebase's old-style constructors and `arguments`-object usage (`propp.js`'s `select()` helper) are exactly the patterns modern "safe" refactors misjudge.
+
+Four rules are downgraded from `error` to `warn` as a deliberate legacy baseline (`noInnerDeclarations` — 103 of 130 original errors, old-style `var`/`function` inside blocks; `noDoubleEquals`; `noInvalidUseBeforeDeclaration`; `noAssignInExpressions`) — pre-existing violations, not auto-fixable, not disabled (still visible via `npm run lint`), just not commit-blocking. Don't silently re-tighten these to `error` without first fixing (or accepting) the backlog — it'll block unrelated commits to nearly every file in the repo.
+
+**Pre-commit hook is active**: `.githooks/pre-commit` (activated via `git config core.hooksPath .githooks`, auto-activates on `npm install` via the `prepare` script) runs `biome check` on staged `.js` files and blocks the commit on any `error`-severity finding. Override for one commit with `git commit --no-verify`; disable permanently with `git config --unset core.hooksPath`.
+
+`npm run lint` / `npm run lint:fix` (safe fixes only — use `--unsafe` manually, and verify before trusting).
