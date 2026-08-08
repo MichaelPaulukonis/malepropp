@@ -5,7 +5,6 @@ var tester = function() {
   var mocha = require('mocha'),
       chai = require('chai'),
       expect = chai.expect,
-      sugar = require('sugar'), // a requirement for tokenizer.web
       Tokenizer = require('../lib/tokenizer.web.js'),
       Cleaner = require('../lib/cleaner.js'),
       cleaner = new Cleaner(Tokenizer);
