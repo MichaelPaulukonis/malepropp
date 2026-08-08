@@ -13,13 +13,17 @@
     "underscore": "1.7.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.5.7",
     "chai": "^4.4.1",
     "mocha": "^10.7.3"
   },
   "scripts": {
+    "prepare": "git config core.hooksPath .githooks",
     "test": "mocha tests/",
     "test_cleaner": "mocha tests/cleaner.tests.js",
-    "test_propp": "mocha tests/malepropp.tests.js"
+    "test_propp": "mocha tests/malepropp.tests.js",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write ."
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,23 @@
+#!/bin/sh
+# Blocks commits with Biome lint/format issues in staged JS files.
+# Override for a one-off commit: git commit --no-verify
+# Disable permanently: git config --unset core.hooksPath
+
+staged_js=$(git diff --cached --name-only --diff-filter=ACMR -- '*.js')
+
+if [ -z "$staged_js" ]; then
+  exit 0
+fi
+
+npx biome check $staged_js
+status=$?
+
+if [ $status -ne 0 ]; then
+  echo ""
+  echo "Biome found issues in staged files (see above)."
+  echo "Fix them, or run 'npx biome check --write .' to auto-fix what's safe."
+  echo "To commit anyway: git commit --no-verify"
+  exit 1
+fi
+
+exit 0
