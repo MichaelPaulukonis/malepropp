@@ -18,9 +18,9 @@ var gui = (function () {
   };
 
   var setall = function (toggle) {
-    var funcs = $("input[type=checkbox]");
-    funcs.each(function (index, element) {
-      $(element).prop("checked", toggle);
+    var funcs = document.querySelectorAll("input[type=checkbox]");
+    funcs.forEach(function (element) {
+      element.checked = toggle;
     });
   };
 
