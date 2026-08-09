@@ -121,9 +121,15 @@ var getFunctionsFromGui = function () {
     funcs[index].active = window.document.myform[index].checked;
   }
 
-  var herog = $("input[name=herogender][type=radio]:checked").val();
-  var villaing = $("input[name=villaingender][type=radio]:checked").val();
-  var peopleg = $("input[name=peoplegender][type=radio]:checked").val();
+  var herog = document.querySelector(
+    "input[name=herogender][type=radio]:checked",
+  ).value;
+  var villaing = document.querySelector(
+    "input[name=villaingender][type=radio]:checked",
+  ).value;
+  var peopleg = document.querySelector(
+    "input[name=peoplegender][type=radio]:checked",
+  ).value;
   var bossfight = window.document.myform.bossfight.checked;
 
   // TOO LATE - not in the array, which has to be in order. DANG.
@@ -136,7 +142,7 @@ var getFunctionsFromGui = function () {
     if (window.document.myform[index].checked) {
       if (index === "func8") {
         var subFunc = "func8subfunc";
-        var sf = $("#" + subFunc).val();
+        var sf = document.getElementById(subFunc).value;
         var sfv;
         if (sf.toLowerCase() !== "random") {
           sfv = sf;
