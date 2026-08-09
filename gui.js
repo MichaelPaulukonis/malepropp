@@ -102,7 +102,7 @@ var pushSettingsToGuiNew = function (funcs, toggle) {
       }
 
       if (id) {
-        $("#" + id).val(subFunc);
+        document.getElementById(id).value = subFunc;
       }
     }
   }
