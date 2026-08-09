@@ -7,9 +7,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Story generator using Vladimir Propp's narrative "functions" (Proppian narratemes) to combinatorially assemble fairy-tale-shaped stories from templates. Two consumers share one generation engine:
 
 - **Node headless CLI** (`index.js`, the "novel builder") — generates stories until a word-count target, writes to a `.txt` file. Requires the engine from `lib/`.
-- **Browser GUI** (`index.html` + `gui.js`, jQuery-driven) — deployed to GitHub Pages at `michaelpaulukonis.github.io/malepropp`. Loads the same `lib/*.js` files as plain `<script>` tags.
+- **Browser GUI** (`index.html` + `gui.js`, vanilla DOM — jQuery was removed from `gui.js`/`index.html`; `scripts/jquery.min.js` and the `jquery` entry in `package.json` are unused leftovers, deliberately not yet deleted) — deployed to GitHub Pages at `michaelpaulukonis.github.io/malepropp`. Loads the same `lib/*.js` files as plain `<script>` tags.
 
-Engine (`lib/`): `propp.js`, `templates.js`/`templates.business.js`/`templates.descriptive.js`/`default.templates.js`, `words.js`, `business.wordbank.js`, `wordbank.test.js`, `cleaner.js`, `tokenizer.web.js`. GUI-only files stay at repo root: `index.html`, `gui.js`, `propp.css`, vendored `scripts/jquery.min.js`/`scripts/underscore.js`.
+Engine (`lib/`): `propp.js`, `templates.js`/`templates.business.js`/`templates.descriptive.js`/`default.templates.js`, `words.js`, `business.wordbank.js`, `wordbank.test.js`, `cleaner.js`, `tokenizer.web.js`. GUI-only files stay at repo root: `index.html`, `gui.js`, `propp.css`, vendored (unused) `scripts/jquery.min.js`, and still-used `scripts/underscore.js`.
 
 Currently a standalone repo. Under active consideration for import into `textgen-monorepo` as `libs/malepropp` (engine only) — mid-cleanup on the `dev` branch first, not yet moved.
 
