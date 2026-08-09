@@ -3,3 +3,4 @@ wonder.tale.*.txt
 *.log
 .env
 .specstory/
+.worktrees/
