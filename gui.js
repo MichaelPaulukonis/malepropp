@@ -223,14 +223,17 @@ var guiGet = function () {
   shoveToGui(tale);
 };
 
-document.getElementById("selectall").addEventListener("click", function () {
-  gui.setall(true);
-});
+var selectAllBtn = document.getElementById("selectall");
+if (selectAllBtn) {
+  selectAllBtn.addEventListener("click", function () {
+    gui.setall(true);
+  });
+}
 
 // TODO: use the preset when generating
 // no, when selected update the gui....
 // and then get rid of the other links
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var inp = document.getElementById("presets");
   var ps = storyGen.presets;
 
@@ -270,4 +273,4 @@ document.getElementById("selectall").addEventListener("click", function () {
     opt.textContent = value;
     s.appendChild(opt);
   });
-})();
+});
