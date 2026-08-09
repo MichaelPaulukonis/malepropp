@@ -223,24 +223,36 @@ var guiGet = function () {
   shoveToGui(tale);
 };
 
-$("#selectall").click(function () {
+document.getElementById("selectall").addEventListener("click", function () {
   gui.setall(true);
 });
 
 // TODO: use the preset when generating
 // no, when selected update the gui....
 // and then get rid of the other links
-$(document).ready(function () {
-  var inp = $("#presets");
+(function () {
+  var inp = document.getElementById("presets");
   var ps = storyGen.presets;
-  inp.append($("<option />").val("unselected").text("-- Select a preset --"));
-  inp.append($("<option />").val("selectall").text("Select all"));
-  $.each(ps, function (key) {
-    inp.append($("<option />").val(key).text(key));
+
+  var unselectedOpt = document.createElement("option");
+  unselectedOpt.value = "unselected";
+  unselectedOpt.textContent = "-- Select a preset --";
+  inp.appendChild(unselectedOpt);
+
+  var selectallOpt = document.createElement("option");
+  selectallOpt.value = "selectall";
+  selectallOpt.textContent = "Select all";
+  inp.appendChild(selectallOpt);
+
+  Object.keys(ps).forEach(function (key) {
+    var opt = document.createElement("option");
+    opt.value = key;
+    opt.textContent = key;
+    inp.appendChild(opt);
   });
 
-  inp.change(function () {
-    var preset = $(this).val();
+  inp.addEventListener("change", function () {
+    var preset = this.value;
     if (preset === "unselected") {
       gui.setall(false);
     } else if (preset === "selectall") {
@@ -250,9 +262,12 @@ $(document).ready(function () {
     }
   });
 
-  var s = $("#func8subfunc");
-  var sf = world.func8subfuncs;
-  $.each(world.func8subfuncs, function (key, value) {
-    s.append($("<option />").val(value).text(value));
+  var s = document.getElementById("func8subfunc");
+  Object.keys(world.func8subfuncs).forEach(function (key) {
+    var value = world.func8subfuncs[key];
+    var opt = document.createElement("option");
+    opt.value = value;
+    opt.textContent = value;
+    s.appendChild(opt);
   });
-});
+})();
