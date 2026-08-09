@@ -178,8 +178,12 @@ var guiGet = function () {
 
   settings.conclusion = true;
 
-  var selectedTheme = $("input[name=theme][type=radio]:checked").val();
-  settings.verbtense = $("input[name=tense][type=radio]:checked").val();
+  var selectedTheme = document.querySelector(
+    "input[name=theme][type=radio]:checked",
+  ).value;
+  settings.verbtense = document.querySelector(
+    "input[name=tense][type=radio]:checked",
+  ).value;
 
   var theme = {};
   switch (selectedTheme) {
