@@ -223,6 +223,9 @@ var guiGet = function () {
   shoveToGui(tale);
 };
 
+// TODO: no element with id="selectall" exists in index.html - this has
+// always been dead code (jQuery no-op'd silently on it; guarded here to
+// keep that same behavior). Either add the element or delete this block.
 var selectAllBtn = document.getElementById("selectall");
 if (selectAllBtn) {
   selectAllBtn.addEventListener("click", function () {
