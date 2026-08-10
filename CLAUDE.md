@@ -17,7 +17,7 @@ Currently a standalone repo. Under active consideration for import into `textgen
 
 ```bash
 npm install
-npm test              # mocha tests/ — all tests, currently 127 passing on Node 22
+npm test              # mocha tests/ — all tests, currently 132 passing on Node 22
 npm run test_cleaner   # mocha tests/cleaner.tests.js
 npm run test_propp     # mocha tests/malepropp.tests.js
 node index.js          # generates stories to ~50k words, writes wonder.tale.<rand>.txt to cwd
