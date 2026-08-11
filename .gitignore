@@ -4,3 +4,9 @@ wonder.tale.*.txt
 .env
 .specstory/
 .worktrees/
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
+.beads/proxieddb/
