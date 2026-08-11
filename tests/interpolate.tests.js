@@ -56,5 +56,24 @@ var tester = (function () {
       });
       expect(result).to.equal("onetwo");
     });
+
+    it("renders null and undefined as an empty string, matching _.template", function () {
+      var data = { missing: undefined, empty: null };
+      expect(storygen().interpolate("<%= missing %>", data)).to.equal("");
+      expect(storygen().interpolate("<%= empty %>", data)).to.equal("");
+    });
+
+    it("evaluates a tag's expression exactly once", function () {
+      var calls = 0;
+      var data = {
+        pick: function () {
+          calls += 1;
+          return "picked";
+        },
+      };
+      var result = storygen().interpolate("<%= pick() %>", data);
+      expect(result).to.equal("picked");
+      expect(calls).to.equal(1);
+    });
   });
 })();
