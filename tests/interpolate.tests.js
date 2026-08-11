@@ -48,5 +48,13 @@ var tester = (function () {
       var result = storygen().interpolate("<%= obj.nested.value %>", data);
       expect(result).to.equal("deep");
     });
+
+    it("interpolates a tag whose expression spans a newline", function () {
+      var result = storygen().interpolate("<%= a +\n b %>", {
+        a: "one",
+        b: "two",
+      });
+      expect(result).to.equal("onetwo");
+    });
   });
 })();
