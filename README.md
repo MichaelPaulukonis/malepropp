@@ -6,6 +6,15 @@ A story generator using Vladimir Propp's narrative "functions" (Proppian narrate
 
 See [docs/history-and-references.md](docs/history-and-references.md) for design musings, prior-art surveys, Propp's function/character reference, and external research links.
 
+## Story-within-a-story
+
+Two Propp functions embed a fully separate generated tale inside the outer story (`story.subtale` in `lib/templates.js`) — deep-cloning the narrator/hero/villain/characters into a fresh `storyGen` instance so the embedded tale can't mutate the outer story's state:
+
+- **func2 — Interdiction** (`interdiction` checkbox, "1st sphere"): after the hero meets their advisor and is warned, the magical helper is introduced and tells the hero a tale.
+- **func14 — Acquisition** ("receipt of a magical agent" checkbox, hero gains a magical item): the advisor tells the hero a tale.
+
+Both triggers are unconditional — check the corresponding function's checkbox in the GUI (or include it in a headless preset's `functions` list) and the embedded tale generates automatically; there's no separate toggle for the story-within-a-story behavior itself.
+
 ## Branches
 
 - `master` — engine + GUI source.
