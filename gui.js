@@ -24,10 +24,18 @@ var gui = (function () {
     });
   };
 
+  var randomize = function () {
+    var funcs = document.querySelectorAll("input[type=checkbox]");
+    funcs.forEach(function (element) {
+      element.checked = Math.random() < 0.5;
+    });
+  };
+
   return {
     popup: popup,
     popup2: popup2,
     setall: setall,
+    randomize: randomize,
   };
 })();
 
@@ -79,8 +87,9 @@ var pushSettingsToGui = function (proppFunctions) {
 // further parameters not yet handled
 // radio button options (globals) not yet handled
 var pushSettingsToGuiNew = function (funcs, toggle) {
-  // TODO: clear the settings
   toggle = toggle || true;
+
+  gui.setall(false);
 
   for (var index in funcs.functions) {
     var func = funcs.functions[index];
@@ -267,6 +276,23 @@ document.addEventListener("DOMContentLoaded", function () {
       pushPreset(preset);
     }
   });
+
+  var randomBtn = document.getElementById("randomize");
+  if (randomBtn) {
+    randomBtn.addEventListener("click", function () {
+      inp.value = "unselected";
+      gui.randomize();
+    });
+  }
+
+  var clearBtn = document.getElementById("clear");
+  if (clearBtn) {
+    clearBtn.addEventListener("click", function () {
+      inp.value = "unselected";
+      gui.setall(false);
+      document.getElementById("func8subfunc").selectedIndex = 0;
+    });
+  }
 
   var s = document.getElementById("func8subfunc");
   Object.keys(world.func8subfuncs).forEach(function (key) {

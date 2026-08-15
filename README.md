@@ -41,8 +41,8 @@ These are NOT in order; but are lightly clustered....
 - [x] novel-builder loop-through with word-count check
 - [x] novel-builder writes to a file
 - [x] presets - for embedded tales, headless running, &c; also available in UI
- - [ ] preset randomizer
- - [ ] UI should clear checkboxes when preset is selected
+ - [x] preset randomizer
+ - [x] UI should clear checkboxes when preset is selected
 - [ ] rules to validate selections based on Propp (or other needs)
 - [ ] journeys [partial]
 - [ ] battle [partial - more templates added]
