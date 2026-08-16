@@ -30,7 +30,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
-  padding: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 a {
@@ -86,13 +86,13 @@ header.title-block {
   gap: 1rem;
   flex-wrap: wrap;
   border-bottom: 2px solid var(--border);
-  padding-bottom: 0.9rem;
-  margin-bottom: 1.5rem;
+  padding-bottom: 0.6rem;
+  margin-bottom: 1rem;
 }
 
 header.title-block h1 {
   margin: 0;
-  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
   letter-spacing: 0.01em;
 }
 
@@ -130,7 +130,7 @@ main.layout {
     "funcs-a funcs-b sidebar"
     "settings settings sidebar"
     "actions actions sidebar";
-  gap: 1.5rem;
+  gap: 1rem 1.5rem;
 }
 
 .layout-funcs-a {
@@ -155,8 +155,8 @@ main.layout {
 
 fieldset.group {
   border-top: 1px solid var(--border);
-  padding-top: 0.75rem;
-  margin-bottom: 1.5rem;
+  padding-top: 0.6rem;
+  margin-bottom: 1rem;
 }
 
 .sidebar fieldset.group {
@@ -165,9 +165,8 @@ fieldset.group {
 }
 
 .check-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
+  columns: 2;
+  column-gap: 1.25rem;
 }
 
 .check-item {
@@ -175,6 +174,8 @@ fieldset.group {
   align-items: baseline;
   gap: 0.5em;
   font-size: 0.95rem;
+  break-inside: avoid;
+  padding-bottom: 0.35rem;
 }
 
 .check-item input[type="checkbox"] {
@@ -243,10 +244,9 @@ aside.sidebar {
   grid-area: settings;
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 1rem 1.5rem;
   border-top: 1px solid var(--border);
-  padding-top: 1.25rem;
-  margin-top: 0.5rem;
+  padding-top: 0.9rem;
 }
 
 .settings-row .field {
@@ -270,7 +270,7 @@ aside.sidebar {
 .actions-row {
   grid-area: actions;
   border-top: 1px solid var(--border);
-  padding-top: 1.25rem;
+  padding-top: 0.9rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
