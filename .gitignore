@@ -10,6 +10,7 @@ wonder.tale.*.txt
 *.db
 .beads-credential-key
 .beads/proxieddb/
+.beads/interactions.jsonl
 
 # Brainstorming session scratch (superpowers skill)
 .superpowers/
