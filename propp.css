@@ -3,8 +3,9 @@
   --surface: #fffdf7;
   --border: #c9b789;
   --text: #4a3423;
-  --text-dim: #8a6d47;
+  --text-dim: #7a5a35;
   --accent: #6b3f2a;
+  --accent-rgb: 107, 63, 42;
   --accent-text: #fdf6e8;
   --font-body: Georgia, "Iowan Old Style", "Times New Roman", serif;
 }
@@ -16,6 +17,7 @@
   --text: #e8dcc0;
   --text-dim: #c9a86a;
   --accent: #c9a86a;
+  --accent-rgb: 201, 168, 106;
   --accent-text: #2a2118;
 }
 
@@ -118,15 +120,36 @@ header.title-block p.tagline {
   color: var(--accent);
 }
 
+/* Placement is explicit via grid-area, not document order — each area
+   is assigned to a class below, so reordering/inserting elements inside
+   main.layout in index.html can't silently misplace content. */
 main.layout {
   display: grid;
   grid-template-columns: 1fr 1fr 220px;
+  grid-template-areas:
+    "funcs-a funcs-b sidebar"
+    "settings settings sidebar"
+    "actions actions sidebar";
   gap: 1.5rem;
+}
+
+.layout-funcs-a {
+  grid-area: funcs-a;
+}
+
+.layout-funcs-b {
+  grid-area: funcs-b;
 }
 
 @media (max-width: 700px) {
   main.layout {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "funcs-a"
+      "funcs-b"
+      "sidebar"
+      "settings"
+      "actions";
   }
 }
 
@@ -180,6 +203,7 @@ select {
 }
 
 aside.sidebar {
+  grid-area: sidebar;
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
@@ -216,7 +240,7 @@ aside.sidebar {
 }
 
 .settings-row {
-  grid-column: 1 / -1;
+  grid-area: settings;
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
@@ -244,7 +268,7 @@ aside.sidebar {
 }
 
 .actions-row {
-  grid-column: 1 / -1;
+  grid-area: actions;
   border-top: 1px solid var(--border);
   padding-top: 1.25rem;
   display: flex;
@@ -268,11 +292,11 @@ button {
 }
 
 .btn-ghost:hover {
-  background: rgba(107, 63, 42, 0.08);
+  background: rgba(var(--accent-rgb), 0.08);
 }
 
 [data-theme="dark"] .btn-ghost:hover {
-  background: rgba(201, 168, 106, 0.12);
+  background: rgba(var(--accent-rgb), 0.12);
 }
 
 .btn-generate {
