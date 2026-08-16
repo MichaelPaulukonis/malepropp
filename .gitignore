@@ -4,6 +4,7 @@ wonder.tale.*.txt
 .env
 .specstory/
 .worktrees/
+.vscode/
 
 # Beads / Dolt files (added by bd init)
 .dolt/
