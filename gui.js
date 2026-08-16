@@ -291,6 +291,40 @@ document.addEventListener("DOMContentLoaded", function () {
       inp.value = "unselected";
       gui.setall(false);
       document.getElementById("func8subfunc").selectedIndex = 0;
+      document.getElementById("r1").checked = true;
+      document.getElementById("herogenderfemale").checked = true;
+      document.getElementById("villaingenderfemale").checked = true;
+      document.getElementById("peoplegenderfemale").checked = true;
+      document.getElementById("tensepast").checked = true;
+      window.document.myform.output.value = "";
+    });
+  }
+
+  var THEME_STORAGE_KEY = "malepropp-theme";
+
+  var themeToggleBtn = document.getElementById("theme-toggle");
+  if (themeToggleBtn) {
+    var updateThemeToggleLabel = function () {
+      var isDark =
+        document.documentElement.getAttribute("data-theme") === "dark";
+      themeToggleBtn.textContent = isDark
+        ? "Switch to light"
+        : "Switch to dark";
+    };
+    updateThemeToggleLabel();
+
+    themeToggleBtn.addEventListener("click", function () {
+      var isDark =
+        document.documentElement.getAttribute("data-theme") === "dark";
+      if (isDark) {
+        document.documentElement.removeAttribute("data-theme");
+      } else {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, isDark ? "light" : "dark");
+      } catch (e) {}
+      updateThemeToggleLabel();
     });
   }
 
