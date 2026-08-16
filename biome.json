@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**/*.js", "!scripts"]
+    "includes": ["**/*.js", "!scripts/jquery.min.js", "!scripts/underscore.js"]
   },
   "formatter": {
     "enabled": true,

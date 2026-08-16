@@ -15,6 +15,7 @@
   "devDependencies": {
     "@biomejs/biome": "^2.5.7",
     "chai": "^4.4.1",
+    "gh-pages": "^6.3.0",
     "mocha": "^10.7.3"
   },
   "scripts": {
@@ -23,7 +24,9 @@
     "test_cleaner": "mocha tests/cleaner.tests.js",
     "test_propp": "mocha tests/malepropp.tests.js",
     "lint": "biome check .",
-    "lint:fix": "biome check --write ."
+    "lint:fix": "biome check --write .",
+    "build:pages": "node scripts/build-pages.js",
+    "deploy": "npm run build:pages && gh-pages -d dist --nojekyll"
   },
   "repository": {
     "type": "git",

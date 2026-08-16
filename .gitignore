@@ -6,6 +6,9 @@ wonder.tale.*.txt
 .worktrees/
 .vscode/
 
+# gh-pages publish staging (rebuilt by npm run build:pages)
+dist/
+
 # Beads / Dolt files (added by bd init)
 .dolt/
 *.db
