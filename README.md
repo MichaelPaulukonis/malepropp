@@ -17,10 +17,10 @@ Both triggers are unconditional — check the corresponding function's checkbox 
 
 ## Branches
 
-- `master` — engine + GUI source.
-- `dev` — active cleanup/development, forked from `master` (not `gh-pages` — see branch analysis below).
-- `gh-pages` — the deployed GUI (separate branch, not built from `master`'s root/`docs`). Diverged from `master` mainly by stripping dev-tooling (`package.json`, `tests/`, committed `node_modules`) for a lean static deploy, not by advancing the engine — `master`'s engine files (`propp.js`, `templates.business.js`, `business.wordbank.js`, `gui.js`) are identical or near-identical to `gh-pages`'s.
-- `origin/tumblr` — a working Tumblr-posting bot lived here for ~7 years, posting to `fairytalesbot.tumblr.com` via the `tumblrwks` client (see commit `ee87a17 "working tumblr poster"`). Credentials were gitignored and are gone, but the posting code itself is intact. Forked from `gh-pages` (not `master`) partway through `gh-pages`'s history, and never received `gh-pages`'s later engine work (`business.wordbank.js`/`templates.business.js` refinements) — diff before assuming it's a peer of the other branches.
+- `main` — engine + GUI source, the active/default branch (as of 2026-08-19; formerly developed under `dev`, which forked from the old `master` — see branch analysis below). Not built from a `docs/` folder; `gh-pages` is a separate deploy branch, published via `npm run deploy` (see `scripts/build-pages.js`).
+- `gh-pages` — the deployed GUI, live at the link above. Rebuilt by `npm run deploy`, which stages `index.html`/`propp.css`/`gui.js`/`lib/*.js` into `dist/` and pushes it via the `gh-pages` npm package (`--nojekyll`). No dev-tooling (`package.json`, `tests/`, `node_modules`) — a lean static deploy, same convention this author uses across other repos.
+- `legacy` — a frozen copy of the old `master` branch (pre-2026-08-19), kept for history. Not maintained.
+- `origin/tumblr` — a working Tumblr-posting bot lived here for ~7 years, posting to `fairytalesbot.tumblr.com` via the `tumblrwks` client (see commit `ee87a17 "working tumblr poster"`). Credentials were gitignored and are gone, but the posting code itself is intact. Forked from `gh-pages` (not `master`) partway through `gh-pages`'s history, and never received `gh-pages`'s later engine work (`business.wordbank.js`/`templates.business.js` refinements) — diff before assuming it's a peer of the other branches. Kept as-is: candidate for revival as an AWS Lambda app (same pattern as this author's `poeticalbot`/`listbot`), not just dead code.
 
 ## Testing
 

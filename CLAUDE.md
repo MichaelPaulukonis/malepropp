@@ -11,7 +11,7 @@ Story generator using Vladimir Propp's narrative "functions" (Proppian narrateme
 
 Engine (`lib/`): `propp.js`, `templates.js`/`templates.business.js`/`templates.descriptive.js`/`default.templates.js`, `words.js`, `business.wordbank.js`, `wordbank.test.js`, `cleaner.js`, `tokenizer.web.js`. GUI-only files stay at repo root: `index.html`, `gui.js`, `propp.css`, and vendored (unused) `scripts/jquery.min.js` and `scripts/underscore.js`.
 
-Currently a standalone repo. Under active consideration for import into `textgen-monorepo` as `libs/malepropp` (engine only) — mid-cleanup on the `dev` branch first, not yet moved.
+Currently a standalone repo. Under active consideration for import into `textgen-monorepo` as `libs/malepropp` (engine only) — mid-cleanup on `main` first, not yet moved.
 
 ## Commands
 
@@ -43,15 +43,15 @@ Several `lib/*.js` files use a `var x = x || require('./y.js')` pattern (e.g. `p
 
 ### Branches
 
-See [README.md](README.md#branches) for the canonical branch rundown (`master`/`dev`/`gh-pages`/`origin/tumblr` and how they actually relate — `gh-pages` and `tumblr` are not independent siblings of `master`, verify lineage with `git merge-base` before assuming otherwise).
+See [README.md](README.md#branches) for the canonical branch rundown (`main`/`gh-pages`/`legacy`/`origin/tumblr` and how they actually relate — `gh-pages` and `tumblr` are not independent siblings of `main`, verify lineage with `git merge-base` before assuming otherwise). `main` replaced the old `master`+`dev` pair on 2026-08-19 — `dev`'s history became `main`, and the old `master` was preserved as `legacy`.
 
 ### Dependencies removed this cleanup pass
 
-Sugar (`sugar.min.js`, `require('sugar')`), `sentence-tokenizer` (npm dep, was declared but never actually required anywhere), `.travis.yml`, `.eslintrc` (non-functional — superseded by Biome), and `mocha@2.4.5`/`chai@3.5.0`/`vows` are all gone — don't reintroduce without checking why they were removed (see git log on `dev` for the specific commits and reasoning).
+Sugar (`sugar.min.js`, `require('sugar')`), `sentence-tokenizer` (npm dep, was declared but never actually required anywhere), `.travis.yml`, `.eslintrc` (non-functional — superseded by Biome), and `mocha@2.4.5`/`chai@3.5.0`/`vows` are all gone — don't reintroduce without checking why they were removed (see git log on `main` for the specific commits and reasoning).
 
 ### Linting/formatting: Biome
 
-`biome.json`, scoped to `**/*.js` only — excludes `scripts/` (vendored third-party `jquery.min.js`/`underscore.js`, not ours to reformat) and `index.html` (Biome's HTML/a11y linter is a separate, more opinionated concern; it flags the deliberate `accesskey="g"` the UI documents as a feature — out of scope).
+`biome.json`, scoped to `**/*.js` only — excludes `scripts/jquery.min.js` and `scripts/underscore.js` specifically (vendored third-party, not ours to reformat; `scripts/build-pages.js` is ours and stays linted) and `index.html` (Biome's HTML/a11y linter is a separate, more opinionated concern; it flags the deliberate `accesskey="g"` the UI documents as a feature — out of scope).
 
 `linter.rules.complexity.useArrowFunction` is explicitly `"off"`. Its "safe" auto-fix converted `function Cleaner(...)` (used elsewhere as `new Cleaner(...)`) into an arrow function, which throws `TypeError: Cleaner is not a constructor` — the rule can't see call sites outside the function body, so it can't tell a constructor from a plain function expression. **Don't trust Biome's "safe" fix labels without running the test suite (and ideally the browser) afterward** — this codebase's old-style constructors and `arguments`-object usage (`propp.js`'s `select()` helper) are exactly the patterns modern "safe" refactors misjudge.
 
