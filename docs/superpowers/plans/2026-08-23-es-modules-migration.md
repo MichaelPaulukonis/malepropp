@@ -325,7 +325,7 @@ git commit -m "refactor: add ESM export to default.templates.js"
 **Files:**
 - Modify: `lib/propp.js:16-20` (head) and `lib/propp.js:1326-1327` (tail)
 
-- [ ] **Step 1: Replace the require block with imports**
+- [x] **Step 1: Replace the require block with imports**
 
 Old (`lib/propp.js:16-20`):
 ```js
@@ -359,7 +359,7 @@ var cleaner = new Cleaner(Tokenizer);
 
 Note the extension change on `Cleaner`'s specifier (`"./cleaner"` -> `"./cleaner.js"`) - ESM resolution requires explicit extensions; CommonJS's implicit `.js`-if-missing behavior doesn't apply.
 
-- [ ] **Step 2: Replace the CommonJS export tail**
+- [x] **Step 2: Replace the CommonJS export tail**
 
 Old (`lib/propp.js:1326-1327`):
 ```js
@@ -374,12 +374,12 @@ export default storyGen;
 
 This must stay the last line of the file, after `storyGen.world = world;`, `storyGen.villainyTypes = {...}`, `storyGen.resetProppFunctions = ...`, and `storyGen.presets = {...}` (all unchanged) - those are mutations on the same function object `storyGen` already refers to, so their position relative to `export default storyGen` doesn't matter functionally, but keeping the export last matches the file's existing structure and avoids re-reviewing unrelated code.
 
-- [ ] **Step 3: Syntax check**
+- [x] **Step 3: Syntax check**
 
 Run: `npx biome check lib/propp.js`
 Expected: no errors
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add lib/propp.js
