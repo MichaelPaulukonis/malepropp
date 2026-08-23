@@ -731,7 +731,7 @@ git commit -m "refactor: convert gui.js to ESM, import lib deps explicitly"
 
 Because `gui.js` now `import`s the entire `lib/` dependency graph itself, the browser's module loader resolves it automatically - the ~12 individually-ordered `<script src="lib/...">` tags collapse to a single entry point. The `delete (window.module)` hack at the bottom also goes away: it existed only to erase the `window.module` global that the old `var module = module || {}` CommonJS-fallback pattern created, and no file does that anymore after Tasks 1-10.
 
-- [ ] **Step 1: Replace the script-loading block**
+- [x] **Step 1: Replace the script-loading block**
 
 Old (`index.html:194-217`):
 ```html
@@ -778,7 +778,7 @@ New:
 </body>
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add index.html
