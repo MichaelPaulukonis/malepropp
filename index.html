@@ -192,29 +192,14 @@
 
 
   <!-- TODO: this should be local. ??? it slows down loading.... -->
+  <!-- Classic (non-module) script, loaded first: sets window.nlp_compromise -->
+  <!-- for lib/propp.js to pick up - see the comment in propp.js. -->
   <script src="https://unpkg.com/nlp_compromise@4.1.2/builds/nlp_compromise.js"></script>
-  <script type="text/javascript" src="lib/tokenizer.web.js"></script>
-  <script type="text/javascript" src="lib/cleaner.js"></script>
 
-  <script type="text/javascript" src="lib/default.templates.js"></script>
-  <script type="text/javascript" src="lib/templates.js"></script>
-  <script type="text/javascript" src="lib/words.js"></script>
-  <script type="text/javascript" src="lib/wordbank.test.js"></script>
-
-  <script type="text/javascript" src="lib/templates.business.js"></script>
-  <script type="text/javascript" src="lib/business.wordbank.js"></script>
-
-  <script type="text/javascript" src="lib/templates.descriptive.js"></script>
-
-  <script type="text/javascript" src="gui.js"></script>
-  <script type="text/javascript" src="lib/propp.js"></script>
-
-  <script type="text/javascript">
-    // remove when running in browser
-    // one of the npm modules won't work in the browser if it remains
-    // TODO: document which one!
-    delete (window.module);
-  </script>
+  <!-- Single module entry point - gui.js imports the rest of lib/ itself, -->
+  <!-- so the browser's module loader resolves the whole dependency graph; -->
+  <!-- no manual script-tag ordering needed. -->
+  <script type="module" src="gui.js"></script>
 
 </body>
 
