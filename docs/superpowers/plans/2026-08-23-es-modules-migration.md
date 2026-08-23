@@ -459,7 +459,7 @@ git commit -m "refactor: convert index.js to ESM"
 **Files:**
 - Modify: `scripts/build-pages.js:4-8`
 
-- [ ] **Step 1: Replace requires and the `__dirname` usage**
+- [x] **Step 1: Replace requires and the `__dirname` usage**
 
 Old (`scripts/build-pages.js:4-8`):
 ```js
@@ -482,12 +482,12 @@ const dist = path.join(root, "dist");
 
 ESM has no `__dirname`/`__filename` - `import.meta.url` + `fileURLToPath` is the standard replacement. The rest of the file (`fs.rmSync`, `fs.mkdirSync`, the `for...of` copy loop, `fs.cpSync`, `console.log`) is unchanged - `fs`/`path`'s ESM default export has the same API surface as the CJS `require()` return value.
 
-- [ ] **Step 2: Syntax check**
+- [x] **Step 2: Syntax check**
 
 Run: `npx biome check scripts/build-pages.js`
 Expected: no errors
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add scripts/build-pages.js
