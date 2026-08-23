@@ -311,6 +311,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  var generateBtn = document.getElementById("generate");
+  if (generateBtn) {
+    generateBtn.addEventListener("click", function (event) {
+      event.preventDefault();
+      guiGet();
+    });
+  }
+
   var THEME_STORAGE_KEY = "malepropp-theme";
 
   var themeToggleBtn = document.getElementById("theme-toggle");
