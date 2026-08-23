@@ -685,7 +685,7 @@ git commit -m "refactor: convert test suite to ESM"
 
 `gui.js` currently has no `require`/`module.exports` at all - it relied entirely on browser globals set by earlier `<script>` tags (`storyGen`, `words`, `nTemplates`, `defaultbank`, `businessTemplates`, `businessbank`, `descriptiveTemplates`, `defaultTemplates`, and `world`, which it never declares itself, per `CLAUDE.md`'s documented quirk about `gui.js` loading before `propp.js`). None of that changes here - only the *source* of those bindings changes, from ambient globals to explicit imports at the top of the file. The rest of `gui.js` is untouched.
 
-- [ ] **Step 1: Add imports at the top of the file**
+- [x] **Step 1: Add imports at the top of the file**
 
 Old (`gui.js:1`):
 ```js
@@ -710,12 +710,12 @@ var gui = (function () {
 
 The `document.addEventListener("DOMContentLoaded", ...)` block at the bottom of the file (`gui.js:248-339`, using `storyGen.presets` and `world.func8subfuncs`) stays exactly as-is - that deferral exists because the DOM elements it queries (`#presets`, `#func8subfunc`) don't exist until parsing finishes, which is unrelated to and unaffected by this module conversion.
 
-- [ ] **Step 2: Syntax check**
+- [x] **Step 2: Syntax check**
 
 Run: `npx biome check gui.js`
 Expected: no errors
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add gui.js
