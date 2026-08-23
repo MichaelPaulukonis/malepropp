@@ -794,7 +794,7 @@ git commit -m "refactor: load GUI as a single ES module entry point"
 
 This is the flag-day cutover. Every `.js` file in the repo has been ESM-only since Tasks 1-15 (they'd already fail if loaded as CommonJS); this step tells Node to actually load them that way.
 
-- [ ] **Step 1: Add `"type": "module"` to `package.json`**
+- [x] **Step 1: Add `"type": "module"` to `package.json`**
 
 Old (`package.json:1-8`):
 ```json
@@ -823,21 +823,21 @@ New:
   },
 ```
 
-- [ ] **Step 2: Run the full lint**
+- [x] **Step 2: Run the full lint**
 
 Run: `npm run lint`
 Expected: exits 0 (only pre-existing `warn`-level findings from the legacy-baseline rules in `biome.json`, no new `error`-level findings)
 
 If there are unexpected formatting-only diffs from de-indenting the test files in Task 13, run `npm run lint:fix` (safe fixes only) and re-check.
 
-- [ ] **Step 3: Run the test suite**
+- [x] **Step 3: Run the test suite**
 
 Run: `npm test`
 Expected: all 141 tests pass (same count as before this migration - this is a syntax/loading refactor, not a behavior change)
 
 If this fails, the error will point at whichever file still has a leftover `require`/`module.exports` or a missing `.js` extension on a relative import - re-check that file against its Task above before proceeding.
 
-- [ ] **Step 4: Run the Node CLI smoke test**
+- [x] **Step 4: Run the Node CLI smoke test**
 
 Run: `node index.js`
 Expected: prints `Written to wonder.tale.<random>.txt` then `DONE`, with no stack trace. Confirm the file exists and is non-trivial:
@@ -849,7 +849,7 @@ wc -w wonder.tale.*.txt
 
 Expected: file exists, word count near 50000 (the CLI's target). Delete the generated file afterward (it's a local smoke-test artifact, already gitignored the same way prior runs were - confirm with `git status` that it doesn't show as untracked before deleting, and delete only if it does).
 
-- [ ] **Step 5: Run the GUI build**
+- [x] **Step 5: Run the GUI build**
 
 Run: `npm run build:pages`
 Expected: prints `Staged GUI files into <path>/dist`, no errors. Confirm the staged files are what Task 15 produced:
@@ -861,7 +861,7 @@ cat dist/gui.js | head -5
 
 Expected: `dist/index.html` has the two-script-tag block from Task 15; `dist/gui.js` starts with the `import` block from Task 14.
 
-- [ ] **Step 6: Smoke-test the GUI in a real browser**
+- [x] **Step 6: Smoke-test the GUI in a real browser**
 
 The module scripts need to be served over HTTP (`file://` blocks ES module imports via CORS) - start a static server from the repo root:
 
@@ -879,7 +879,7 @@ Then, using browser automation (`claude-in-chrome` or equivalent):
 
 Stop the static server (`Ctrl+C` in its terminal, or kill the background process) once verified.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add package.json
