@@ -1,9 +1,12 @@
-// var defaultTemplates = require('./lib/default.templates.js');
-var templates = require("./lib/templates.js");
-var words = require("./lib/words.js");
+// import defaultTemplates from "./lib/default.templates.js";
+import fs from "node:fs";
+import storygen from "./lib/propp.js";
+import templates from "./lib/templates.js";
+import wordbankFactory from "./lib/wordbank.test.js";
+import words from "./lib/words.js";
+
 // words is a requirement for wordbank.....
-var wordbank = require("./lib/wordbank.test.js")(words);
-var storygen = require("./lib/propp.js");
+var wordbank = wordbankFactory(words);
 
 var world = storygen().world;
 
@@ -66,8 +69,6 @@ var wordcount = function (s) {
 };
 
 var writeitout = function (text) {
-  var fs = require("fs");
-
   var fn =
     "wonder.tale." + (Math.random() * 0x1000000000).toString(36) + ".txt";
 
