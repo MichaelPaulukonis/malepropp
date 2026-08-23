@@ -895,13 +895,13 @@ git commit -m "chore: enable native ES modules (type: module)"
 
 The existing `CLAUDE.md` documents the pre-conversion browser-global-collision hazard as live, current guidance (`"Files loaded as <script> tags in index.html share one global namespace..."` and the accompanying `words()`/`words` collision war story). After this migration that hazard no longer exists - each file is its own module scope - so leaving the warning as-is would actively mislead a future reader into thinking script-tag order still matters.
 
-- [ ] **Step 1: Read the current Architecture section**
+- [x] **Step 1: Read the current Architecture section**
 
 Run: `grep -n "share one global namespace" CLAUDE.md`
 
 Locate the full paragraph (from `**Files loaded as \`<script>\` tags...**` through the end of that paragraph, and the following paragraph about the `var x = x || require('./y.js')` pattern).
 
-- [ ] **Step 2: Replace the stale warning with the current ESM structure**
+- [x] **Step 2: Replace the stale warning with the current ESM structure**
 
 Replace both paragraphs (the global-namespace-collision warning and the `var x = x || require(...)` pattern explanation) with:
 
@@ -913,7 +913,7 @@ Replace both paragraphs (the global-namespace-collision warning and the `var x =
 `lib/propp.js` is the one file with an environment-branched import: `nlp_compromise` has no browser-safe build for the pinned `0.2.2` API this engine depends on, so the GUI loads a *different*, newer version from a CDN as a classic (non-module) `<script>` before `gui.js` runs, exposing it as `window.nlp_compromise`; `propp.js` picks that up at runtime if present, otherwise dynamically imports the pinned npm package (Node path). That Node/browser version skew is pre-existing, not introduced by the ESM migration - see the `nlp_compromise@~0.2.2` note below.
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add CLAUDE.md
