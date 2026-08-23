@@ -17,7 +17,7 @@
 **Files:**
 - Modify: `lib/tokenizer.web.js:66-68`
 
-- [ ] **Step 1: Replace the CommonJS export tail**
+- [x] **Step 1: Replace the CommonJS export tail**
 
 Old (`lib/tokenizer.web.js:66-68`):
 ```js
@@ -31,12 +31,12 @@ New:
 export default Tokenizer;
 ```
 
-- [ ] **Step 2: Syntax check**
+- [x] **Step 2: Syntax check**
 
 Run: `npx biome check lib/tokenizer.web.js`
 Expected: no errors (warnings from the pre-existing legacy-baseline rules are fine, per `biome.json`'s downgraded rules - only new `error`-severity findings are a problem)
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add lib/tokenizer.web.js
@@ -50,7 +50,7 @@ git commit -m "refactor: convert tokenizer.web.js to ESM export"
 **Files:**
 - Modify: `lib/cleaner.js:65-66`
 
-- [ ] **Step 1: Replace the CommonJS export tail**
+- [x] **Step 1: Replace the CommonJS export tail**
 
 Old (`lib/cleaner.js:65-66`):
 ```js
@@ -65,12 +65,12 @@ export default Cleaner;
 
 `Cleaner` stays a factory that takes `Tokenizer` as a constructor argument (`new Cleaner(Tokenizer)` at the call site) - no import needed inside this file, that dependency injection was already correct.
 
-- [ ] **Step 2: Syntax check**
+- [x] **Step 2: Syntax check**
 
 Run: `npx biome check lib/cleaner.js`
 Expected: no errors
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add lib/cleaner.js
@@ -84,7 +84,7 @@ git commit -m "refactor: convert cleaner.js to ESM export"
 **Files:**
 - Modify: `lib/words.js:859-861`
 
-- [ ] **Step 1: Replace the CommonJS export tail**
+- [x] **Step 1: Replace the CommonJS export tail**
 
 Old (`lib/words.js:859-861`):
 ```js
@@ -99,12 +99,12 @@ export default words;
 
 The file's other top-level `var`s (`adjectives`, `interjections`, etc.) stay exactly as they are - each `.js` file is now its own module scope, so there is no longer any risk of these names colliding with another file's globals (this was the root cause of the `words()`/`words` collision documented in `CLAUDE.md` - Task 18 updates that doc).
 
-- [ ] **Step 2: Syntax check**
+- [x] **Step 2: Syntax check**
 
 Run: `npx biome check lib/words.js`
 Expected: no errors
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add lib/words.js
@@ -118,7 +118,7 @@ git commit -m "refactor: convert words.js to ESM export"
 **Files:**
 - Modify: `lib/wordbank.test.js:483-484`
 
-- [ ] **Step 1: Replace the CommonJS export tail**
+- [x] **Step 1: Replace the CommonJS export tail**
 
 Old (`lib/wordbank.test.js:483-484`):
 ```js
@@ -133,12 +133,12 @@ export default defaultbank;
 
 `defaultbank` stays a factory taking `words` as a parameter (`defaultbank(words)` at call sites) - unchanged.
 
-- [ ] **Step 2: Syntax check**
+- [x] **Step 2: Syntax check**
 
 Run: `npx biome check lib/wordbank.test.js`
 Expected: no errors
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add lib/wordbank.test.js
@@ -152,7 +152,7 @@ git commit -m "refactor: convert wordbank.test.js to ESM export"
 **Files:**
 - Modify: `lib/business.wordbank.js` (last 2 lines)
 
-- [ ] **Step 1: Replace the CommonJS export tail**
+- [x] **Step 1: Replace the CommonJS export tail**
 
 Old:
 ```js
@@ -165,12 +165,12 @@ New:
 export default businessbank;
 ```
 
-- [ ] **Step 2: Syntax check**
+- [x] **Step 2: Syntax check**
 
 Run: `npx biome check lib/business.wordbank.js`
 Expected: no errors
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add lib/business.wordbank.js
@@ -184,7 +184,7 @@ git commit -m "refactor: convert business.wordbank.js to ESM export"
 **Files:**
 - Modify: `lib/templates.js:2389-2390`
 
-- [ ] **Step 1: Replace the CommonJS export tail**
+- [x] **Step 1: Replace the CommonJS export tail**
 
 Old (`lib/templates.js:2389-2390`):
 ```js
@@ -197,12 +197,12 @@ New:
 export default nTemplates;
 ```
 
-- [ ] **Step 2: Syntax check**
+- [x] **Step 2: Syntax check**
 
 Run: `npx biome check lib/templates.js`
 Expected: no errors
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add lib/templates.js
@@ -216,7 +216,7 @@ git commit -m "refactor: convert templates.js to ESM export"
 **Files:**
 - Modify: `lib/templates.business.js` (last 2 lines)
 
-- [ ] **Step 1: Replace the CommonJS export tail**
+- [x] **Step 1: Replace the CommonJS export tail**
 
 Old:
 ```js
@@ -229,12 +229,12 @@ New:
 export default businessTemplates;
 ```
 
-- [ ] **Step 2: Syntax check**
+- [x] **Step 2: Syntax check**
 
 Run: `npx biome check lib/templates.business.js`
 Expected: no errors
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add lib/templates.business.js
@@ -248,7 +248,7 @@ git commit -m "refactor: convert templates.business.js to ESM export"
 **Files:**
 - Modify: `lib/templates.descriptive.js` (last 2 lines)
 
-- [ ] **Step 1: Replace the CommonJS export tail**
+- [x] **Step 1: Replace the CommonJS export tail**
 
 Old:
 ```js
@@ -261,12 +261,12 @@ New:
 export default descriptiveTemplates;
 ```
 
-- [ ] **Step 2: Syntax check**
+- [x] **Step 2: Syntax check**
 
 Run: `npx biome check lib/templates.descriptive.js`
 Expected: no errors
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add lib/templates.descriptive.js
@@ -282,7 +282,7 @@ git commit -m "refactor: convert templates.descriptive.js to ESM export"
 
 This file currently has **no** `module.exports` at all - it's GUI-only today (`index.js` explicitly comments out requiring it: `// var defaultTemplates = require('./lib/default.templates.js');`). `gui.js` (Task 14) needs to `import` it, so it needs a real export.
 
-- [ ] **Step 1: Add an export at the end of the file**
+- [x] **Step 1: Add an export at the end of the file**
 
 Old (end of `lib/default.templates.js`):
 ```js
@@ -306,12 +306,12 @@ New:
 export default defaultTemplates;
 ```
 
-- [ ] **Step 2: Syntax check**
+- [x] **Step 2: Syntax check**
 
 Run: `npx biome check lib/default.templates.js`
 Expected: no errors
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add lib/default.templates.js
