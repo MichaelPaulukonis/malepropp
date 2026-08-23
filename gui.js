@@ -1,3 +1,14 @@
+import businessbank from "./lib/business.wordbank.js";
+import defaultTemplates from "./lib/default.templates.js";
+import storyGen from "./lib/propp.js";
+import businessTemplates from "./lib/templates.business.js";
+import descriptiveTemplates from "./lib/templates.descriptive.js";
+import nTemplates from "./lib/templates.js";
+import defaultbank from "./lib/wordbank.test.js";
+import words from "./lib/words.js";
+
+var world = storyGen.world;
+
 var gui = (function () {
   // TODO: these are information popups
   // grab the information from the original, or rewrite
