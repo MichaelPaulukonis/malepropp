@@ -393,7 +393,7 @@ git commit -m "refactor: convert propp.js to ESM, dual-load nlp_compromise for N
 **Files:**
 - Modify: `index.js:1-8` (head) and `index.js:69` (inside `writeitout`)
 
-- [ ] **Step 1: Replace the require block with imports**
+- [x] **Step 1: Replace the require block with imports**
 
 Old (`index.js:1-8`):
 ```js
@@ -424,7 +424,7 @@ var world = storygen().world;
 
 (`import` statements must be at the top of the file - this is why `fs` moves up from inside `writeitout` to here, and switches from the bare `"fs"` specifier to `"node:fs"` to match the convention already established in `scripts/build-pages.js`.)
 
-- [ ] **Step 2: Remove the now-redundant inline require**
+- [x] **Step 2: Remove the now-redundant inline require**
 
 Old (`index.js:68-69`, inside `writeitout`):
 ```js
@@ -440,12 +440,12 @@ var writeitout = function (text) {
   var fn =
 ```
 
-- [ ] **Step 3: Syntax check**
+- [x] **Step 3: Syntax check**
 
 Run: `npx biome check index.js`
 Expected: no errors
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add index.js
