@@ -4,6 +4,7 @@
   "description": "Story Generator using Proppiann Narratemes",
   "author": "Michael Paulukonis",
   "main": "index.js",
+  "type": "module",
   "engines": {
     "node": ">=22.0.0"
   },
