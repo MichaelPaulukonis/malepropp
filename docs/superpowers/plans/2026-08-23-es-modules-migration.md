@@ -506,7 +506,7 @@ git commit -m "refactor: convert build-pages.js to ESM"
 
 All four files wrap their body in a `var tester = (function () { ... })();` IIFE whose only real purpose was to scope the `require()`'d variables - now that those become `import` bindings (already properly module-scoped, `import` statements must live at true top level, not inside a function), the IIFE has nothing left to do and is removed. `describe`/`it` are injected as true globals by the mocha CLI at run time regardless of module type, and none of these files ever call the `mocha` variable they required - only `chai` and the `lib/` files were actually used, so the `require("mocha")` line is simply dropped.
 
-- [ ] **Step 1: Convert `tests/cleaner.tests.js`**
+- [x] **Step 1: Convert `tests/cleaner.tests.js`**
 
 Old (`tests/cleaner.tests.js:1-9`):
 ```js
@@ -548,7 +548,7 @@ New:
 
 (De-indent the body between these two edits by one level - it was previously inside the IIFE's `describe(...)` call at 2-space indent from the wrapper; `npm run lint:fix` in Step 3 below reformats this automatically, so hand-fixing indentation isn't required.)
 
-- [ ] **Step 2: Convert `tests/deepClone.tests.js`**
+- [x] **Step 2: Convert `tests/deepClone.tests.js`**
 
 Old (`tests/deepClone.tests.js:1-7`):
 ```js
@@ -584,7 +584,7 @@ New:
 });
 ```
 
-- [ ] **Step 3: Convert `tests/interpolate.tests.js`**
+- [x] **Step 3: Convert `tests/interpolate.tests.js`**
 
 Old (`tests/interpolate.tests.js:1-7`):
 ```js
@@ -620,7 +620,7 @@ New:
 });
 ```
 
-- [ ] **Step 4: Convert `tests/malepropp.tests.js`**
+- [x] **Step 4: Convert `tests/malepropp.tests.js`**
 
 Old (`tests/malepropp.tests.js:1-13`):
 ```js
@@ -664,12 +664,12 @@ Old:
 
 New: delete this line entirely (no replacement) - the file now just ends after the last `describe(...)` block's closing `});`.
 
-- [ ] **Step 5: Syntax check all four files**
+- [x] **Step 5: Syntax check all four files**
 
 Run: `npx biome check tests/`
 Expected: no errors
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add tests/
