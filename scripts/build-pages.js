@@ -1,6 +1,8 @@
 // Stages the browser GUI's static files into dist/ for `gh-pages -d dist`.
-// No bundler needed - index.html loads these files directly as <script> tags,
-// so "build" is just "copy the files gh-pages needs to serve" verbatim.
+// No bundler needed - index.html loads a single <script type="module"
+// src="gui.js">, and gui.js's own imports resolve the rest of lib/ at
+// runtime, so "build" is just "copy the files gh-pages needs to serve"
+// verbatim, relative paths intact.
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
