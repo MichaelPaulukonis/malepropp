@@ -1,4 +1,4 @@
-Try it out at http://michaelpaulukonis.github.io/malepropp/
+Try it out at <http://michaelpaulukonis.github.io/malepropp/>
 
 ## What is this
 
@@ -41,8 +41,8 @@ These are NOT in order; but are lightly clustered....
 - [x] novel-builder loop-through with word-count check
 - [x] novel-builder writes to a file
 - [x] presets - for embedded tales, headless running, &c; also available in UI
- - [x] preset randomizer
- - [x] UI should clear checkboxes when preset is selected
+- [x] preset randomizer
+- [x] UI should clear checkboxes when preset is selected
 - [ ] rules to validate selections based on Propp (or other needs)
 - [ ] journeys [partial]
 - [ ] battle [partial - more templates added]
@@ -59,9 +59,9 @@ These are NOT in order; but are lightly clustered....
 - [ ] conversation enhancements
 - [ ] terse mode (simple intro, etc. for embedded tales, or otherwise) [partial implementation for hero intro]
 - [ ] theme selector, so that sub-tales can pick a different set of templates and wordbanks (may be possible)
-- [ ] alternate theme available (as of 2014.12 the "business" world no longer works)
+- [x] alternate theme available (business/office theme works as of 2026-08-24 - no functional issues found, only stylistic ones common to templates in general)
 - [ ] novel-builder framing device? (Count N visiting a mansion and reading volumes in the library)
 - [ ] generate() stores all templates so that we could re-process them, like to switch tense, or something
-- [x] web page "publicly" accessible - see http://michaelpaulukonis.github.io/malepropp/
- - [ ] web page has informational links active (and refs previous progenitors)
-- [ ] unit tests - not that YOU may care about these, but it sure helps with testing (IN PROGRESS)
+- [x] web page "publicly" accessible - see <http://michaelpaulukonis.github.io/malepropp/>
+  - [x] web page has informational links active (and refs previous progenitors)
+- [x] unit tests - not that YOU may care about these, but it sure helps with testing (IN PROGRESS)
