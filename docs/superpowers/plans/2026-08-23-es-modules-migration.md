@@ -924,11 +924,11 @@ git commit -m "docs: update CLAUDE.md for ESM module structure"
 
 ### Task 18: Close out the bead
 
-- [ ] **Step 1: Close the beads issue**
+- [x] **Step 1: Close the beads issue**
 
 Run: `bd close malepropp-a2u --reason="Converted lib/, index.js, gui.js, tests/, and scripts/build-pages.js to native ES modules; index.html now loads a single module entry point. No bundler introduced."`
 
-- [ ] **Step 2: Report final status**
+- [x] **Step 2: Report final status**
 
 Run: `git status` and `git log --oneline main..HEAD` to summarize the branch's commits for handoff. Per this repo's conservative git profile, stop here - do not push or open a PR without the user's explicit go-ahead.
 
