@@ -25,7 +25,7 @@ It reads `sg.universe` **after** `generate()` returns, relying on `generate()` h
 - Modify: `lib/propp.js:909-1014` (`sentence()`)
 - Modify: `lib/propp.js:1055-1138` (`generate()`)
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Append this to the end of `tests/malepropp.tests.js` (after the existing `describe("storygen utlities", ...)` block, i.e. after line 187):
 
@@ -63,13 +63,13 @@ describe("storyGen this-binding independence", function () {
 
 The first test uses a template string (`"{{ran}}"`) containing a verb tag, which is what forces `sentence()`'s code path down into the branch that currently reads `this.settings.verbtense` (lib/propp.js:995) - a template with no `{{tag}}` markers wouldn't exercise the bug at all. The second test exercises `generate()`'s own `this.settings`/`this.universe` reliance the same way, via a real (if minimal) function list.
 
-- [ ] **Step 2: Run the tests to verify they fail**
+- [x] **Step 2: Run the tests to verify they fail**
 
 Run: `npx mocha tests/malepropp.tests.js --grep "this-binding independence"`
 
 Expected: both tests **FAIL**. The first with something like `TypeError: Cannot read properties of undefined (reading 'verbtense')` (thrown from inside `sentence()` at `lib/propp.js:995`, propagating up through the `expect(...).to.not.throw()` assertion). The second currently will NOT throw visibly - `generate()`'s own `try/catch` (lib/propp.js:1124) catches the `this`-related `TypeError` and does `return msg;`, so instead the `story.tale.indexOf(" : ").to.equal(-1)` assertion fails (the caught error message, formatted as `"TypeError : Cannot read properties of undefined..."`, contains `" : "` and gets returned as if it were `msg`, a bare string - `story.tale` will actually be `undefined` since `msg` isn't a `{title, tale}` object, so the real failure will likely be on the `expect(story.tale).to.not.be.null` line with `story` itself not having a `.tale` property, or a thrown error trying to read `.tale` off a string. Either way: red, for a reason that traces back to the `this`-binding bug, not a flaky/unrelated failure.
 
-- [ ] **Step 3: Fix `sentence()` - accept `verbtense` explicitly instead of reading `this.settings.verbtense`**
+- [x] **Step 3: Fix `sentence()` - accept `verbtense` explicitly instead of reading `this.settings.verbtense`**
 
 Old (`lib/propp.js:909`):
 ```js
@@ -101,7 +101,7 @@ New:
         if (verbtense == "past") {
 ```
 
-- [ ] **Step 4: Fix `generate()` - use a local `universe` var, drop `this.settings`, call `sentence`/`findVillainy` as plain closure references with the new `verbtense` argument**
+- [x] **Step 4: Fix `generate()` - use a local `universe` var, drop `this.settings`, call `sentence`/`findVillainy` as plain closure references with the new `verbtense` argument**
 
 Old (`lib/propp.js:1055-1064`):
 ```js
@@ -255,17 +255,17 @@ New:
 
 Note `sentence(story.outro, universe, null, settings.verbtense)` and `sentence(story.title, universe, null, settings.verbtense)` add an explicit `null` for the `params` argument, matching `sentence`'s 4-parameter signature (`func, helper, params, verbtense`) - the original calls omitted `params` entirely (relying on it being `undefined`, which is falsy the same way `null` is for every use of `params` inside `sentence()`), so this is a no-op change in behavior, just explicit.
 
-- [ ] **Step 5: Run the new tests again to verify they pass**
+- [x] **Step 5: Run the new tests again to verify they pass**
 
 Run: `npx mocha tests/malepropp.tests.js --grep "this-binding independence"`
 Expected: both tests **PASS**.
 
-- [ ] **Step 6: Run the full test suite**
+- [x] **Step 6: Run the full test suite**
 
 Run: `npm test`
 Expected: all tests pass. Count should be **143** (141 existing + 2 new tests from Step 1) - if it's not 143, something about the new tests or the fix is wrong; investigate before proceeding.
 
-- [ ] **Step 7: Run the Node CLI smoke test**
+- [x] **Step 7: Run the Node CLI smoke test**
 
 Run: `node index.js`
 Expected: prints `Written to wonder.tale.<random>.txt` then `DONE`, no stack trace. Confirm the file is non-trivial:
@@ -275,7 +275,7 @@ wc -w wonder.tale.*.txt
 ```
 Expected: word count near 50000. Delete the file afterward (confirm it's gitignored first with `git check-ignore -v <filename>`).
 
-- [ ] **Step 8: Smoke-test the GUI in a real browser**
+- [x] **Step 8: Smoke-test the GUI in a real browser**
 
 This refactor touches the exact code path every story generation goes through, including `lib/templates.js:466-468`'s embedded-tale generation (which reads `sg.universe` after calling `generate()` - the one behavior this plan is specifically protecting). Start a static server and drive the GUI:
 
@@ -294,7 +294,7 @@ Load browser automation tools if not already loaded (ToolSearch: `"select:mcp__c
 
 Stop the server afterward (`lsof -ti:5500 | xargs kill`).
 
-- [ ] **Step 9: Commit**
+- [x] **Step 9: Commit**
 
 ```bash
 git add tests/malepropp.tests.js lib/propp.js
