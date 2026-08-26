@@ -185,3 +185,33 @@ describe("storygen utlities", function () {
     });
   });
 });
+
+describe("storyGen this-binding independence", function () {
+  it("sentence() works when detached from the storyGen instance (no `this` binding)", function () {
+    var sg = new storygen({ verbtense: "past" });
+    var detachedSentence = sg.sentence; // destructure - loses `this`
+
+    expect(function () {
+      detachedSentence(
+        { active: true, templates: ["{{ran}}"] },
+        {},
+        null,
+        "past",
+      );
+    }).to.not.throw();
+  });
+
+  it("generate() works when detached from the storyGen instance (no `this` binding)", function () {
+    var cs = commonSettings();
+    cs.settings.funcs = ["func8"];
+    var sg = new storygen(cs.settings);
+    var detachedGenerate = sg.generate; // destructure - loses `this`
+
+    var story;
+    expect(function () {
+      story = detachedGenerate(cs.settings, cs.theme);
+    }).to.not.throw();
+    expect(story.tale).to.not.be.null;
+    expect(story.tale.indexOf(" : ")).to.equal(-1); // not an error message masquerading as a tale
+  });
+});
