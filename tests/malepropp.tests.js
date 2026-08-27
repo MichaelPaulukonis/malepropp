@@ -216,6 +216,17 @@ describe("storyGen this-binding independence", function () {
   });
 });
 
+describe("findVillainy()", function () {
+  it("uses its storyFuncs argument, not the closure's settings.funcs", function () {
+    var cs = commonSettings();
+    cs.settings.funcs = ["func1", "func2"]; // no func8 in the closure's settings
+    var sg = new storygen(cs.settings);
+
+    var otherFuncs = ["func0", "func8", "func30"];
+    expect(sg.findVillainy(otherFuncs)).to.equal(1);
+  });
+});
+
 describe("generate() error handling", function () {
   it("throws instead of returning the error message as a fake tale", function () {
     var cs = commonSettings();
