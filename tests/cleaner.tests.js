@@ -10,6 +10,10 @@ describe("cleaner tests", function () {
     expect(cleaner("").length).to.equal(0);
   });
 
+  it("should return zero-length text when supplied with undefined", function () {
+    expect(cleaner(undefined).length).to.equal(0);
+  });
+
   it("should remove spaces before these punctuation marks [.,;!]", function () {
     expect(cleaner("I am this .")).to.equal("I am this.");
     expect(cleaner("I am , this.")).to.equal("I am, this.");
