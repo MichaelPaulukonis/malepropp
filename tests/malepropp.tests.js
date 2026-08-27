@@ -215,3 +215,18 @@ describe("storyGen this-binding independence", function () {
     expect(story.tale.indexOf(" : ")).to.equal(-1); // not an error message masquerading as a tale
   });
 });
+
+describe("generate() error handling", function () {
+  it("throws instead of returning the error message as a fake tale", function () {
+    var cs = commonSettings();
+    // theme.templates throwing simulates any failure inside generate()'s body
+    cs.theme.templates = function () {
+      throw new Error("boom");
+    };
+    var sg = new storygen(cs.settings);
+
+    expect(function () {
+      sg.generate(cs.settings, cs.theme);
+    }).to.throw("boom");
+  });
+});

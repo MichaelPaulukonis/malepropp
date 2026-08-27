@@ -238,9 +238,13 @@ var guiGet = function () {
   // STILL EXPECTS THE story['funcn'].active stuff to be present. OUTCH
   // WHY ARE WE PASSING THE SETTINGS IN TWICE ?!?!!?!
   var sg = new storyGen(settings);
-  var tale = sg.generate(settings, theme);
-
-  shoveToGui(tale);
+  try {
+    var tale = sg.generate(settings, theme);
+    shoveToGui(tale);
+  } catch (ex) {
+    window.document.myform.output.value =
+      "Generation failed: " + ex.name + " : " + ex.message;
+  }
 };
 
 // TODO: no element with id="selectall" exists in index.html - this has

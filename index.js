@@ -92,8 +92,7 @@ var novel = function () {
 
     // console.log(tale);
 
-    // there's a bug that is killing tales.
-    // it's NOT BEING LOGGED BLARG
+    // oneStory() returns undefined (and logs) if generate() threw
     if (tale && tale.title && tale.tale) {
       var formatted = tale.title.toUpperCase() + "\n\n" + tale.tale + "\n\n";
 
