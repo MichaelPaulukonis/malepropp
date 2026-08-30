@@ -26,6 +26,26 @@ describe("createPronounHelpers", function () {
     it("reduces a character object to its .gender", function () {
       expect(pronouns.possessive({ gender: "male" })).to.equal("his");
     });
+    // These lock in reduceToGender's passthrough branch (`gndr && gndr.gender
+    // ? gndr.gender : gndr`) for falsy inputs. Covered once here rather than
+    // on all four functions since reduceToGender is shared identically by
+    // possessive/pronounobject/pronoun/reflexivePronoun - one function's
+    // coverage is enough to lock in the shared helper's behavior.
+    it("returns 'its' for null", function () {
+      expect(pronouns.possessive(null)).to.equal("its");
+    });
+    it("returns 'its' for undefined", function () {
+      expect(pronouns.possessive(undefined)).to.equal("its");
+    });
+    it("returns 'its' for an empty string", function () {
+      expect(pronouns.possessive("")).to.equal("its");
+    });
+    it("returns 'its' for a character object with no .gender", function () {
+      expect(pronouns.possessive({})).to.equal("its");
+    });
+    it("returns 'its' for a character object with .gender: null", function () {
+      expect(pronouns.possessive({ gender: null })).to.equal("its");
+    });
   });
 
   describe("pronounobject", function () {
