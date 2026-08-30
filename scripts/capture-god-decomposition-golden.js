@@ -1,4 +1,4 @@
-// scripts/capture-god-decomposition-golden.mjs
+// scripts/capture-god-decomposition-golden.js
 //
 // Golden-master capture for the god() decomposition (malepropp-x82).
 // Run this ONCE, before any decomposition change, and commit the fixture
