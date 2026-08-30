@@ -83,4 +83,32 @@ describe("storyGen.seed", function () {
     var story = sg.generate(cs.settings, cs.theme);
     expect(story.tale).to.have.length.above(10);
   });
+
+  // fnq.4: generate() is the engine's settings-in/tale-out boundary, so it
+  // must always revert rngState to real Math.random() when it's done - even
+  // if the caller seeded manually and forgot to call unseed(). Otherwise a
+  // warm process (e.g. a reused Lambda container) leaks deterministic output
+  // into every later unseeded caller.
+  it("a forgotten seed() does not leak deterministic output to the next unseeded caller", function () {
+    var runForgottenSeedThenUnseededGenerate = function () {
+      var cs1 = commonSettings();
+      storygen.seed(777);
+      var sg1 = new storygen(cs1.settings);
+      sg1.generate(cs1.settings, cs1.theme); // caller forgets storygen.unseed()
+
+      var cs2 = commonSettings();
+      var sg2 = new storygen(cs2.settings); // never seeded
+      return sg2.generate(cs2.settings, cs2.theme);
+    };
+
+    var resultA = runForgottenSeedThenUnseededGenerate();
+    var resultB = runForgottenSeedThenUnseededGenerate();
+
+    // Pre-fix: both runs reseed to 777 identically, so the "forgotten"
+    // rngState left behind by sg1 is the same each time, and sg2 silently
+    // continues that same deterministic stream - resultA and resultB would
+    // be byte-identical. Post-fix, sg2 draws from real Math.random(), so the
+    // two runs diverge.
+    expect(resultA.tale).to.not.equal(resultB.tale);
+  });
 });
