@@ -227,6 +227,21 @@ describe("storyGen this-binding independence", function () {
     }).to.not.throw();
     expect(story.tale).to.not.be.null;
   });
+
+  // fnq.1: generate() returns universe directly (no `this.universe` side
+  // assignment), so it's populated the same way on a method call or a
+  // detached call - no call-style-dependent behavior left.
+  it("generate() returns universe in its result, even when detached", function () {
+    var cs = commonSettings();
+    cs.settings.funcs = ["func8"];
+    var sg = new storygen(cs.settings);
+    var detachedGenerate = sg.generate;
+
+    var story = detachedGenerate(cs.settings, cs.theme);
+
+    expect(story.universe).to.exist;
+    expect(story.universe.hero).to.exist;
+  });
 });
 
 describe("findVillainy()", function () {
