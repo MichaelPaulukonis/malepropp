@@ -27,7 +27,8 @@
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "build:pages": "node scripts/build-pages.js",
-    "deploy": "npm run build:pages && gh-pages -d dist --nojekyll"
+    "deploy": "npm run build:pages && gh-pages -d dist --nojekyll",
+    "dev": "python3 -m http.server 8000 --bind 127.0.0.1"
   },
   "repository": {
     "type": "git",
