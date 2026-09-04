@@ -9,7 +9,6 @@
     "node": ">=22.0.0"
   },
   "dependencies": {
-    "jquery": "2.1.4",
     "nlp_compromise": "~0.2.2",
     "underscore": "1.7.0"
   },
