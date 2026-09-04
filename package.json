@@ -11,7 +11,7 @@
   "dependencies": {
     "jquery": "2.1.4",
     "nlp_compromise": "~0.2.2",
-    "underscore": "1.7.0"
+    "underscore": "1.13.8"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.7",
